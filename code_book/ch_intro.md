@@ -37,10 +37,57 @@ from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import matplotlib.colors as plc
 import matplotlib.patches as mpatches
+import plotly.graph_objects as go
 ```
 
 
 ## Motivation
+
+### International trade in crude oil 2019
+
+We begin by loading a Networkx directed graph object the represents the international trade in crude oil.
+
+```{code-cell}
+DG = ch1_data["crude_oil"]
+```
+
+Next we transform the data to prepare it for display as a sankey diagram.
+
+```{code-cell}
+nodeid = {}
+for ix,nd in enumerate(DG.nodes()):
+    nodeid[nd] = ix
+
+# Links
+source = []
+target = []
+value = []
+for src,tgt in DG.edges():
+    source.append(nodeid[src])
+    target.append(nodeid[tgt])
+    value.append(DG[src][tgt]['weight'])
+```
+
+Finaly we produce our plot.
+
+```{code-cell}
+fig = go.Figure(data=[go.Sankey(
+    node = dict(
+      pad = 15,
+      thickness = 20,
+      line = dict(color = "black", width = 0.5),
+      label = list(nodeid.keys()),
+      color = "blue"
+    ),
+    link = dict(
+      source = source,
+      target = target,
+      value = value
+  ))])
+
+fig.update_layout(title_text="Crude Oil", font_size=10, width=600, height=800)
+fig.show()
+```
 
 ### International trade in commercial aircraft during 2019.
 
@@ -490,13 +537,16 @@ ax.axis('off')
 nx.draw_networkx_nodes(G, 
                         node_pos_dict, 
                         node_color=node_colors, 
-                        node_size=node_sizes, 
+                        node_size=node_sizes,  
+                        edgecolors='grey', 
                         linewidths=2, 
-                        alpha=0.6, 
+                        alpha=0.4, 
                         ax=ax)
 
 nx.draw_networkx_labels(G, 
                         node_pos_dict,  
+                        font_size=12,
+                        font_weight='black', 
                         ax=ax)
 
 nx.draw_networkx_edges(G, 
@@ -505,6 +555,7 @@ nx.draw_networkx_edges(G,
                         width=edge_widths, 
                         arrows=True, 
                         arrowsize=20,  
+                        alpha=0.8,
                         ax=ax, 
                         arrowstyle='->', 
                         node_size=node_sizes, 
