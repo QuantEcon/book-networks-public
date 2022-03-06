@@ -75,7 +75,7 @@ jobs:
       - name: Build HTML
         shell: bash -l {0}
         run: |
-          jb build lectures --path-output ./
+          jb build code_book --path-output ./
       - name: Deploy website to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
