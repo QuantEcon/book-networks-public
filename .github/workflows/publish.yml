@@ -1,0 +1,102 @@
+name: Build & Publish to GH-PAGES
+on:
+  push:
+    tags:
+      - 'publish*'
+    branch:
+      - main
+jobs:
+  publish:
+    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Anaconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          auto-activate-base: true
+          miniconda-version: 'latest'
+          python-version: 3.8
+          environment-file: environment.yml
+          activate-environment: networks
+      - name: Install latex dependencies
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get install -y     \
+            texlive-latex-recommended \
+            texlive-latex-extra       \
+            texlive-fonts-recommended \
+            texlive-fonts-extra       \
+            texlive-xetex             \
+            latexmk                   \
+            xindy                     \
+            dvipng                    \
+            cm-super
+      - name: Display Conda Environment Versions
+        shell: bash -l {0}
+        run: conda list
+      - name: Display Pip Versions
+        shell: bash -l {0}
+        run: pip list
+      # - name: Download "build" folder (cache)
+      #   uses: dawidd6/action-download-artifact@v2
+      #   with:
+      #     workflow: cache.yml
+      #     branch: main
+      #     name: build-cache
+      #     path: _build
+      # Build Assets (Download Notebooks and PDF via LaTeX)
+      # - name: Build PDF from LaTeX
+      #   shell: bash -l {0}
+      #   run: |
+      #     jb build lectures --builder pdflatex --path-output ./ -n --keep-going
+      # - name: Copy LaTeX PDF for GH-PAGES
+      #   shell: bash -l {0}
+      #   run: |
+      #     mkdir -p _build/html/_pdf
+      #     cp -u _build/latex/*.pdf _build/html/_pdf
+      # - name: Build Download Notebooks (sphinx-tojupyter)
+      #   shell: bash -l {0}
+      #   run: |
+      #     jb build lectures --path-output ./ --builder=custom --custom-builder=jupyter
+      #     zip -r download-notebooks.zip _build/jupyter
+      # - uses: actions/upload-artifact@v2
+      #   with:
+      #     name: download-notebooks
+      #     path: download-notebooks.zip
+      # - name: Copy Download Notebooks for GH-PAGES
+      #   shell: bash -l {0}
+      #   run: |
+      #     mkdir -p _build/html/_notebooks
+      #     cp -u _build/jupyter/*.ipynb _build/html/_notebooks
+      # Build HTML (Website)
+      - name: Build HTML
+        shell: bash -l {0}
+        run: |
+          jb build lectures --path-output ./
+      - name: Deploy website to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _build/html/
+          # cname: python.quantecon.org
+      # - name: Prepare book-networks.notebooks sync
+      #   shell: bash -l {0}
+      #   run: |
+      #     mkdir -p _build/book-networks.notebooks
+      #     cp -a _notebook_repo/. _build/book-networks.notebooks
+      #     cp _build/jupyter/*.ipynb _build/book-networks.notebooks
+      #     ls -a _build/book-networks.notebooks
+      # - name: Commit latest notebooks to book-networks.notebooks
+      #   uses: cpina/github-action-push-to-another-repository@v1.3
+      #   env:
+      #     API_TOKEN_GITHUB: ${{ secrets.QUANTECON_SERVICES_PAT }}
+      #   with:
+      #     source-directory: '_build/book-networks.notebooks/'
+      #     destination-repository-username: 'QuantEcon'
+      #     destination-repository-name: 'book-networks.notebooks'
+      #     commit-message: 'auto publishing updates to notebooks'
+      #     destination-github-username: 'quantecon-services'
+      #     user-email: services@quantecon.org
