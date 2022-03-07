@@ -20,7 +20,6 @@ We begin by importing the quantecon package as well as some functions and data t
 ```{code-cell}
 import quantecon as qe
 import quantecon_book_networks.input_output as qbn_io
-import quantecon_book_networks.plotting as qbn_plotting
 import quantecon_book_networks.data as qbn_data
 ch1_data = qbn_data.introduction()
 ```
