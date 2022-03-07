@@ -1,8 +1,8 @@
 */.ipynb_checkpoints/*
 */__pycache__/*
-code_book/_build
-data/
-
+code_book/_build/
+code_book/data/
+code_book/quantecon_book_networks/
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
