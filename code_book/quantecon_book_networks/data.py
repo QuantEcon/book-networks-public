@@ -33,6 +33,13 @@ def read_Z(data_file='data/adjacency_matrix_31-12-2019.csv', t=10):
 ## Chapter data
 
 def introduction():
+    """
+    Load data used in Introduction chapter. 
+
+        Returns:
+            ch_data (dict): Dictionary of data names and associated data objects. Note: some data objects are further nested as dictionaries. 
+    """
+    
     ch_data = {}
 
     ## Crude oil
@@ -99,30 +106,60 @@ def introduction():
 
 
 def production():
+    """
+    Load data used in Production chapter. 
+
+        Returns:
+            ch_data (dict): Dictionary of data names and associated data objects. Note: some data objects are further nested as dictionaries. 
+    """
     ch_data = {}
 
     return ch_data 
 
 
 def optimal_flows():
+    """
+    Load data used in Optimal Flows chapter. 
+
+        Returns:
+            ch_data (dict): Dictionary of data names and associated data objects. Note: some data objects are further nested as dictionaries. 
+    """
     ch_data = {}
 
     return ch_data
 
 
 def markov_chains_and_networks():
+    """
+    Load data used in Markov Chains and Networks chapter. 
+
+        Returns:
+            ch_data (dict): Dictionary of data names and associated data objects. Note: some data objects are further nested as dictionaries. 
+    """
     ch_data = {}
 
     return ch_data
 
 
 def nonlinear_interactions():
+    """
+    Load data used in Nonlinear Interactions chapter. 
+
+        Returns:
+            ch_data (dict): Dictionary of data names and associated data objects. Note: some data objects are further nested as dictionaries. 
+    """
     ch_data = {}
 
     return ch_data
 
 
 def appendix():
+    """
+    Load data used in Appendix chapter. 
+
+        Returns:
+            ch_data (dict): Dictionary of data names and associated data objects. Note: some data objects are further nested as dictionaries. 
+    """
     ch_data = {}
 
     return ch_data
