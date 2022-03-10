@@ -11,3 +11,5 @@ dependencies:
     - sphinx-tojupyter==0.2.0
     - sphinxext-rediraffe==0.2.7
     - sphinx-exercise==0.2.1
+    - quantecon
+    - pandas-datareader
