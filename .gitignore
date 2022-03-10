@@ -1,7 +1,6 @@
-*/.ipynb_checkpoints/*
-*/__pycache__/*
-code_book/_build
-data/
+.ipynb_checkpoints
+__pycache__
+code_book/_build/
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

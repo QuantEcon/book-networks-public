@@ -1,10 +1,11 @@
 # Book settings
 title: Economic Networks - Theory and Computation 
 author: John Stachurski and Thomas J. Sargent
-
+only_build_toc_files: true
 
 sphinx:
     config:
+        html_theme: quantecon_book_theme
         mathjax_config:
             TeX:
                 Macros:
