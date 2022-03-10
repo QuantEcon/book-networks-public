@@ -13,3 +13,4 @@ dependencies:
     - sphinx-exercise==0.2.1
     - quantecon
     - pandas-datareader
+    - POT==0.8.1
