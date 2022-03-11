@@ -35,107 +35,7 @@ import networkx as nx
 
 ## Multisector Models
 
-- Figure 2.1: Backward linkages for 15 US sectors in 2019
-
-Define IO functions.
-
-```{code-cell} ipython3
-
-def spec_rad(M):
-    """
-    Compute the spectral radius of M.
-    """
-    return np.max(np.abs(np.linalg.eigvals(M)))
-
-def katz_centrality(A, b=1, authority=False):
-    """
-    Computes the Katz centrality of A, defined as the x solving
-
-    x = 1 + b A x    (1 = vector of ones)
-
-    Assumes that A is square.
-
-    If authority=True, then A is replaced by its transpose.
-    """
-    n = len(A)
-    I = np.identity(n)
-    C = I - b * A.T if authority else I - b * A
-    return np.linalg.solve(C, np.ones(n))
-
-
-def eigenvector_centrality(A, k=40, authority=False):
-    """
-    Computes the dominant eigenvector of A. Assumes A is 
-    primitive and uses the power method.  
-    
-    """
-    A_temp = A.T if authority else A
-    n = len(A_temp)
-    r = spec_rad(A_temp)
-    e = r**(-k) * (np.linalg.matrix_power(A_temp, k) @ np.ones(n))
-    return e / np.sum(e)
-
-def read_Z(data_file='data/csv_files/use_15_2019.csv', 
-           N=15, 
-           columnlist=['Name',
-                       'Total Intermediate',
-                       'Personal consumption expenditures',
-                       'Private fixed investment',
-                       'Change in private inventories',
-                       'Exports of goods and services',
-                       'Government consumption expenditures and gross investment',
-                       'Total use of products']):
-    """
-    Build the Z matrix from the use table.
-    
-    * Z[i, j] = sales from sector i to sector j
-    
-    """
-    df1 = pd.read_csv(data_file)
-    df2 = df1[:N]
-    if columnlist != None:
-        df3 = df2.drop(columns=columnlist)
-    else:
-        df3 = df2
-    df4 = df3.replace('...', 0)
-    Z = np.asarray(df4.values.tolist(), dtype=np.float64)
-    return Z
-
-def read_X(data_file='data/csv_files/make_15_2019.csv',
-           colname='Total Industry Output',
-           N=15):
-    """
-    Read total industry sales column from the make table.
-
-    """
-    df5 = pd.read_csv(data_file)
-    X = np.asarray(df5[colname])
-    X = X[0:N].astype(np.float)
-    return X
-
-def build_coefficient_matrices(Z, X):
-    """
-    Build coefficient matrices A and F from Z and X via 
-    
-        A[i, j] = Z[i, j] / X[j] 
-        F[i, j] = Z[i, j] / X[i]
-    
-    """
-    A, F = np.empty_like(Z), np.empty_like(Z)
-    n = A.shape[0]
-    for i in range(n):
-        for j in range(n):
-            A[i, j] = Z[i, j] / X[j]
-            F[i, j] = Z[i, j] / X[i]
-
-    return A, F
-
-def to_zero_one(x):
-    "Map vector x to the zero one interval."
-    x_min, x_max = x.min(), x.max()
-    return (x - x_min)/(x_max - x_min)
-
-```
+### Backward linkages for 15 US sectors in 2019
 
 Define plot graph.
 
@@ -251,7 +151,7 @@ plot_graph(A, X, ax, codes,
 plt.show()
 ```
 
-- Figure 2.2: Network for 71 US sectors in 2019
+### Network for 71 US sectors in 2019
 
 ```{code-cell} ipython3
 codes_71 = ('111CA',
@@ -358,7 +258,7 @@ plt.show()
 ```
 
 
-- Figure 2.4: The Leontief inverse 𝐿 (hot colors are larger values)
+### The Leontief inverse 𝐿 (hot colors are larger values)
 
 ```{code-cell} ipython3
 
@@ -415,7 +315,7 @@ plt.show()
 ```
 
 
-- Figure 2.5: Propagation of demand shocks via backward linkages
+### Propagation of demand shocks via backward linkages
 
 ```{code-cell} ipython3
 
@@ -451,7 +351,7 @@ plt.show()
 
 ```
 
-- Figure 2.6: Eigenvector centrality of across US industrial sectors
+### Eigenvector centrality of across US industrial sectors
 
 ```{code-cell} ipython3
 ecentral = eigenvector_centrality(A)
@@ -468,7 +368,7 @@ plt.show()
 ```
 
 
-- Figure 2.8: Output multipliers across 15 US industrial sectors
+### Output multipliers across 15 US industrial sectors
 
 ```{code-cell} ipython3
 omult = katz_centrality(A, authority=True)
@@ -486,7 +386,7 @@ plt.show()
 ```
 
 
-- Figure 2.9: Forward linkages and upstreamness over US industrial sectors
+### Forward linkages and upstreamness over US industrial sectors
 
 ```{code-cell} ipython3
 upstreamness = katz_centrality(F)
@@ -509,7 +409,7 @@ plt.show()
 
 ```
 
-- Figure 2.10: Relative upstreamness of US industrial sectors
+### Relative upstreamness of US industrial sectors
 
 ```{code-cell} ipython3
 fig, ax = plt.subplots()
@@ -522,12 +422,12 @@ plt.show()
 
 ## General Equilibrium
 
-- Figure 2.11: GDP growth rates and std. deviations (in parentheses) for 8 countries
+### GDP growth rates and std. deviations (in parentheses) for 8 countries
 
 **No code in repo**
 
 
-- Figure 2.14: Hub-based Katz centrality of across 15 US industrial sectors
+### Hub-based Katz centrality of across 15 US industrial sectors
 
 ```{code-cell} ipython3
 
