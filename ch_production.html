@@ -1,0 +1,1064 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 2 - Production Code &#8212; Economic Networks - Theory and Computation</title>
+    <script src="https://unpkg.com/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6.3.1/dist/tippy-bundle.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+        <script>
+            MathJax = {
+            loader: {load: ['[tex]/boldsymbol', '[tex]/textmacros']},
+            tex: {
+                packages: {'[+]': ['boldsymbol', 'textmacros']},
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                processEscapes: true,
+                macros: {
+                    "argmax" : "arg\\,max",
+                    "argmin" : "arg\\,min",
+                    "col"    : "col",
+                    "Span"   :  "span",
+                    "epsilon": "\\varepsilon",
+                    "EE": "\\mathbb{E}",
+                    "PP": "\\mathbb{P}",
+                    "RR": "\\mathbb{R}",
+                    "NN": "\\mathbb{N}",
+                    "ZZ": "\\mathbb{Z}",
+                    "aA": "\\mathcal{A}",
+                    "bB": "\\mathcal{B}",
+                    "cC": "\\mathcal{C}",
+                    "dD": "\\mathcal{D}",
+                    "eE": "\\mathcal{E}",
+                    "fF": "\\mathcal{F}",
+                    "gG": "\\mathcal{G}",
+                    "hH": "\\mathcal{H}",
+                }
+            },
+            svg: {
+                fontCache: 'global',
+                scale: 0.92,
+                displayAlign: "center",
+            },
+            };
+        </script>
+    
+    
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/quantecon-book-theme.1ef59f8f4e91ec8319176e8479c6af4e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/quantecon-book-theme.15b0c36fffe88f468997fa7b698991d3.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter 3 - Optimal Flows (Python Code)" href="ch_opt.html" />
+    <link rel="prev" title="Chapter 1 - Introduction (Python Code)" href="ch_intro.html" />
+
+<!-- Normal Meta Tags -->
+<meta name="author" context="John Stachurski and Thomas J. Sargent" />
+<meta name="keywords" content="" />
+<meta name="description" content=Chapter 2 - Production Code  We begin with some imports  import quantecon as qe import numpy as np import pandas as pd  import matplotlib.pyplot as plt import m />
+
+<!-- Twitter tags -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:title" content="Chapter 2 - Production Code"/>
+<meta name="twitter:description" content="Chapter 2 - Production Code  We begin with some imports  import quantecon as qe import numpy as np import pandas as pd  import matplotlib.pyplot as plt import m">
+<meta name="twitter:creator" content="@">
+<meta name="twitter:image" content="">
+
+<!-- Opengraph tags -->
+<meta property="og:title" content="Chapter 2 - Production Code" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="None" />
+<meta property="og:image" content="" />
+<meta property="og:description" content="Chapter 2 - Production Code  We begin with some imports  import quantecon as qe import numpy as np import pandas as pd  import matplotlib.pyplot as plt import m" />
+<meta property="og:site_name" content="Economic Networks - Theory and Computation" />
+<meta name="theme-color" content="#ffffff" />
+
+  </head>
+<body>
+
+
+    <span id="top"></span>
+
+    <div class="qe-wrapper">
+
+        <div class="qe-main">
+
+            <div class="qe-page" id=ch_production>
+
+                <div class="qe-page__toc">
+
+                    <div class="inner">
+
+                        
+                        <div class="qe-page__toc-header">
+                            On this page
+                        </div>
+
+
+                        <nav id="bd-toc-nav" class="qe-page__toc-nav">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multisector-models">
+   Multisector Models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#general-equilibrium">
+   General Equilibrium
+  </a>
+ </li>
+</ul>
+
+                            <p class="logo">
+                                
+                            </p>
+
+                            <p class="powered">Powered by <a href="https://jupyterbook.org/">Jupyter Book</a></p>
+
+                        </nav>
+
+                        <div class="qe-page__toc-footer">
+                            
+                            
+                            <p><a href="#top"><strong>Back to top</strong></a></p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="qe-page__header">
+
+                    <div class="qe-page__header-copy">
+
+                        <p class="qe-page__header-heading"><a href="intro.html">Economic Networks - Theory and Computation</a></p>
+
+                        <p class="qe-page__header-subheading">Chapter 2 - Production Code</p>
+
+                    </div>
+
+                    <p class="qe-page__header-authors">John Stachurski and Thomas J. Sargent</p>
+
+                </div> <!-- .page__header -->
+
+
+
+                
+                <main class="qe-page__content" role="main">
+                    
+                    <div>
+                        
+  <div class="tex2jax_ignore mathjax_ignore section" id="chapter-2-production-code">
+<h1>Chapter 2 - Production Code<a class="headerlink" href="#chapter-2-production-code" title="Permalink to this headline">¶</a></h1>
+<p>We begin with some imports</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quantecon</span> <span class="k">as</span> <span class="nn">qe</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>           <span class="c1"># import colormap stuff!</span>
+<span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">plc</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="multisector-models">
+<h2>Multisector Models<a class="headerlink" href="#multisector-models" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Figure 2.1: Backward linkages for 15 US sectors in 2019</p></li>
+</ul>
+<p>Define IO functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">spec_rad</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute the spectral radius of M.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">M</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">katz_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">authority</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the Katz centrality of A, defined as the x solving</span>
+
+<span class="sd">    x = 1 + b A x    (1 = vector of ones)</span>
+
+<span class="sd">    Assumes that A is square.</span>
+
+<span class="sd">    If authority=True, then A is replaced by its transpose.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">I</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="k">if</span> <span class="n">authority</span> <span class="k">else</span> <span class="n">I</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">A</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">eigenvector_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">authority</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the dominant eigenvector of A. Assumes A is </span>
+<span class="sd">    primitive and uses the power method.  </span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">A_temp</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="k">if</span> <span class="n">authority</span> <span class="k">else</span> <span class="n">A</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_temp</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">spec_rad</span><span class="p">(</span><span class="n">A_temp</span><span class="p">)</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">A_temp</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">e</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">read_Z</span><span class="p">(</span><span class="n">data_file</span><span class="o">=</span><span class="s1">&#39;data/csv_files/use_15_2019.csv&#39;</span><span class="p">,</span> 
+           <span class="n">N</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> 
+           <span class="n">columnlist</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Total Intermediate&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Personal consumption expenditures&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Private fixed investment&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Change in private inventories&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Exports of goods and services&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Government consumption expenditures and gross investment&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;Total use of products&#39;</span><span class="p">]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build the Z matrix from the use table.</span>
+<span class="sd">    </span>
+<span class="sd">    * Z[i, j] = sales from sector i to sector j</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
+    <span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[:</span><span class="n">N</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">columnlist</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">df3</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columnlist</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df3</span> <span class="o">=</span> <span class="n">df2</span>
+    <span class="n">df4</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">df4</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Z</span>
+
+<span class="k">def</span> <span class="nf">read_X</span><span class="p">(</span><span class="n">data_file</span><span class="o">=</span><span class="s1">&#39;data/csv_files/make_15_2019.csv&#39;</span><span class="p">,</span>
+           <span class="n">colname</span><span class="o">=</span><span class="s1">&#39;Total Industry Output&#39;</span><span class="p">,</span>
+           <span class="n">N</span><span class="o">=</span><span class="mi">15</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read total industry sales column from the make table.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">df5</span><span class="p">[</span><span class="n">colname</span><span class="p">])</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">N</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">X</span>
+
+<span class="k">def</span> <span class="nf">build_coefficient_matrices</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build coefficient matrices A and F from Z and X via </span>
+<span class="sd">    </span>
+<span class="sd">        A[i, j] = Z[i, j] / X[j] </span>
+<span class="sd">        F[i, j] = Z[i, j] / X[i]</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">A</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">Z</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">F</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">A</span><span class="p">,</span> <span class="n">F</span>
+
+<span class="k">def</span> <span class="nf">to_zero_one</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="s2">&quot;Map vector x to the zero one interval.&quot;</span>
+    <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Define plot graph.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_graph</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> 
+               <span class="n">X</span><span class="p">,</span>
+               <span class="n">ax</span><span class="p">,</span>
+               <span class="n">codes</span><span class="p">,</span>
+               <span class="n">node_color_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">node_size_multiple</span><span class="o">=</span><span class="mf">0.0005</span><span class="p">,</span> 
+               <span class="n">edge_size_multiple</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+               <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;circular&#39;</span><span class="p">,</span>
+               <span class="n">layout_seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span>
+               <span class="n">tol</span><span class="o">=</span><span class="mf">0.03</span><span class="p">):</span>  <span class="c1"># clip entries below tol</span>
+
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+    <span class="c1"># Add nodes, with weights by sales of the sector</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">weight</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="n">node_sizes</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">node_size_multiple</span>
+
+    <span class="c1"># Position the nodes</span>
+    <span class="k">if</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;circular&#39;</span><span class="p">:</span>
+        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">circular_layout</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;spring&#39;</span><span class="p">:</span>
+        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">layout_seed</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span>
+        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">layout_seed</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;spiral&#39;</span><span class="p">:</span>
+        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spiral_layout</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+
+    <span class="c1"># Add the edges, along with their colors and widths</span>
+    <span class="n">edge_colors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">edge_widths</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">:</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">codes</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                <span class="n">edge_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_color_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">width</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">edge_size_multiple</span>
+                <span class="n">edge_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+    
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> 
+                           <span class="n">node_pos_dict</span><span class="p">,</span> 
+                           <span class="n">node_color</span><span class="o">=</span><span class="n">node_color_list</span><span class="p">,</span> 
+                           <span class="n">node_size</span><span class="o">=</span><span class="n">node_sizes</span><span class="p">,</span> 
+                           <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> 
+                           <span class="n">linewidths</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+                           <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> 
+                           <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> 
+                            <span class="n">node_pos_dict</span><span class="p">,</span> 
+                            <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+                            <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> 
+                           <span class="n">node_pos_dict</span><span class="p">,</span> 
+                           <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">,</span> 
+                           <span class="n">width</span><span class="o">=</span><span class="n">edge_widths</span><span class="p">,</span> 
+                           <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                           <span class="n">arrowsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
+                           <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>  
+                           <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> 
+                           <span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">,</span> 
+                           <span class="n">node_size</span><span class="o">=</span><span class="n">node_sizes</span><span class="p">,</span> 
+                           <span class="n">connectionstyle</span><span class="o">=</span><span class="s1">&#39;arc3,rad=0.15&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Set params.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">codes</span> <span class="o">=</span>  <span class="p">(</span> <span class="s1">&#39;ag&#39;</span><span class="p">,</span>    
+           <span class="s1">&#39;mi&#39;</span><span class="p">,</span>  
+           <span class="s1">&#39;ut&#39;</span><span class="p">,</span>  
+           <span class="s1">&#39;co&#39;</span><span class="p">,</span>  
+           <span class="s1">&#39;ma&#39;</span><span class="p">,</span>  
+           <span class="s1">&#39;wh&#39;</span><span class="p">,</span>  
+           <span class="s1">&#39;re&#39;</span><span class="p">,</span> 
+           <span class="s1">&#39;tr&#39;</span><span class="p">,</span>  
+           <span class="s1">&#39;in&#39;</span><span class="p">,</span>  
+           <span class="s1">&#39;fi&#39;</span><span class="p">,</span>  
+           <span class="s1">&#39;pr&#39;</span><span class="p">,</span> 
+           <span class="s1">&#39;ed&#39;</span><span class="p">,</span>   
+           <span class="s1">&#39;ar&#39;</span><span class="p">,</span>  
+           <span class="s1">&#39;ot&#39;</span><span class="p">,</span>  
+           <span class="s1">&#39;go&#39;</span><span class="p">)</span>
+
+<span class="n">Z</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">read_Z</span><span class="p">(),</span> <span class="n">read_X</span><span class="p">()</span>
+
+<span class="n">A</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">build_coefficient_matrices</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+
+<span class="n">ecentral</span> <span class="o">=</span> <span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">ecentral_color_list</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">ecentral</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9897/2792980170.py:70: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  X = X[0:N].astype(np.float)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> 
+              <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="c1"># alternative layouts: spring, circular, random, spiral</span>
+              <span class="n">layout_seed</span><span class="o">=</span><span class="mi">5432167</span><span class="p">,</span>
+              <span class="n">tol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+              <span class="n">node_color_list</span><span class="o">=</span><span class="n">ecentral_color_list</span><span class="p">)</span> 
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_8_0.png" src="_images/ch_production_8_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Figure 2.2: Network for 71 US sectors in 2019</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">codes_71</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;111CA&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;113FF&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;211&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;212&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;213&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;22&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;23&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;321&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;327&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;331&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;332&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;333&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;334&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;335&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;3361MV&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;3364OT&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;337&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;339&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;311FT&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;313TT&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;315AL&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;322&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;323&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;324&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;325&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;326&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;42&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;441&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;445&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;452&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;4A0&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;481&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;482&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;483&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;484&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;485&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;486&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;487OS&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;493&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;511&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;512&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;513&#39;</span><span class="p">,</span> 
+         <span class="s1">&#39;514&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;521CI&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;523&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;524&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;525&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;HS&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;ORE&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;532RL&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;5411&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;5415&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;5412OP&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;55&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;561&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;562&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;61&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;621&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;622&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;623&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;624&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;711AS&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;713&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;721&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;722&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;81&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;GFGD&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;GFGN&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;GFE&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;GSLG&#39;</span><span class="p">,</span>
+         <span class="s1">&#39;GSLE&#39;</span><span class="p">)</span>
+
+<span class="n">Z_71</span><span class="p">,</span> <span class="n">X_71</span> <span class="o">=</span> <span class="n">read_Z</span><span class="p">(</span><span class="n">data_file</span><span class="o">=</span><span class="s1">&#39;data/csv_files/use_71_2019.csv&#39;</span><span class="p">,</span>
+                 <span class="n">N</span><span class="o">=</span><span class="mi">71</span><span class="p">,</span>
+                 <span class="n">columnlist</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;T001&#39;</span><span class="p">,</span> <span class="s1">&#39;F010&#39;</span><span class="p">,</span> <span class="s1">&#39;F02E&#39;</span><span class="p">,</span> <span class="s1">&#39;F02N&#39;</span><span class="p">,</span> 
+                             <span class="s1">&#39;F02R&#39;</span><span class="p">,</span> <span class="s1">&#39;F02S&#39;</span><span class="p">,</span> <span class="s1">&#39;F030&#39;</span><span class="p">,</span> <span class="s1">&#39;F040&#39;</span><span class="p">,</span> <span class="s1">&#39;F06C&#39;</span><span class="p">,</span> <span class="s1">&#39;F06E&#39;</span><span class="p">,</span> 
+                             <span class="s1">&#39;F06N&#39;</span><span class="p">,</span> <span class="s1">&#39;F06S&#39;</span><span class="p">,</span> <span class="s1">&#39;F07C&#39;</span><span class="p">,</span> <span class="s1">&#39;F07E&#39;</span><span class="p">,</span> <span class="s1">&#39;F07N&#39;</span><span class="p">,</span> <span class="s1">&#39;F07S&#39;</span><span class="p">,</span> 
+                             <span class="s1">&#39;F10C&#39;</span><span class="p">,</span> <span class="s1">&#39;F10E&#39;</span><span class="p">,</span> <span class="s1">&#39;F10N&#39;</span><span class="p">,</span> <span class="s1">&#39;F10S&#39;</span><span class="p">,</span> <span class="s1">&#39;T019&#39;</span><span class="p">]),</span> <span class="n">read_X</span><span class="p">(</span><span class="n">data_file</span><span class="o">=</span><span class="s1">&#39;data/csv_files/make_71_2019.csv&#39;</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">71</span><span class="p">)</span>
+
+<span class="n">A_71</span><span class="p">,</span> <span class="n">F_71</span> <span class="o">=</span> <span class="n">build_coefficient_matrices</span><span class="p">(</span><span class="n">Z_71</span><span class="p">,</span> <span class="n">X_71</span><span class="p">)</span>
+
+<span class="n">ecentral_71</span> <span class="o">=</span> <span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A_71</span><span class="p">)</span>
+<span class="n">ecentral_color_list_71</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">ecentral_71</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9897/2792980170.py:70: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
+Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+  X = X[0:N].astype(np.float)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">A_71</span><span class="p">,</span> <span class="n">X_71</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes_71</span><span class="p">,</span>
+              <span class="n">node_size_multiple</span><span class="o">=</span><span class="mf">0.0005</span><span class="p">,</span>
+              <span class="n">edge_size_multiple</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+              <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="c1"># alternative layouts: spring, circular, random, spiral</span>
+              <span class="n">layout_seed</span><span class="o">=</span><span class="mi">5432167</span><span class="p">,</span>
+              <span class="n">tol</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+              <span class="n">node_color_list</span><span class="o">=</span><span class="n">ecentral_color_list_71</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_11_0.png" src="_images/ch_production_11_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Figure 2.4: The Leontief inverse 𝐿 (hot colors are larger values)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_matrices</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span>
+                  <span class="n">codes</span><span class="p">,</span>
+                  <span class="n">ax</span><span class="p">,</span>
+                  <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                  <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> 
+                  <span class="n">colormap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">,</span> 
+                  <span class="n">color45d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+                  <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;sector $j$&#39;</span><span class="p">,</span> 
+                  <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;sector $i$&#39;</span><span class="p">):</span>
+    
+    <span class="n">ticks</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span>
+
+    <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+    
+    
+    <span class="k">if</span> <span class="n">color45d</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">co</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> 
+                         <span class="n">ticks</span><span class="p">,</span>
+                         <span class="n">matrix</span><span class="p">,</span>
+<span class="c1">#                          levels,</span>
+                         <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> <span class="n">ticks</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color45d</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">co</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> 
+                         <span class="n">ticks</span><span class="p">,</span>
+                         <span class="n">matrix</span><span class="p">,</span>
+                         <span class="n">levels</span><span class="p">,</span>
+                         <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">)</span>
+
+    <span class="c1">#plt.colorbar(co)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">I</span> <span class="o">-</span> <span class="n">A</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">))</span>
+<span class="n">plot_matrices</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_14_0.png" src="_images/ch_production_14_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Figure 2.5: Propagation of demand shocks via backward linkages</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_length</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="c1"># np.zeros(N)</span>
+<span class="n">d</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># positive shock to agriculture</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">d</span>
+<span class="n">x_vecs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sim_length</span><span class="p">):</span>
+    <span class="n">x_vecs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">x_vec</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">x_vecs</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">sim_length</span><span class="p">)):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;round </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">x_vec_cols</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">x_vec</span><span class="p">))</span>
+    <span class="n">plot_graph</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span>
+                  <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="c1"># alternative layouts: spring, circular, random, spiral</span>
+                  <span class="n">layout_seed</span><span class="o">=</span><span class="mi">342156</span><span class="p">,</span>
+                  <span class="n">node_color_list</span><span class="o">=</span><span class="n">x_vec_cols</span><span class="p">,</span>
+                  <span class="n">node_size_multiple</span><span class="o">=</span><span class="mf">0.00028</span><span class="p">,</span>
+                  <span class="n">edge_size_multiple</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_17_0.png" src="_images/ch_production_17_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Figure 2.6: Eigenvector centrality of across US industrial sectors</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ecentral</span> <span class="o">=</span> <span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">ecentral_color_list</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">ecentral</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">ecentral</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">ecentral_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;eigenvector centrality&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_20_0.png" src="_images/ch_production_20_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Figure 2.8: Output multipliers across 15 US industrial sectors</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">omult</span> <span class="o">=</span> <span class="n">katz_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">authority</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">omult_color_list</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">omult</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">omult</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">omult_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Output multipliers&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_23_0.png" src="_images/ch_production_23_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Figure 2.9: Forward linkages and upstreamness over US industrial sectors</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">upstreamness</span> <span class="o">=</span> <span class="n">katz_centrality</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+<span class="n">upstreamness_color_list</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">upstreamness</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">plot_graph</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> 
+              <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="c1"># alternative layouts: spring, circular, random, spiral</span>
+              <span class="n">layout_seed</span><span class="o">=</span><span class="mi">5432167</span><span class="p">,</span>
+              <span class="n">tol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+              <span class="n">node_color_list</span><span class="o">=</span><span class="n">upstreamness_color_list</span><span class="p">)</span> 
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_26_0.png" src="_images/ch_production_26_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Figure 2.10: Relative upstreamness of US industrial sectors</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">upstreamness</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">upstreamness_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;upstreamness&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_28_0.png" src="_images/ch_production_28_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="general-equilibrium">
+<h2>General Equilibrium<a class="headerlink" href="#general-equilibrium" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Figure 2.11: GDP growth rates and std. deviations (in parentheses) for 8 countries</p></li>
+</ul>
+<p><strong>No code in repo</strong></p>
+<ul class="simple">
+<li><p>Figure 2.14: Hub-based Katz centrality of across 15 US industrial sectors</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kcentral</span> <span class="o">=</span> <span class="n">katz_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">kcentral_color_list</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">kcentral</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">kcentral</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">kcentral_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Katz hub centrality&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_31_0.png" src="_images/ch_production_31_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                    </div>
+                    
+                </main> <!-- .page__content -->
+                
+
+
+                <footer class="qe-page__footer">
+
+                    <p><a href="https://creativecommons.org/licenses/by-sa/4.0/"><img src="https://licensebuttons.net/l/by-sa/4.0/80x15.png"></a></p>
+
+                    <p>Creative Commons License &ndash; This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International.</p>
+
+                </footer> <!-- .page__footer -->
+
+            </div> <!-- .page -->
+
+            
+
+            
+            <div class="qe-sidebar bd-sidebar inactive" id="site-navigation">
+
+                <div class="qe-sidebar__header">
+
+
+                    Contents
+
+                </div>
+
+                <nav class="qe-sidebar__nav" id="qe-sidebar-nav" aria-label="Main navigation">
+                    <ul class="nav bd-sidenav nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Economic Networks Code Book
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch_intro.html">
+   Chapter 1 - Introduction (Python Code)
+  </a>
+ </li>
+ <li class="toctree-l1 current active active">
+  <a class="current reference internal" href="#">
+   Chapter 2 - Production Code
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch_opt.html">
+   Chapter 3 - Optimal Flows (Python Code)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch_mcs.html">
+   Chapter 4 - Markov Chains and Networks (Python Code)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch_fpms.html">
+   Chapter 5 - Nonlinear Interactions (Python Code)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="appendix.html">
+   Appendix Code
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pkg_funcs.html">
+   The quantecon_book_networks package
+  </a>
+ </li>
+</ul>
+
+                </nav>
+
+                <div class="qe-sidebar__footer">
+
+                </div>
+
+            </div> <!-- .sidebar -->
+            
+        </div> <!-- .main -->
+
+        <div class="qe-toolbar">
+
+            <div class="qe-toolbar__inner">
+
+                <ul class="qe-toolbar__main">
+                    <li data-tippy-content="Table of Contents" class="btn__sidebar"><i data-feather="menu"></i></li>
+                    <li data-tippy-content="Home"><a href="intro.html"><i data-feather="home"></i></a></li>
+                    <li class="btn__qelogo"><a href="" title=""><span class="show-for-sr"></span></a></li>
+                    <!-- <li class="btn__search">
+                        <form action="search.html" method="get">
+                            <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off">
+                            <i data-feather="search"></i>
+                        </form>
+                    </li> -->
+                </ul>
+
+                <ul class="qe-toolbar__links">
+                    <li data-tippy-content="Fullscreen" class="btn__fullscreen"><i data-feather="maximize"></i></li>
+                    <li data-tippy-content="Increase font size" class="btn__plus"><i data-feather="plus-circle"></i></li>
+                    <li data-tippy-content="Decrease font size" class="btn__minus"><i data-feather="minus-circle"></i></li>
+                    <li data-tippy-content="Change contrast" class="btn__contrast"><i data-feather="sunset"></i></li>
+                        <li data-tippy-content="Download PDF" onClick="window.print()"><i data-feather="file"></i></li>
+                    <li data-tippy-content="View Source"><a target="_blank" href="https://github.com/executablebooks/jupyter-book/ch_production.md" download><i data-feather="github"></i></a></li>
+                </ul>
+
+            </div>
+
+        </div> <!-- .toolbar -->
+        <div id="downloadPDFModal" style="display: none;">
+            <ul class="pdf-options" style="display: block;">
+                <li class="download-pdf-book" onClick="window.print()">
+                    <p>Lecture (PDF)</p>
+                </li>
+                <li class="download-pdf-file">
+                    <a href="" download><p>Book (PDF)</p></a>
+                </li>
+            </ul>
+        </div>
+        <div id="settingsModal" style="display: none;">
+            <p class="modal-title"> Notebook Launcher </p>
+            <div class="modal-desc">
+            <p>
+                Choose public or private cloud service for "Launch" button.
+            </p>
+            </div>
+            <p class="modal-subtitle">Select a server</p>
+            <ul class="modal-servers">
+            <li class="active launcher-public">
+                <span class="label">Public</span>
+                <select id="launcher-public-input">
+                
+                </select>
+                <i class="fas fa-check-circle"></i>
+            </li>
+            <li class="launcher-private">
+                <span class="label">Private</span>
+                <input type="text" id="launcher-private-input" data-repourl="" data-urlpath="" data-branch=>
+                <i class="fas fa-check-circle"></i>
+            </li>
+            </ul>
+            <p class="launch"><a href="" id="advancedLaunchButton" target="_blank">Launch Notebook</a></p>
+            <script>
+                // QuantEcon Notebook Launcher
+                const launcherTypeElements = document.querySelectorAll('#settingsModal .modal-servers li');
+                // Highlight the server type if previous selection exists
+                if (typeof localStorage.launcherType !== 'undefined') {
+                  for (var i = 0; i < launcherTypeElements.length; i++) {
+                    launcherTypeElements[i].classList.remove('active');
+                    if ( launcherTypeElements[i].classList.contains(localStorage.launcherType) ) {
+                      launcherTypeElements[i].classList.add('active');
+                    }
+                  }
+                }
+                // Highlight server type on click and set local storage value
+                for (var i = 0; i < launcherTypeElements.length; i++) {
+                  launcherTypeElements[i].addEventListener('click', function() {
+                    for (var j = 0; j < launcherTypeElements.length; j++) {
+                      launcherTypeElements[j].classList.remove('active');
+                    }
+                    this.classList.add('active');
+                    if ( this.classList.contains('launcher-private') ) {
+                      localStorage.launcherType = 'launcher-private';
+                    } else if ( this.classList.contains('launcher-public') ) {
+                      localStorage.launcherType = 'launcher-public';
+                    }
+                    setLaunchServer();
+                  })
+                }
+                const launcherPublic = document.getElementById('launcher-public-input');
+                const launcherPrivate = document.getElementById('launcher-private-input');
+                const pageName = "ch_production";
+                const repoURL = "";
+                const urlPath = "";
+                const branch = ""
+                const launchNotebookLink = document.getElementById('advancedLaunchButton');
+
+                // Highlight public server option if previous selection exists
+                if (typeof localStorage.launcherPublic !== 'undefined') {
+                  launcherPublic.value = localStorage.launcherPublic;
+                }
+                // Update local storage upon public server selection
+                launcherPublic.addEventListener('change', (event) => {
+                  setLaunchServer();
+                });
+                // Populate private server input if previous entry exists
+                if (typeof localStorage.launcherPrivate !== 'undefined') {
+                  launcherPrivate.value = localStorage.launcherPrivate;
+                }
+                // Update local storage when a private server is entered
+                launcherPrivate.addEventListener('input', (event) => {
+                  setLaunchServer();
+                });
+
+                // Function to update the "Launch Notebook" link href
+                function setLaunchServer() {
+                  launchNotebookLink.removeAttribute("style")
+                  if ( localStorage.launcherType == 'launcher-private' ) {
+                    let repoPrefix = "/jupyter/hub/user-redirect/git-pull?repo=" + repoURL + "&branch=" + branch + "&urlpath=" + urlPath;
+                    launcherPrivateValue = launcherPrivate.value
+                    if (!launcherPrivateValue) {
+                        launchNotebookLink.removeAttribute("href")
+                        launchNotebookLink.style.background = "grey"
+                        return
+                    }
+                    localStorage.launcherPrivate = launcherPrivateValue;
+                    privateServer = localStorage.launcherPrivate.replace(/\/$/, "")
+                    if (!privateServer.includes("http")) {
+                        privateServer = "http://" + privateServer
+                    }
+                    launchNotebookLinkURL = privateServer + repoPrefix;
+                  } else if ( localStorage.launcherType == 'launcher-public' ) {
+                    launcherPublicValue = launcherPublic.options[launcherPublic.selectedIndex].value;
+                    localStorage.launcherPublic = launcherPublicValue;
+                    launchNotebookLinkURL = localStorage.launcherPublic;
+                  }
+                  if (launchNotebookLinkURL) launchNotebookLink.href = launchNotebookLinkURL;
+                }
+                // Check if user has previously selected a server
+                if ( (typeof localStorage.launcherPrivate !== 'undefined') || (typeof localStorage.launcherPublic !== 'undefined') ) {
+                  setLaunchServer();
+                }
+                </script>
+
+        </div>
+
+    </div> <!-- .wrapper-->
+    
+  </body>
+</html>
