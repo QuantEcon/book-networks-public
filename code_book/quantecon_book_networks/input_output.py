@@ -1,11 +1,7 @@
-from initialize import *
-import pandas as pd
+import numpy as np
 import matplotlib.cm as cm           # import colormap stuff!
 import networkx as nx
-import matplotlib.colors as plc
 from scipy.stats import beta
-import statsmodels.api as sm
-from interpolation import interp
 import itertools
 
 def spec_rad(M):

@@ -65,6 +65,7 @@ def to_zero_one_beta(x,
 
 ### colorise_weights
 ```{code-cell}
+import matplotlib.cm as cm
 def colorise_weights(weights,zero_one_func=to_zero_one_beta,color_palette=cm.plasma):
     return color_palette(zero_one_func(weights))
 ```
