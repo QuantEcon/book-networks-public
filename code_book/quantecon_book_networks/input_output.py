@@ -92,6 +92,7 @@ def to_zero_one_beta(x,
 
 def adjacency_matrix_to_graph(A, 
                codes,
+               node_weights = None,
                tol=0.0):  # clip entries below tol
     """
     Build a networkx graph object given an adjacency matrix
@@ -101,7 +102,10 @@ def adjacency_matrix_to_graph(A,
 
     # Add nodes
     for i, code in enumerate(codes):
-        G.add_node(code, name=code)
+        if node_weights is None:
+            G.add_node(code, name=code)
+        else:
+            G.add_node(code, weight=node_weights[i], name=code)
 
     # Add the edges
     for i in range(N):
@@ -141,8 +145,12 @@ def normalise_weights(weights,scalar=1):
     max_value = np.max(weights)
     return [scalar * (weight / max_value) for weight in weights]
 
-def colorise_weights(weights,zero_one_func=to_zero_one_beta,color_palette=cm.plasma):
-    return color_palette(zero_one_func(weights))
+def colorise_weights(weights,beta=True,color_palette=cm.plasma):
+    if beta:
+        cp = color_palette(to_zero_one_beta(weights))
+    else:
+        cp = color_palette(to_zero_one(weights))
+    return cp 
 
 ## Random graphs
 def erdos_renyi_graph(n=100, p=0.5, seed=1234):

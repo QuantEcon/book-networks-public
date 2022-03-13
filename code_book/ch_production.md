@@ -20,6 +20,7 @@ We begin with some imports
 ```{code-cell}
 import quantecon as qe
 import quantecon_book_networks.input_output as qbn_io
+import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
 ch2_data = qbn_data.production()
 ```
@@ -38,147 +39,139 @@ from matplotlib import cm
 
 ### Backward linkages for 15 US sectors in 2019
 
-We start by loading a graph of linkages between 15 US sectors in 2019. Our graph comes as an adjacency matrix and list of the associated industry codes. The A\[i,j\] weight is the sales from industry i to industry j as a fraction of total sales industry j.
+We start by loading a graph of linkages between 15 US sectors in 2019. Our graph comes as a list of sector codes, an adjacency matrix of sales between the sectors, and a list the total sales of each sector. The Z\[i,j\] weight is the sales from industry i to industry j.
 
 ```{code-cell}
 codes = ch2_data["us_sectors_15"]["codes"]
-A = ch2_data["us_sectors_15"]["adjacency_matrix"]
+Z = ch2_data["us_sectors_15"]["adjacency_matrix"]
 X = ch2_data["us_sectors_15"]["total_industry_sales"]
 ```
 
-Here we will use the quantecon_book_networks package to convert the adjacency matrix into a networkx graph object.
+Now we define a function to build coefficient matrices. Two coefficient matrices are returned. The backward case, where sales between sector i and j are given as a fraction of total sales of sector j. The forward case, where sales between sector i and j are given as a fraction of total sales of sector i. 
 
 ```{code-cell}
-G = qbn_io.adjacency_matrix_to_graph(A, codes, node_weights=X, tol=0.0)
+def build_coefficient_matrices(Z, X):
+    """
+    Build coefficient matrices A and F from Z and X via 
+    
+        A[i, j] = Z[i, j] / X[j] 
+        F[i, j] = Z[i, j] / X[i]
+    
+    """
+    A, F = np.empty_like(Z), np.empty_like(Z)
+    n = A.shape[0]
+    for i in range(n):
+        for j in range(n):
+            A[i, j] = Z[i, j] / X[j]
+            F[i, j] = Z[i, j] / X[i]
+
+    return A, F
+
+A, F = build_coefficient_matrices(Z, X)
 ```
 
-Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.
+Next we calculate the hub-based eigenvector centrality of our centrality backward coefficient matrix.
 
 ```{code-cell}
 centrality = qbn_io.eigenvector_centrality(A)
-edge_weights = qbn_io.edge_weights(G)
+color_list = qbn_io.colorise_weights(centrality,beta=False) 
 ```
 
-Now we convert our graph features to plot features.
+Finally, we use the quantecon_book_networks package to produce our plot. 
 
 ```{code-cell}
-node_pos_dict = nx.circular_layout(G)
-
-node_sizes = X * 0.0005
-edge_widths = qbn_io.normalise_weights(edge_weights,10)
-
-node_colors = qbn_io.colorise_weights(centrality,beta=False)
-node_to_color = dict(zip(G.nodes,node_colors))
-edge_colors = []
-for src,_ in G.edges:
-    edge_colors.append(node_to_color[src])
-```
-
-Finally we produce the plot.
-
-```{code-cell}
-
 fig, ax = plt.subplots(figsize=(8, 10))
 plt.axis("off")
 
-nx.draw_networkx_nodes(G, 
-                        node_pos_dict, 
-                        node_color=node_colors, 
-                        node_size=node_sizes, 
-                        edgecolors='grey', 
-                        linewidths=2, 
-                        alpha=0.6, 
-                        ax=ax)
-
-nx.draw_networkx_labels(G, 
-                        node_pos_dict, 
-                        font_size=10, 
-                        ax=ax)
-
-nx.draw_networkx_edges(G, 
-                        node_pos_dict, 
-                        edge_color=edge_colors, 
-                        width=edge_widths, 
-                        arrows=True, 
-                        arrowsize=20, 
-                        alpha=0.6,  
-                        ax=ax, 
-                        arrowstyle='->', 
-                        node_size=node_sizes, 
-                        connectionstyle='arc3,rad=0.15')
+qbn_plt.plot_graph(A, X, ax, codes, 
+              layout_type='spring',
+              layout_seed=5432167,
+              tol=0.0,
+              node_color_list=color_list) 
 
 plt.show()
 ```
 
-### Network for 71 US sectors in 2019
+### Eigenvector centrality of across US industrial sectors
 
-We start by loading a graph of linkages between 75 US sectors in 2019.
+Now we plot a bar chart of Eigenvector centrality by sector.
 
 ```{code-cell}
-codes_71 = ch2_data['us_sectors_71']['codes']
-A_71 = ch2_data['us_sectors_71']['adjacency_matrix']
-X_71 = ch2_data['us_sectors_71']['total_industry_sales']
+fig, ax = plt.subplots()
+ax.bar(codes, centrality, color=color_list, alpha=0.6)
+
+ax.set_ylabel("eigenvector centrality", fontsize=12)
+
+plt.show()
 ```
 
-We will again use the quantecon_book_networks package to convert the adjacency matrix into a networkx graph object.
+### Output multipliers across 15 US industrial sectors
+
+The output multipliers are equal to the authority-based Katz centrality measure of the backward coefficient matrix. Here we calculate authority-based Katz centrality using the quantecon_book_networks package. 
 
 ```{code-cell}
-G_71 = qbn_io.adjacency_matrix_to_graph(A_71, codes_71, node_weights=X_71, tol=0.01)
+omult = qbn_io.katz_centrality(A, authority=True)
+omult_color_list = qbn_io.colorise_weights(omult,beta=False)
 ```
 
-Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.
-
 ```{code-cell}
-centrality_71 = qbn_io.eigenvector_centrality(A_71)
-edge_weights_71 = qbn_io.edge_weights(G_71)
+fig, ax = plt.subplots()
+ax.bar(codes, omult, color=omult_color_list, alpha=0.6)
+
+ax.set_ylabel("Output multipliers", fontsize=12)
+
+plt.show()
 ```
 
-Now we convert our graph features to plot features.
+### Forward linkages and upstreamness over US industrial sectors
+
+Upstreamness is the hub-based Katz centrality of the forward coefficient matrix. Here we calculate hub-based Katz centrality using the quantecon_book_networks package.
 
 ```{code-cell}
-node_pos_dict = nx.shell_layout(G_71)
-
-node_sizes = X_71 * 0.0005
-edge_widths = qbn_io.normalise_weights(edge_weights_71,4)
-
-node_colors = qbn_io.colorise_weights(centrality_71,beta=False)
-node_to_color = dict(zip(G_71.nodes,node_colors))
-edge_colors = []
-for src,_ in G_71.edges:
-    edge_colors.append(node_to_color[src])
+upstreamness = qbn_io.katz_centrality(F)
+upstreamness_color_list = qbn_io.colorise_weights(upstreamness,beta=False)
 ```
 
-Finally we produce the plot.
+Now we plot the network.
 
 ```{code-cell}
-fig, ax = plt.subplots(figsize=(10, 12))
+fig, ax = plt.subplots(figsize=(8, 10))
 plt.axis("off")
 
-nx.draw_networkx_nodes(G_71, 
-                        node_pos_dict, 
-                        node_color=node_colors, 
-                        node_size=node_sizes, 
-                        edgecolors='grey', 
-                        linewidths=2, 
-                        alpha=0.6, 
-                        ax=ax)
+qbn_plt.plot_graph(F, X, ax, codes, 
+              layout_type='spring', # alternative layouts: spring, circular, random, spiral
+              layout_seed=5432167,
+              tol=0.0,
+              node_color_list=upstreamness_color_list) 
 
-nx.draw_networkx_labels(G_71, 
-                        node_pos_dict, 
-                        font_size=10, 
-                        ax=ax)
+plt.show()
+```
 
-nx.draw_networkx_edges(G_71, 
-                        node_pos_dict, 
-                        edge_color=edge_colors, 
-                        width=edge_widths, 
-                        arrows=True, 
-                        arrowsize=20, 
-                        alpha=0.6,  
-                        ax=ax, 
-                        arrowstyle='->', 
-                        node_size=node_sizes, 
-                        connectionstyle='arc3,rad=0.15')
+### Relative upstreamness of US industrial sectors
+
+Here we produce a barplot of upstreamness. 
+
+```{code-cell}
+fig, ax = plt.subplots()
+ax.bar(codes, upstreamness, color=upstreamness_color_list, alpha=0.6)
+
+ax.set_ylabel("upstreamness", fontsize=12)
+
+plt.show()
+```
+
+
+### Hub-based Katz centrality of across 15 US industrial sectors
+
+```{code-cell}
+kcentral = qbn_io.katz_centrality(A)
+kcentral_color_list = qbn_io.colorise_weights(kcentral,beta=False)
+```
+
+```{code-cell}
+fig, ax = plt.subplots()
+ax.bar(codes, kcentral, color=kcentral_color_list, alpha=0.6)
+ax.set_ylabel("Katz hub centrality", fontsize=12)
 
 plt.show()
 ```
@@ -186,7 +179,7 @@ plt.show()
 
 ### The Leontief inverse 𝐿 (hot colors are larger values)
 
-We construct the Leontief inverse matrix, from 15 sector adjacency matrix.
+We construct the Leontief inverse matrix from 15 sector adjacency matrix.
 
 ```{code-cell}
 I = np.identity(len(A))
@@ -221,30 +214,37 @@ plt.show()
 
 ### Propagation of demand shocks via backward linkages
 
-```{code-cell}
+We begin by generating a demand shock vector d. 
 
-sim_length = 6
+```{code-cell}
 N = len(A)
-d = np.random.rand(N) # np.zeros(N)
+np.random.seed(1234)
+d = np.random.rand(N) 
 d[6] = 1  # positive shock to agriculture
+```
+
+Now we simulate the demand shock propergating through the economy.
+
+```{code-cell}
+sim_length = 6
 x = d
 x_vecs = []
 for i in range(sim_length):
     x_vecs.append(x)
     x = A @ x
-
 ```
 
-```{code-cell}
+Finally, we plot the shock propergate through the economy.
 
+```{code-cell}
 fig, axes = plt.subplots(3, 2, figsize=(8, 10))
 axes = axes.flatten()
 
 for ax, x_vec, i in zip(axes, x_vecs, range(sim_length)):
     ax.set_title(f"round {i}")
-    x_vec_cols = cm.plasma(to_zero_one(x_vec))
-    plot_graph(A, X, ax, codes,
-                  layout_type='spring', # alternative layouts: spring, circular, random, spiral
+    x_vec_cols = qbn_io.colorise_weights(x_vec,beta=False)
+    qbn_plt.plot_graph(A, X, ax, codes,
+                  layout_type='spring',
                   layout_seed=342156,
                   node_color_list=x_vec_cols,
                   node_size_multiple=0.00028,
@@ -252,99 +252,73 @@ for ax, x_vec, i in zip(axes, x_vecs, range(sim_length)):
 
 plt.tight_layout()
 plt.show()
-
-```
-
-### Eigenvector centrality of across US industrial sectors
-
-```{code-cell}
-ecentral = eigenvector_centrality(A)
-ecentral_color_list = cm.plasma(to_zero_one(ecentral))
-```
-
-```{code-cell}
-fig, ax = plt.subplots()
-ax.bar(codes, ecentral, color=ecentral_color_list, alpha=0.6)
-
-ax.set_ylabel("eigenvector centrality", fontsize=12)
-
-plt.show()
 ```
 
 
-### Output multipliers across 15 US industrial sectors
+### Network for 71 US sectors in 2019
+
+We start by loading a graph of linkages between 75 US sectors in 2019.
 
 ```{code-cell}
-omult = katz_centrality(A, authority=True)
-omult_color_list = cm.plasma(to_zero_one(omult))
-
+codes_71 = ch2_data['us_sectors_71']['codes']
+A_71 = ch2_data['us_sectors_71']['adjacency_matrix']
+X_71 = ch2_data['us_sectors_71']['total_industry_sales']
 ```
 
+Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.
+
 ```{code-cell}
-fig, ax = plt.subplots()
-ax.bar(codes, omult, color=omult_color_list, alpha=0.6)
-
-ax.set_ylabel("Output multipliers", fontsize=12)
-
-plt.show()
+centrality_71 = qbn_io.eigenvector_centrality(A_71)
+color_list_71 = qbn_io.colorise_weights(centrality_71,beta=False)
 ```
 
-
-### Forward linkages and upstreamness over US industrial sectors
-
-```{code-cell}
-upstreamness = katz_centrality(F)
-upstreamness_color_list = cm.plasma(to_zero_one(upstreamness))
-
-```
+Finally we produce the plot.
 
 ```{code-cell}
-
-fig, ax = plt.subplots(figsize=(8, 10))
+fig, ax = plt.subplots(figsize=(10, 12))
 plt.axis("off")
 
-plot_graph(F, X, ax, codes, 
-              layout_type='spring', # alternative layouts: spring, circular, random, spiral
+qbn_plt.plot_graph(A_71, X_71, ax, codes_71,
+              node_size_multiple=0.0005,
+              edge_size_multiple=4.0,
+              layout_type='spring',
               layout_seed=5432167,
-              tol=0.0,
-              node_color_list=upstreamness_color_list) 
-
-plt.show()
-
-```
-
-### Relative upstreamness of US industrial sectors
-
-```{code-cell}
-fig, ax = plt.subplots()
-ax.bar(codes, upstreamness, color=upstreamness_color_list, alpha=0.6)
-
-ax.set_ylabel("upstreamness", fontsize=12)
+              tol=0.01,
+              node_color_list=color_list_71)
 
 plt.show()
 ```
 
-## General Equilibrium
-
-### GDP growth rates and std. deviations (in parentheses) for 8 countries
-
-**No code in repo**
-
-
-### Hub-based Katz centrality of across 15 US industrial sectors
+###  Network for 114 Australian industry sectors in 2018
+We start by loading a graph of linkages between 75 US sectors in 2019.
 
 ```{code-cell}
-
-kcentral = katz_centrality(A)
-kcentral_color_list = cm.plasma(to_zero_one(kcentral))
+codes_114 = ch2_data['au_sectors_114']['codes']
+A_114 = ch2_data['au_sectors_114']['adjacency_matrix']
+X_114 = ch2_data['au_sectors_114']['total_industry_sales']
 ```
 
-```{code-cell}
+Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.
 
-fig, ax = plt.subplots()
-ax.bar(codes, kcentral, color=kcentral_color_list, alpha=0.6)
-ax.set_ylabel("Katz hub centrality", fontsize=12)
+```{code-cell}
+centrality_114 = qbn_io.eigenvector_centrality(A_114)
+color_list_114 = qbn_io.colorise_weights(centrality_114,beta=False)
+```
+
+Finally we produce the plot.
+
+```{code-cell}
+fig, ax = plt.subplots(figsize=(10, 12))
+plt.axis("off")
+
+qbn_plt.plot_graph(A_114, X_114, ax, codes_114,
+              node_size_multiple=0.008,
+              edge_size_multiple=5.0,
+              layout_type='spring',
+              layout_seed=5432167,
+              tol=0.03,
+              node_color_list=color_list_114)
 
 plt.show()
-
 ```
+
