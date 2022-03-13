@@ -17,242 +17,168 @@ kernelspec:
 
 We begin with some imports
 
-```{code-cell} ipython3
-
+```{code-cell}
 import quantecon as qe
+import quantecon_book_networks.input_output as qbn_io
+import quantecon_book_networks.data as qbn_data
+ch2_data = qbn_data.production()
+```
+
+```{code-cell}
 import numpy as np
 import pandas as pd
-
+import networkx as nx
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm           # import colormap stuff!
+import matplotlib.cm as cm
 import matplotlib.colors as plc
 from matplotlib import cm
-
-import networkx as nx
-
-
 ```
 
 ## Multisector Models
 
 ### Backward linkages for 15 US sectors in 2019
 
-Define plot graph.
+We start by loading a graph of linkages between 15 US sectors in 2019. Our graph comes as an adjacency matrix and list of the associated industry codes. The A\[i,j\] weight is the sales from industry i to industry j as a fraction of total sales industry j.
 
-```{code-cell} ipython3
-
-def plot_graph(A, 
-               X,
-               ax,
-               codes,
-               node_color_list=None,
-               node_size_multiple=0.0005, 
-               edge_size_multiple=14,
-               layout_type='circular',
-               layout_seed=1234,
-               tol=0.03):  # clip entries below tol
-
-    G = nx.DiGraph()
-    N = len(A)
-
-    # Add nodes, with weights by sales of the sector
-    for i, w in enumerate(X):
-        G.add_node(codes[i], weight=w, name=codes[i])
-
-    node_sizes = X * node_size_multiple
-
-    # Position the nodes
-    if layout_type == 'circular':
-        node_pos_dict = nx.circular_layout(G)
-    elif layout_type == 'spring':
-        node_pos_dict = nx.spring_layout(G, seed=layout_seed)
-    elif layout_type == 'random':
-        node_pos_dict = nx.random_layout(G, seed=layout_seed)
-    elif layout_type == 'spiral':
-        node_pos_dict = nx.spiral_layout(G)
-
-    # Add the edges, along with their colors and widths
-    edge_colors = []
-    edge_widths = []
-    for i in range(N):
-        for j in range(N):
-            a = A[i, j]
-            if a > tol:
-                G.add_edge(codes[i], codes[j])
-                edge_colors.append(node_color_list[i])
-                width = a * edge_size_multiple
-                edge_widths.append(width)
-    
-    nx.draw_networkx_nodes(G, 
-                           node_pos_dict, 
-                           node_color=node_color_list, 
-                           node_size=node_sizes, 
-                           edgecolors='grey', 
-                           linewidths=2, 
-                           alpha=0.6, 
-                           ax=ax)
-
-    nx.draw_networkx_labels(G, 
-                            node_pos_dict, 
-                            font_size=10, 
-                            ax=ax)
-
-    nx.draw_networkx_edges(G, 
-                           node_pos_dict, 
-                           edge_color=edge_colors, 
-                           width=edge_widths, 
-                           arrows=True, 
-                           arrowsize=20, 
-                           alpha=0.6,  
-                           ax=ax, 
-                           arrowstyle='->', 
-                           node_size=node_sizes, 
-                           connectionstyle='arc3,rad=0.15')
+```{code-cell}
+codes = ch2_data["us_sectors_15"]["codes"]
+A = ch2_data["us_sectors_15"]["adjacency_matrix"]
+X = ch2_data["us_sectors_15"]["total_industry_sales"]
 ```
 
-Set params.
+Here we will use the quantecon_book_networks package to convert the adjacency matrix into a networkx graph object.
 
-```{code-cell} ipython3
-codes =  ( 'ag',    
-           'mi',  
-           'ut',  
-           'co',  
-           'ma',  
-           'wh',  
-           're', 
-           'tr',  
-           'in',  
-           'fi',  
-           'pr', 
-           'ed',   
-           'ar',  
-           'ot',  
-           'go')
-
-Z, X = read_Z(), read_X()
-
-A, F = build_coefficient_matrices(Z, X)
-
-ecentral = eigenvector_centrality(A)
-ecentral_color_list = cm.plasma(to_zero_one(ecentral))
+```{code-cell}
+G = qbn_io.adjacency_matrix_to_graph(A, codes, node_weights=X, tol=0.0)
 ```
 
-```{code-cell} ipython3
+Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.
+
+```{code-cell}
+centrality = qbn_io.eigenvector_centrality(A)
+edge_weights = qbn_io.edge_weights(G)
+```
+
+Now we convert our graph features to plot features.
+
+```{code-cell}
+node_pos_dict = nx.circular_layout(G)
+
+node_sizes = X * 0.0005
+edge_widths = qbn_io.normalise_weights(edge_weights,10)
+
+node_colors = qbn_io.colorise_weights(centrality,beta=False)
+node_to_color = dict(zip(G.nodes,node_colors))
+edge_colors = []
+for src,_ in G.edges:
+    edge_colors.append(node_to_color[src])
+```
+
+Finally we produce the plot.
+
+```{code-cell}
 
 fig, ax = plt.subplots(figsize=(8, 10))
 plt.axis("off")
 
-plot_graph(A, X, ax, codes, 
-              layout_type='spring', # alternative layouts: spring, circular, random, spiral
-              layout_seed=5432167,
-              tol=0.0,
-              node_color_list=ecentral_color_list) 
+nx.draw_networkx_nodes(G, 
+                        node_pos_dict, 
+                        node_color=node_colors, 
+                        node_size=node_sizes, 
+                        edgecolors='grey', 
+                        linewidths=2, 
+                        alpha=0.6, 
+                        ax=ax)
+
+nx.draw_networkx_labels(G, 
+                        node_pos_dict, 
+                        font_size=10, 
+                        ax=ax)
+
+nx.draw_networkx_edges(G, 
+                        node_pos_dict, 
+                        edge_color=edge_colors, 
+                        width=edge_widths, 
+                        arrows=True, 
+                        arrowsize=20, 
+                        alpha=0.6,  
+                        ax=ax, 
+                        arrowstyle='->', 
+                        node_size=node_sizes, 
+                        connectionstyle='arc3,rad=0.15')
 
 plt.show()
 ```
 
 ### Network for 71 US sectors in 2019
 
-```{code-cell} ipython3
-codes_71 = ('111CA',
-         '113FF',
-         '211',
-         '212',
-         '213',
-         '22',
-         '23',
-         '321',
-         '327',
-         '331',
-         '332',
-         '333',
-         '334',
-         '335',
-         '3361MV',
-         '3364OT',
-         '337',
-         '339',
-         '311FT',
-         '313TT',
-         '315AL',
-         '322',
-         '323',
-         '324',
-         '325',
-         '326',
-         '42',
-         '441',
-         '445',
-         '452',
-         '4A0',
-         '481',
-         '482',
-         '483',
-         '484',
-         '485',
-         '486',
-         '487OS',
-         '493',
-         '511',
-         '512',
-         '513', 
-         '514',
-         '521CI',
-         '523',
-         '524',
-         '525',
-         'HS',
-         'ORE',
-         '532RL',
-         '5411',
-         '5415',
-         '5412OP',
-         '55',
-         '561',
-         '562',
-         '61',
-         '621',
-         '622',
-         '623',
-         '624',
-         '711AS',
-         '713',
-         '721',
-         '722',
-         '81',
-         'GFGD',
-         'GFGN',
-         'GFE',
-         'GSLG',
-         'GSLE')
+We start by loading a graph of linkages between 75 US sectors in 2019.
 
-Z_71, X_71 = read_Z(data_file='data/csv_files/use_71_2019.csv',
-                 N=71,
-                 columnlist=['Unnamed: 0', 'T001', 'F010', 'F02E', 'F02N', 
-                             'F02R', 'F02S', 'F030', 'F040', 'F06C', 'F06E', 
-                             'F06N', 'F06S', 'F07C', 'F07E', 'F07N', 'F07S', 
-                             'F10C', 'F10E', 'F10N', 'F10S', 'T019']), read_X(data_file='data/csv_files/make_71_2019.csv', N=71)
-
-A_71, F_71 = build_coefficient_matrices(Z_71, X_71)
-
-ecentral_71 = eigenvector_centrality(A_71)
-ecentral_color_list_71 = cm.plasma(to_zero_one(ecentral_71))
-
+```{code-cell}
+codes_71 = ch2_data['us_sectors_71']['codes']
+A_71 = ch2_data['us_sectors_71']['adjacency_matrix']
+X_71 = ch2_data['us_sectors_71']['total_industry_sales']
 ```
 
+We will again use the quantecon_book_networks package to convert the adjacency matrix into a networkx graph object.
 
-```{code-cell} ipython3
+```{code-cell}
+G_71 = qbn_io.adjacency_matrix_to_graph(A_71, codes_71, node_weights=X_71, tol=0.01)
+```
 
+Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.
+
+```{code-cell}
+centrality_71 = qbn_io.eigenvector_centrality(A_71)
+edge_weights_71 = qbn_io.edge_weights(G_71)
+```
+
+Now we convert our graph features to plot features.
+
+```{code-cell}
+node_pos_dict = nx.shell_layout(G_71)
+
+node_sizes = X_71 * 0.0005
+edge_widths = qbn_io.normalise_weights(edge_weights_71,4)
+
+node_colors = qbn_io.colorise_weights(centrality_71,beta=False)
+node_to_color = dict(zip(G_71.nodes,node_colors))
+edge_colors = []
+for src,_ in G_71.edges:
+    edge_colors.append(node_to_color[src])
+```
+
+Finally we produce the plot.
+
+```{code-cell}
 fig, ax = plt.subplots(figsize=(10, 12))
 plt.axis("off")
 
-plot_graph(A_71, X_71, ax, codes_71,
-              node_size_multiple=0.0005,
-              edge_size_multiple=4.0,
-              layout_type='spring', # alternative layouts: spring, circular, random, spiral
-              layout_seed=5432167,
-              tol=0.01,
-              node_color_list=ecentral_color_list_71)
+nx.draw_networkx_nodes(G_71, 
+                        node_pos_dict, 
+                        node_color=node_colors, 
+                        node_size=node_sizes, 
+                        edgecolors='grey', 
+                        linewidths=2, 
+                        alpha=0.6, 
+                        ax=ax)
+
+nx.draw_networkx_labels(G_71, 
+                        node_pos_dict, 
+                        font_size=10, 
+                        ax=ax)
+
+nx.draw_networkx_edges(G_71, 
+                        node_pos_dict, 
+                        edge_color=edge_colors, 
+                        width=edge_widths, 
+                        arrows=True, 
+                        arrowsize=20, 
+                        alpha=0.6,  
+                        ax=ax, 
+                        arrowstyle='->', 
+                        node_size=node_sizes, 
+                        connectionstyle='arc3,rad=0.15')
 
 plt.show()
 ```
@@ -260,64 +186,42 @@ plt.show()
 
 ### The Leontief inverse 𝐿 (hot colors are larger values)
 
-```{code-cell} ipython3
+We construct the Leontief inverse matrix, from 15 sector adjacency matrix.
 
-def plot_matrices(matrix,
-                  codes,
-                  ax,
-                  font_size=12,
-                  alpha=0.6, 
-                  colormap=cm.viridis, 
-                  color45d=None, 
-                  xlabel='sector $j$', 
-                  ylabel='sector $i$'):
-    
-    ticks = range(len(matrix))
-
-    levels = np.sqrt(np.linspace(0, 0.75, 100))
-    
-    
-    if color45d != None:
-        co = ax.contourf(ticks, 
-                         ticks,
-                         matrix,
-#                          levels,
-                         alpha=alpha, cmap=colormap)
-        ax.plot(ticks, ticks, color=color45d)
-    else:
-        co = ax.contourf(ticks, 
-                         ticks,
-                         matrix,
-                         levels,
-                         alpha=alpha, cmap=colormap)
-
-    #plt.colorbar(co)
-
-    ax.set_xlabel(xlabel, fontsize=font_size)
-    ax.set_ylabel(ylabel, fontsize=font_size)
-    ax.set_yticks(ticks)
-    ax.set_yticklabels(codes)
-    ax.set_xticks(ticks)
-    ax.set_xticklabels(codes)
-
-```
-
-
-```{code-cell} ipython3
+```{code-cell}
 I = np.identity(len(A))
 L = np.linalg.inv(I - A)
+```
 
+Now we produce the plot.
+
+```{code-cell}
 fig, ax = plt.subplots(figsize=(6.5, 5.5))
-plot_matrices(L, codes, ax, alpha=0.85)
+
+ticks = range(len(L))
+
+levels = np.sqrt(np.linspace(0, 0.75, 100))
+
+co = ax.contourf(ticks, 
+                    ticks,
+                    L,
+                    levels,
+                    alpha=0.85, cmap=cm.plasma)
+
+ax.set_xlabel('sector $j$', fontsize=12)
+ax.set_ylabel('sector $i$', fontsize=12)
+ax.set_yticks(ticks)
+ax.set_yticklabels(codes)
+ax.set_xticks(ticks)
+ax.set_xticklabels(codes)
 
 plt.show()
-
 ```
 
 
 ### Propagation of demand shocks via backward linkages
 
-```{code-cell} ipython3
+```{code-cell}
 
 sim_length = 6
 N = len(A)
@@ -331,7 +235,7 @@ for i in range(sim_length):
 
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 
 fig, axes = plt.subplots(3, 2, figsize=(8, 10))
 axes = axes.flatten()
@@ -353,12 +257,12 @@ plt.show()
 
 ### Eigenvector centrality of across US industrial sectors
 
-```{code-cell} ipython3
+```{code-cell}
 ecentral = eigenvector_centrality(A)
 ecentral_color_list = cm.plasma(to_zero_one(ecentral))
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 fig, ax = plt.subplots()
 ax.bar(codes, ecentral, color=ecentral_color_list, alpha=0.6)
 
@@ -370,13 +274,13 @@ plt.show()
 
 ### Output multipliers across 15 US industrial sectors
 
-```{code-cell} ipython3
+```{code-cell}
 omult = katz_centrality(A, authority=True)
 omult_color_list = cm.plasma(to_zero_one(omult))
 
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 fig, ax = plt.subplots()
 ax.bar(codes, omult, color=omult_color_list, alpha=0.6)
 
@@ -388,13 +292,13 @@ plt.show()
 
 ### Forward linkages and upstreamness over US industrial sectors
 
-```{code-cell} ipython3
+```{code-cell}
 upstreamness = katz_centrality(F)
 upstreamness_color_list = cm.plasma(to_zero_one(upstreamness))
 
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 
 fig, ax = plt.subplots(figsize=(8, 10))
 plt.axis("off")
@@ -411,7 +315,7 @@ plt.show()
 
 ### Relative upstreamness of US industrial sectors
 
-```{code-cell} ipython3
+```{code-cell}
 fig, ax = plt.subplots()
 ax.bar(codes, upstreamness, color=upstreamness_color_list, alpha=0.6)
 
@@ -429,13 +333,13 @@ plt.show()
 
 ### Hub-based Katz centrality of across 15 US industrial sectors
 
-```{code-cell} ipython3
+```{code-cell}
 
 kcentral = katz_centrality(A)
 kcentral_color_list = cm.plasma(to_zero_one(kcentral))
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 
 fig, ax = plt.subplots()
 ax.bar(codes, kcentral, color=kcentral_color_list, alpha=0.6)
