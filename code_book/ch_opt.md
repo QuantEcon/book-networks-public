@@ -17,30 +17,41 @@ kernelspec:
 
 We begin with some imports
 
-```{code-cell} ipython3
+```{code-cell}
 import quantecon as qe
+import quantecon_book_networks.input_output as qbn_io
+import quantecon_book_networks.plotting as qbn_plt
+import quantecon_book_networks.data as qbn_data
+ch2_data = qbn_data.production()
+```
+
+```{code-cell}
 import numpy as np
+from scipy.optimize import linprog
+import networkx as nx
+import ot
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.patches import Polygon
 from matplotlib.artist import Artist  
-
-from scipy.optimize import linprog
-import networkx as nx
-import ot
 ```
 
 ## Linear Programming and Duality
 
-- Figure 3.7: Betweenness centrality (by color and node size) for the Florentine families
+### Betweenness centrality (by color and node size) for the Florentine families
 
-```{code-cell} ipython3
+We load the Florentine Families data from the networkx package.
+```{code-cell}
 G = nx.florentine_families_graph()
-bc_dict = nx.betweenness_centrality(G)
-
 ```
 
-```{code-cell} ipython3
+Caclulate betweenness centrality.
+```{code-cell}
+bc_dict = nx.betweenness_centrality(G)
+```
+
+And we produce the plot.
+```{code-cell}
 fig, ax = plt.subplots(figsize=(10, 10))
 
 plt.axis("off")
@@ -57,10 +68,28 @@ nx.draw_networkx(
 )
 ```
 
+### Revenue maximizing quantities and a Python implementation of linear programming
 
-- Figure 3.9: Revenue maximizing quantities
+First we specify our linear program.
 
-```{code-cell} ipython3
+```{code-cell}
+A = ((2, 5),
+     (4, 2))
+b = (30, 20)
+c = (-3, -4) # minus in order to minimize
+```
+
+And now we use Scipy's linear programing module to solve our linear program.
+
+```{code-cell}
+from scipy.optimize import linprog
+result = linprog(c, A_ub=A, b_ub=b)
+print(result.x)
+```
+
+Here we produce a visualisation of what is being done.
+
+```{code-cell}
 fig, ax = plt.subplots(figsize=(8, 4.5))
 plt.rcParams['font.size'] = '14'
 
@@ -108,9 +137,11 @@ plt.show()
 ## Optimal Transport
  
 
-- Figure 3.10: Transforming distribution $\phi$ into distribution $\psi$
+### Transforming distribution $\phi$ into distribution $\psi$
 
-```{code-cell} ipython3
+Below we provide code to produce a visualisation of the Monge-Kantorovich problem.
+
+```{code-cell}
 σ = 0.1
 
 def ϕ(z):
@@ -118,13 +149,10 @@ def ϕ(z):
 
 def v(x, a=0.4, b=0.6, s=1.0, t=1.4):
     return a * ϕ(x - s) + b * ϕ(x - t)
-```
 
-```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(10, 4))
 
 x = np.linspace(0.2, 4, 1000)
-
 ax.plot(x, v(x), label="$\\phi$")
 ax.plot(x, v(x, s=3.0, t=3.3, a=0.6), label="$\\psi$")
 
@@ -133,15 +161,69 @@ ax.legend(loc='upper left', fontsize=12, frameon=False)
 ax.arrow(1.8, 1.6, 0.8, 0.0, width=0.01, head_width=0.08)
 ax.annotate('transform', xy=(1.9, 1.9), fontsize=12)
 plt.show()
-
 ```
 
+### Function to solve a transport problem via linear programming
 
-- Figure 3.13: An optimal transport problem solved by linear programming
+Here we define a function to solve optimal transport problems using linear programming.
 
-```{code-cell} ipython3
-from scipy.stats import binom, betabinom
+```{code-cell}
+def ot_solver(phi, psi, c, method='highs-ipm'):
+    """
+    Solve the OT problem associated with distributions phi, psi
+    and cost matrix c.
+    Parameters
+    ----------
+    phi : 1-D array
+    Distribution over the source locations.
+    psi : 1-D array
+    Distribution over the target locations.
+    c : 2-D array
+    Cost matrix.
+    """
+    n, m = len(phi), len(psi)
 
+    # vectorize c
+    c_vec = c.reshape((m * n, 1), order='F')
+
+    # Construct A and b
+    A1 = np.kron(np.ones((1, m)), np.identity(n))
+    A2 = np.kron(np.identity(m), np.ones((1, n)))
+    A = np.vstack((A1, A2))
+    b = np.hstack((phi, psi))
+
+    # Call sover
+    res = linprog(c_vec, A_eq=A, b_eq=b, method=method)
+
+    # Invert the vec operation to get the solution as a matrix
+    pi = res.x.reshape((n, m), order='F')
+    return pi
+```
+
+Now, we can set up a simple optimal transport problem.
+
+```{code-cell}
+phi = np.array((0.5, 0.5))
+psi = np.array((1, 0))
+c = np.ones((2, 2))
+```
+
+And solve using the above function.
+
+```{code-cell}
+ot_solver(phi, psi, c)
+```
+
+We see we get the same result as when using the python optimal transport package. 
+
+```{code-cell}
+ot.emd(phi, psi, c) 
+```
+
+### An optimal transport problem solved by linear programming
+
+Here we demonstrate a more detailed optimal transport problem. We begin by defining a node class.
+```{code-cell}
 class Node:
 
     def __init__(self, x, y, mass, group, name):
@@ -149,10 +231,11 @@ class Node:
         self.x, self.y = x, y
         self.mass, self.group = mass, group
         self.name = name
-
 ```
 
-```{code-cell} ipython3
+Now we define a function for randomly generating nodes.
+```{code-cell}
+from scipy.stats import betabinom
 
 def build_nodes_of_one_type(group='phi', n=100, seed=123):
 
@@ -176,25 +259,37 @@ def build_nodes_of_one_type(group='phi', n=100, seed=123):
     return nodes
 ```
 
-```{code-cell} ipython3
-
+We now generate our source and target nodes.
+```{code-cell}
 n_phi = 32
 n_psi = 32
+
 phi_list = build_nodes_of_one_type(group='phi', n=n_phi)
 psi_list = build_nodes_of_one_type(group='psi', n=n_psi)
 
 phi_probs = [phi.mass for phi in phi_list]
 psi_probs = [psi.mass for psi in psi_list]
+```
 
+Now we define our transport costs.
+```{code-cell}
 c = np.empty((n_phi, n_psi))
 for i in range(n_phi):
     for j in range(n_psi):
         x0, y0 = phi_list[i].x, phi_list[i].y
         x1, y1 = psi_list[j].x, psi_list[j].y
         c[i, j] = np.sqrt((x0-x1)**2 + (y0-y1)**2)
+```
 
+We solve our optimal transport problem using the python optimal transport package.
+
+```{code-cell}
 pi = ot.emd(phi_probs, psi_probs, c)
+```
 
+Finally we produce a graph of our sources, targets, and optimal transport plan. 
+
+```{code-cell}
 g = nx.DiGraph()
 g.add_nodes_from([phi.name for phi in phi_list])
 g.add_nodes_from([psi.name for psi in psi_list])
@@ -204,17 +299,11 @@ for i in range(n_phi):
         if pi[i, j] > 0:
             g.add_edge(phi_list[i].name, psi_list[j].name, weight=pi[i, j])
 
-```
-
-
-
-```{code-cell} ipython3
 node_pos_dict={}
 for phi in phi_list:
     node_pos_dict[phi.name] = (phi.x, phi.y)
 for psi in psi_list:
     node_pos_dict[psi.name] = (psi.x, psi.y)
-
 
 node_color_list = []
 node_size_list = []
@@ -225,10 +314,7 @@ for phi in phi_list:
 for psi in psi_list:
     node_color_list.append('red')
     node_size_list.append(psi.mass * scale)
-```
 
-
-```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(7, 10))
 plt.axis('off')
 
@@ -247,4 +333,48 @@ nx.draw_networkx_edges(g,
                        connectionstyle='arc3,rad=0.1',
                        alpha=0.6)
 plt.show()
+```
+
+### Solving linear assignment as an optimal transport problem
+
+Here we set up a linear assignment problem (marching n workers to n jobs).
+```{code-cell}
+n = 4
+phi = np.ones(n)
+psi = np.ones(n)
+```
+
+We generate our cost matrix (the cost of training the ith worker for the jth job)
+```{code-cell}
+c = np.random.uniform(size=(n, n))
+```
+
+Finally, we solve our linear assignment problem as a special case of optimal transport.
+```{code-cell}
+ot.emd(phi, psi, c)
+```
+
+### The General Flow Problem
+
+Here we solve a simple network flow problem as a linear program. We begin by defining the node-edge incidence matrix.
+
+```{code-cell}
+A = (( 1, 1, 0, 0),
+(-1, 0, 1, 0),
+( 0, 0, -1, 1),
+( 0, -1, 0, -1))
+```
+
+Now we define exogonous supply and transport costs.
+
+```{code-cell}
+b = (10, 0, 0, -10)
+c = (1, 4, 1, 1)
+```
+
+Finally we solve as a linear program.
+
+```{code-cell}
+result = linprog(c, A_eq=A, b_eq=b, method='highs-ipm')
+print(result.x)
 ```

@@ -4,6 +4,7 @@ chapters:
 - file: ch_intro
 - file: ch_production
 - file: ch_opt
+- file: ch_opt_julia
 - file: ch_mcs
 - file: ch_fpms
 - file: appendix

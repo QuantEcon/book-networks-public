@@ -36,7 +36,10 @@ from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import matplotlib.colors as plc
 import matplotlib.patches as mpatches
+import plotly.io as pio
+import plotly.offline as py
 import plotly.graph_objects as go
+
 ```
 
 
@@ -85,7 +88,7 @@ fig = go.Figure(data=[go.Sankey(
   ))])
 
 fig.update_layout(title_text="Crude Oil", font_size=10, width=600, height=800)
-fig.show()
+fig
 ```
 
 ### International trade in commercial aircraft during 2019.
@@ -423,6 +426,7 @@ ax.legend(fontsize=12)
 ax.set_yticks((0, 1, 2))
 plt.show()
 ```
+
 
 ### Networkx digraph plot
 
