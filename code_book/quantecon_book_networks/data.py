@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import networkx as nx
 import json
+from pandas_datareader import wb
 
 ## Utilities
 def read_Z(data_file='data/csv_files/adjacency_matrix_31-12-2019.csv', t=10):
@@ -431,7 +432,30 @@ def markov_chains_and_networks():
         Returns:
             ch_data (dict): Dictionary of data names and associated data objects. Note: some data objects are further nested as dictionaries. 
     """
-    ch_data = {}
+
+    data = wb.get_countries()
+    data = data[data['region'] != 'Aggregates']
+    countries = list(data['iso2c'])
+    ind = ['NY.GDP.PCAP.CD']
+
+    # NY.GDP.PCAP.CD GDP per capita in current US$ and NY.GDP.PCAP.PP.CD GDP per capita in current international $
+    dat = wb.download(indicator=ind, country=countries, start=1960, end=2019)
+    dat = dat.reset_index()
+    dat.columns = 'country', 'year', 'gdppc'
+
+    dat0 = wb.download(indicator=ind, country='WLD', start=1960, end=2019)
+    dat0 = dat0.reset_index()
+    dat0.columns = 'country', 'year', 'gdppc_w'
+ 
+    dat0 = dat0[['year', 'gdppc_w']]
+
+    df = pd.merge(dat, dat0, on='year').set_index(['country','year'])
+    df['gdppc_r'] = df['gdppc'] / df['gdppc_w']
+
+    ch_data = {
+        'gdppc_df': df 
+
+    }
 
     return ch_data
 
