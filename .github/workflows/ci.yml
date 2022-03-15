@@ -23,7 +23,6 @@ jobs:
         shell: bash
         run: |
           julia -e 'using Pkg; Pkg.add(["JuMP","GLPK","PyPlot","IJulia"]);'
-          julia --project=lectures --threads auto -e 'using Pkg; Pkg.instantiate();'
       # - name: Install latex dependencies
       #   run: |
       #     sudo apt-get -qq update
