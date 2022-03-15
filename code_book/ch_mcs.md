@@ -39,7 +39,7 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 ### Contour plot of transition matrix $P_B$
 
- Benhabib et al. (2015) estimate the following transition matrix for intergenerational social mobility. Here the states are percentiles of the wealth distribution. In particular, with the codes 1, 2,… , 8, corresponding to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100% respectively. 
+ Benhabib et al. (2015) estimate the following transition matrix for intergenerational social mobility. Here the states are percentiles of the wealth distribution. In particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100% respectively. 
 
 ```{code-cell}
 P_B = [[0.222, 0.222, 0.215, 0.187, 0.081, 0.038, 0.029, 0.006],
@@ -197,19 +197,14 @@ plt.show()
 
 ### Distribution dynamics
 
-Here we define a function for plotting the convergence of marginal distributions on the unit simplex.
+Here we define a function for plotting the convergence of marginal distributions $ψ$ under a transition matrix $P$ on the unit simplex.
 
 ```{code-cell}
-
-def convergence_plot(ψ, n=14, angle=50):
+def convergence_plot(ψ, P, n=14, angle=50):
 
     ax = qbn_plt.unit_simplex(angle)
 
     # Convergence plot
-
-    P = ((0.9, 0.1, 0.0),
-         (0.4, 0.4, 0.2),
-         (0.1, 0.1, 0.8))
     
     P = np.array(P)
 
@@ -232,22 +227,33 @@ def convergence_plot(ψ, n=14, angle=50):
 
 ```
 
+Now we define P.
+```{code-cell}
+P = (
+    (0.9, 0.1, 0.0),
+    (0.4, 0.4, 0.2),
+    (0.1, 0.1, 0.8)
+    )
+```
+
 #### A trajectory from $\psi_0 = (0, 0, 1)$
 
+Here we see the sequence of marginals appears to converge. 
+
 ```{code-cell}
-
-ψ = convergence_plot((0, 0, 1))
+ψ_0 = (0, 0, 1)
+ψ = convergence_plot(ψ_0, P)
 plt.show()
-
 ```
 
 #### A trajectory from $\psi_0 = (0, 1/2, 1/2)$
 
+Here we see again that the sequence of marginals appears to converge, and the limit appears not to depend on the initial distribution.
+
 ```{code-cell}
-
-ψ = convergence_plot((0, 0.5, 0.5), n=12)
+ψ_0 = (0, 1/2, 1/2)
+ψ = convergence_plot(ψ_0, P, n=12)
 plt.show()
-
 ```
 
 
