@@ -24,7 +24,7 @@ jobs:
       - name: Set up Julia
         uses: julia-actions/setup-julia@v1
         with:
-          version: 1.7.1
+          version: 1.6.5
       - name: Install IJulia and Setup Project
         shell: bash
         run: |
