@@ -22,7 +22,7 @@ jobs:
       - name: Install IJulia and Setup Project
         shell: bash
         run: |
-          julia -e 'using Pkg; Pkg.add("IJulia");'
+          julia -e 'using Pkg; Pkg.add(["JuMP","GLPK","PyPlot","IJulia"]);'
           julia --project=lectures --threads auto -e 'using Pkg; Pkg.instantiate();'
       # - name: Install latex dependencies
       #   run: |
