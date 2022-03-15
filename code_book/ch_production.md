@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Chapter 2 - Production Code
+# Chapter 2 - Production (Python Code)
 
 We begin with some imports
 
@@ -37,8 +37,6 @@ from matplotlib import cm
 
 ## Multisector Models
 
-### Backward linkages for 15 US sectors in 2019
-
 We start by loading a graph of linkages between 15 US sectors in 2019. Our graph comes as a list of sector codes, an adjacency matrix of sales between the sectors, and a list the total sales of each sector. The Z\[i,j\] weight is the sales from industry i to industry j.
 
 ```{code-cell}
@@ -47,7 +45,7 @@ Z = ch2_data["us_sectors_15"]["adjacency_matrix"]
 X = ch2_data["us_sectors_15"]["total_industry_sales"]
 ```
 
-Now we define a function to build coefficient matrices. Two coefficient matrices are returned. The backward case, where sales between sector i and j are given as a fraction of total sales of sector j. The forward case, where sales between sector i and j are given as a fraction of total sales of sector i. 
+Now we define a function to build coefficient matrices. Two coefficient matrices are returned. The backward linkage case, where sales between sector i and j are given as a fraction of total sales of sector j. The forward linkage case, where sales between sector i and j are given as a fraction of total sales of sector i. 
 
 ```{code-cell}
 def build_coefficient_matrices(Z, X):
@@ -70,14 +68,17 @@ def build_coefficient_matrices(Z, X):
 A, F = build_coefficient_matrices(Z, X)
 ```
 
-Next we calculate the hub-based eigenvector centrality of our centrality backward coefficient matrix.
+
+### Backward linkages for 15 US sectors in 2019
+
+Here we calculate the hub-based eigenvector centrality of our backward linkage coefficient matrix.
 
 ```{code-cell}
 centrality = qbn_io.eigenvector_centrality(A)
 color_list = qbn_io.colorise_weights(centrality,beta=False) 
 ```
 
-Finally, we use the quantecon_book_networks package to produce our plot. 
+Now we use the quantecon_book_networks package to produce our plot. 
 
 ```{code-cell}
 fig, ax = plt.subplots(figsize=(8, 10))
@@ -94,42 +95,35 @@ plt.show()
 
 ### Eigenvector centrality of across US industrial sectors
 
-Now we plot a bar chart of Eigenvector centrality by sector.
+Now we plot a bar chart of hub-based eigenvector centrality by sector.
 
 ```{code-cell}
 fig, ax = plt.subplots()
 ax.bar(codes, centrality, color=color_list, alpha=0.6)
-
 ax.set_ylabel("eigenvector centrality", fontsize=12)
-
 plt.show()
 ```
 
 ### Output multipliers across 15 US industrial sectors
 
-The output multipliers are equal to the authority-based Katz centrality measure of the backward coefficient matrix. Here we calculate authority-based Katz centrality using the quantecon_book_networks package. 
+Output multipliers are equal to the authority-based Katz centrality measure of the backward linkage coefficient matrix. Here we calculate authority-based Katz centrality using the quantecon_book_networks package. 
 
 ```{code-cell}
 omult = qbn_io.katz_centrality(A, authority=True)
-omult_color_list = qbn_io.colorise_weights(omult,beta=False)
-```
 
-```{code-cell}
 fig, ax = plt.subplots()
+omult_color_list = qbn_io.colorise_weights(omult,beta=False)
 ax.bar(codes, omult, color=omult_color_list, alpha=0.6)
-
 ax.set_ylabel("Output multipliers", fontsize=12)
-
 plt.show()
 ```
 
 ### Forward linkages and upstreamness over US industrial sectors
 
-Upstreamness is the hub-based Katz centrality of the forward coefficient matrix. Here we calculate hub-based Katz centrality using the quantecon_book_networks package.
+Upstreamness is the hub-based Katz centrality of the forward linkage coefficient matrix. Here we calculate hub-based Katz centrality using the quantecon_book_networks package.
 
 ```{code-cell}
 upstreamness = qbn_io.katz_centrality(F)
-upstreamness_color_list = qbn_io.colorise_weights(upstreamness,beta=False)
 ```
 
 Now we plot the network.
@@ -137,7 +131,7 @@ Now we plot the network.
 ```{code-cell}
 fig, ax = plt.subplots(figsize=(8, 10))
 plt.axis("off")
-
+upstreamness_color_list = qbn_io.colorise_weights(upstreamness,beta=False)
 qbn_plt.plot_graph(F, X, ax, codes, 
               layout_type='spring', # alternative layouts: spring, circular, random, spiral
               layout_seed=5432167,
@@ -154,25 +148,24 @@ Here we produce a barplot of upstreamness.
 ```{code-cell}
 fig, ax = plt.subplots()
 ax.bar(codes, upstreamness, color=upstreamness_color_list, alpha=0.6)
-
 ax.set_ylabel("upstreamness", fontsize=12)
-
 plt.show()
 ```
 
 
 ### Hub-based Katz centrality of across 15 US industrial sectors
 
+Here we plot the hub-based Katz centrality of the backward linkage coefficient matrix. 
+
 ```{code-cell}
 kcentral = qbn_io.katz_centrality(A)
-kcentral_color_list = qbn_io.colorise_weights(kcentral,beta=False)
 ```
 
 ```{code-cell}
 fig, ax = plt.subplots()
+kcentral_color_list = qbn_io.colorise_weights(kcentral,beta=False)
 ax.bar(codes, kcentral, color=kcentral_color_list, alpha=0.6)
 ax.set_ylabel("Katz hub centrality", fontsize=12)
-
 plt.show()
 ```
 
@@ -257,7 +250,7 @@ plt.show()
 
 ### Network for 71 US sectors in 2019
 
-We start by loading a graph of linkages between 75 US sectors in 2019.
+We start by loading a graph of linkages between 71 US sectors in 2019.
 
 ```{code-cell}
 codes_71 = ch2_data['us_sectors_71']['codes']
