@@ -23,6 +23,7 @@ jobs:
         shell: bash
         run: |
           julia -e 'using Pkg; Pkg.add(["JuMP","GLPK","PyPlot","IJulia"]);'
+          jupyter kernelspec list
       # - name: Install latex dependencies
       #   run: |
       #     sudo apt-get -qq update
