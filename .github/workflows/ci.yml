@@ -68,6 +68,12 @@ jobs:
         shell: bash -l {0}
         run: |
           jb build -W --keep-going code_book --path-output ./
+      - name: Upload Execution Reports
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: execution-reports
+          path: _build/html/reports
       - name: Save Build as Artifact
         uses: actions/upload-artifact@v1
         with:
