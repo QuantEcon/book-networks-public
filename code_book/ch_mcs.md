@@ -39,7 +39,7 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 ### Contour plot of transition matrix $P_B$
 
- Benhabib et al. (2015) estimate the following transition matrix for intergenerational social mobility. Here the states are percentiles of the wealth distribution. In particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100% respectively. 
+Benhabib et al. (2015) estimate the following transition matrix for intergenerational social mobility. Here the states are percentiles of the wealth distribution. In particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100% respectively. 
 
 ```{code-cell}
 P_B = [[0.222, 0.222, 0.215, 0.187, 0.081, 0.038, 0.029, 0.006],
@@ -259,11 +259,117 @@ plt.show()
 
 ### Distribution projections from $P_B$
 
-**code not in figures_source**
+Here we define a function for plotting $\psi$ after $n$ iterations of the transition matrix $P$. $\psi_0$ is taken as the unifrom distribution over the state space.
 
+```{code-cell}
+def transition(P, n, ax=None):
+    
+    P = np.array(P)
+    nstates = P.shape[1]
+    s0 = np.ones(8) * 1/nstates
+    s = s0
+    
+    for i in range(n):
+        s = s @ P
+        
+    if ax is None:
+        fig, ax = plt.subplots()
+        
+    ax.plot(range(1, nstates+1), s, '-o', alpha=0.6)
+    ax.set(ylim=(0, 0.25), 
+           xticks=((1, nstates)))
+    ax.set_title(f"t = {n}")
+    
+    return ax
+```
+
+We now generate the marginal distirbutions after 0, 1, 2, and 100 iterations for the transition matrix described in Benhabib et al. (2015).
+
+```{code-cell}
+ns = (0, 1, 2, 100)
+fig, axes = plt.subplots(1, len(ns))
+
+for n, ax in zip(ns, axes):
+    ax = transition(P_B, n, ax=ax)
+    
+axes[-1].set_xlabel("Quantile")
+
+plt.tight_layout()
+plt.show()
+```
 
 
 
 ## Asymptotics
 
 ### Convergence of the empirical distribution to $\psi^*$
+
+We begin by creating a Markov Chain object (from the quantecon package) taking the transition matrix from Benhabib et al. (2015). 
+
+```{code-cell}
+mc = qe.MarkovChain(P_B)
+```
+
+Next we use the quantecon package to calculate the true stationary distribution.
+
+```{code-cell}
+stationary = mc.stationary_distributions[0]
+n = len(mc.P)
+```
+
+Now we define a function simulate the Markov chain.
+
+```{code-cell}
+def simulate_distribution(mc, T=100):
+    # Simulate path 
+    n = len(mc.P)
+    path = mc.simulate_indices(ts_length=T, random_state=1)
+    distribution = np.empty(n)
+    for i in range(n):
+        distribution[i] = np.mean(path==i)
+    return distribution
+
+```
+
+We run simulations of length 10, 100, 1,000 and 10,000 iterations.
+
+```{code-cell}
+lengths = [10, 100, 1_000, 10_000]
+dists = []
+
+for t in lengths:
+    dists.append(simulate_distribution(mc, t))
+```
+
+Now we produce the plots, and we see that the simulated distribution starts to aproach the true stationary distribution. 
+
+```{code-cell}
+fig, axes = plt.subplots(2, 2, figsize=(9, 6), sharex='all')#, sharey='all')
+
+axes = axes.flatten()
+
+for dist, ax, t in zip(dists, axes, lengths):
+    
+    ax.plot(np.arange(n)+1 + .25, 
+           stationary, 
+            '-o',
+           #width = 0.25, 
+           label='$\\psi^*$', 
+           alpha=0.75)
+    
+    ax.plot(np.arange(n)+1, 
+           dist, 
+            '-o',
+           #width = 0.25, 
+           label=f'$\\hat \\psi_k$ with $k={t}$', 
+           alpha=0.75)
+
+
+    ax.set_xlabel("state", fontsize=12)
+    ax.set_ylabel("prob.", fontsize=12)
+    ax.set_xticks(np.arange(n)+1)
+    ax.legend(loc='upper right', fontsize=12, frameon=False)
+    ax.set_ylim(0, 0.5)
+    
+plt.show()
+```

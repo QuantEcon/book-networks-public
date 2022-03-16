@@ -354,6 +354,8 @@ Finally, we solve our linear assignment problem as a special case of optimal tra
 ot.emd(phi, psi, c)
 ```
 
+Readers interested in computational optimal transport should also consider PySAL, the Python Spatial Analysis library (link to https://pysal.org/). See, for example, https://pysal.org/spaghetti/notebooks/transportation-problem.html.
+
 ### The General Flow Problem
 
 Here we solve a simple network flow problem as a linear program. We begin by defining the node-edge incidence matrix.
