@@ -315,3 +315,33 @@ qbn_plt.plot_graph(A_114, X_114, ax, codes_114,
 plt.show()
 ```
 
+### GDP growth rates and std. deviations (in parentheses) for 8 countries
+
+Here we load a pandas dataframe of GDP growth rates.
+
+```{code-cell}
+gdp_df = ch2_data['gdp_df']
+gdp_df.head()
+```
+
+
+```{code-cell}
+fig, axes = plt.subplots(5, 2, figsize=(8, 9))
+axes = axes.flatten()
+
+countries = gdp_df.columns
+t = np.asarray(gdp_df.index.astype(float))
+series = [np.asarray(gdp_df[country].astype(float)) for country in countries]
+
+
+for ax, country, gdp_data in zip(axes, countries, series):
+    
+    ax.plot(t, gdp_data)
+    ax.set_title(f'{country} (${gdp_data.std():1.2f}$%)' )
+    ax.set_ylabel('%')
+    ax.set_ylim((-12, 14))
+
+plt.tight_layout()
+plt.show()
+
+```

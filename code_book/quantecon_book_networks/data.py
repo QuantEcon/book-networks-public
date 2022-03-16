@@ -408,7 +408,15 @@ def production():
 
     ch_data["au_sectors_114"] =  au_sectors_114
 
+    ## GDP growth rates and std. deviations
+    varlist=['NY.GDP.MKTP.KD.ZG']; c='all'; s=1961; e=2020
+    countries = ['Canada', 'United States', 'United Kingdom', 'France', 'Japan', 
+             'Indonesia', 'Argentina', 'Mexico', 'Australia', 'South Africa']
+    
+    gdp_df = wb.download(indicator=varlist, country=c, start=s, end=e)
+    gdp_df = gdp_df.unstack(0)["NY.GDP.MKTP.KD.ZG"][countries]
 
+    ch_data['gdp_df'] = gdp_df
 
     return ch_data 
 
