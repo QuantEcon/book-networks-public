@@ -1,7 +1,10 @@
 import numpy as np
 import pandas as pd
 import networkx as nx
-
+import matplotlib.pyplot as plt
+from matplotlib import cm
+from mpl_toolkits.mplot3d import Axes3D
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 def plot_graph(A, 
                X,
@@ -70,3 +73,77 @@ def plot_graph(A,
                            arrowstyle='->', 
                            node_size=node_sizes, 
                            connectionstyle='arc3,rad=0.15')
+
+def plot_matrices(matrix,
+                  codes,
+                  ax,
+                  font_size=12,
+                  alpha=0.6, 
+                  colormap=cm.viridis, 
+                  color45d=None, 
+                  xlabel='sector $j$', 
+                  ylabel='sector $i$'):
+    
+    ticks = range(len(matrix))
+
+    levels = np.sqrt(np.linspace(0, 0.75, 100))
+    
+    
+    if color45d != None:
+        co = ax.contourf(ticks, 
+                         ticks,
+                         matrix,
+#                          levels,
+                         alpha=alpha, cmap=colormap)
+        ax.plot(ticks, ticks, color=color45d)
+    else:
+        co = ax.contourf(ticks, 
+                         ticks,
+                         matrix,
+                         levels,
+                         alpha=alpha, cmap=colormap)
+
+    #plt.colorbar(co)
+
+    ax.set_xlabel(xlabel, fontsize=font_size)
+    ax.set_ylabel(ylabel, fontsize=font_size)
+    ax.set_yticks(ticks)
+    ax.set_yticklabels(codes)
+    ax.set_xticks(ticks)
+    ax.set_xticklabels(codes)
+
+
+def unit_simplex(angle):
+    
+    fig = plt.figure(figsize=(10, 8))
+    ax = fig.add_subplot(111, projection='3d')
+
+    vtx = [[0, 0, 1],
+           [0, 1, 0], 
+           [1, 0, 0]]
+    
+    tri = Poly3DCollection([vtx], color='darkblue', alpha=0.3)
+    tri.set_facecolor([0.5, 0.5, 1])
+    ax.add_collection3d(tri)
+
+    ax.set(xlim=(0, 1), ylim=(0, 1), zlim=(0, 1), 
+           xticks=(1,), yticks=(1,), zticks=(1,))
+
+    ax.set_xticklabels(['$(1, 0, 0)$'], fontsize=16)
+    ax.set_yticklabels([f'$(0, 1, 0)$'], fontsize=16)
+    ax.set_zticklabels([f'$(0, 0, 1)$'], fontsize=16)
+
+    ax.xaxis.majorTicks[0].set_pad(15)
+    ax.yaxis.majorTicks[0].set_pad(15)
+    ax.zaxis.majorTicks[0].set_pad(35)
+
+    ax.view_init(30, angle)
+
+    # Move axis to origin
+    ax.xaxis._axinfo['juggled'] = (0, 0, 0)
+    ax.yaxis._axinfo['juggled'] = (1, 1, 1)
+    ax.zaxis._axinfo['juggled'] = (2, 2, 0)
+    
+    ax.grid(False)
+    
+    return ax

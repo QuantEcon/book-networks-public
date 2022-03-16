@@ -22,7 +22,7 @@ import quantecon as qe
 import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
-ch2_data = qbn_data.production()
+ch3_data = qbn_data.optimal_flows()
 ```
 
 ```{code-cell}
@@ -337,7 +337,7 @@ plt.show()
 
 ### Solving linear assignment as an optimal transport problem
 
-Here we set up a linear assignment problem (marching n workers to n jobs).
+Here we set up a linear assignment problem (matching n workers to n jobs).
 ```{code-cell}
 n = 4
 phi = np.ones(n)
@@ -353,6 +353,8 @@ Finally, we solve our linear assignment problem as a special case of optimal tra
 ```{code-cell}
 ot.emd(phi, psi, c)
 ```
+
+Readers interested in computational optimal transport should also consider PySAL, the Python Spatial Analysis library (link to https://pysal.org/). See, for example, https://pysal.org/spaghetti/notebooks/transportation-problem.html.
 
 ### The General Flow Problem
 
