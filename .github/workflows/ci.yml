@@ -23,6 +23,7 @@ jobs:
         shell: bash
         run: |
           julia -e 'using Pkg; Pkg.add(["JuMP","GLPK","PyPlot","IJulia"]);'
+          julia -e 'using Pkg; ENV["PYTHON"]="/usr/share/miniconda3"; Pkg.build("PyCall")'
       # - name: Install latex dependencies
       #   run: |
       #     sudo apt-get -qq update
