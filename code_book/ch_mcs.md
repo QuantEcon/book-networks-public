@@ -35,25 +35,46 @@ from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 ```
 
+## Example transition matrices
+
+In this chapter two transition matrices are used.
+
+First, a Markov model is estimated in the international growth dynamics study of Quah (1993). The state is real GDP per capita in a given country relative to the world average. Quah discretizes the possible values to $0$–$1/4$, $1/4$–$1/2$, $1/2$–$1$, $1$–$2$ and $2$–$\inf$, calling these states 1 to 5 respectively. The transitions are over a one year period. 
+
+```{code-cell}
+P_Q = [
+    [0.97, 0.03, 0, 0, 0],
+    [0.05, 0.92, 0.03, 0, 0],
+    [0, 0.04, 0.92, 0.04, 0],
+    [0, 0, 0.04, 0.94, 0.02],
+    [0, 0, 0, 0.01, 0.99]
+]
+P_Q = np.array(P_Q)
+codes_Q =  ( '1','2','3','4','5')
+```
+
+Second, Benhabib et al. (2015) estimate the following transition matrix for intergenerational social mobility. The states are percentiles of the wealth distribution, in particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100% respectively. 
+
+```{code-cell}
+P_B = [
+    [0.222, 0.222, 0.215, 0.187, 0.081, 0.038, 0.029, 0.006],
+    [0.221, 0.22, 0.215, 0.188, 0.082, 0.039, 0.029, 0.006],
+    [0.207, 0.209, 0.21, 0.194, 0.09, 0.046, 0.036, 0.008],
+    [0.198, 0.201, 0.207, 0.198, 0.095, 0.052, 0.04, 0.009],
+    [0.175, 0.178, 0.197, 0.207, 0.11, 0.067, 0.054, 0.012],
+    [0.182, 0.184, 0.2, 0.205, 0.106, 0.062, 0.05, 0.011],
+    [0.123, 0.125, 0.166, 0.216, 0.141, 0.114, 0.094, 0.021],
+    [0.084, 0.084, 0.142, 0.228, 0.17, 0.143, 0.121, 0.028]
+    ]
+
+P_B = np.array(P_B)
+codes_B =  ( '1','2','3','4','5','6','7','8')
+```
+
+
 ## Markov Chains as Digraphs
 
 ### Contour plot of transition matrix $P_B$
-
-Benhabib et al. (2015) estimate the following transition matrix for intergenerational social mobility. Here the states are percentiles of the wealth distribution. In particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100% respectively. 
-
-```{code-cell}
-P_B = [[0.222, 0.222, 0.215, 0.187, 0.081, 0.038, 0.029, 0.006],
-       [0.221, 0.22, 0.215, 0.188, 0.082, 0.039, 0.029, 0.006],
-       [0.207, 0.209, 0.21, 0.194, 0.09, 0.046, 0.036, 0.008],
-       [0.198, 0.201, 0.207, 0.198, 0.095, 0.052, 0.04, 0.009],
-       [0.175, 0.178, 0.197, 0.207, 0.11, 0.067, 0.054, 0.012],
-       [0.182, 0.184, 0.2, 0.205, 0.106, 0.062, 0.05, 0.011],
-       [0.123, 0.125, 0.166, 0.216, 0.141, 0.114, 0.094, 0.021],
-       [0.084, 0.084, 0.142, 0.228, 0.17, 0.143, 0.121, 0.028]]
-
-P_B = np.array(P_B)
-codes =  ( '1','2','3','4','5','6','7','8')
-```
 
 Here we define a function for producing contour plots of matrices.
 
@@ -92,17 +113,17 @@ def plot_matrices(matrix,
     ax.set_xlabel(xlabel, fontsize=font_size)
     ax.set_ylabel(ylabel, fontsize=font_size)
     ax.set_yticks(ticks)
-    ax.set_yticklabels(codes)
+    ax.set_yticklabels(codes_B)
     ax.set_xticks(ticks)
-    ax.set_xticklabels(codes)
+    ax.set_xticklabels(codes_B)
 
 ```
 
-Finally, we produce the plot.
+Now we use our function to produce a plot of the transition matrix for intergenerational social mobility, $P_B$.
 
 ```{code-cell}
 fig, ax = plt.subplots(figsize=(6,6))
-plot_matrices(P_B.transpose(), codes, ax, alpha=0.75, 
+plot_matrices(P_B.transpose(), codes_B, ax, alpha=0.75, 
                  colormap=cm.viridis, color45d='black',
                  xlabel='state at time $t$', ylabel='state at time $t+1$')
 
@@ -112,7 +133,36 @@ plt.show()
 
 ### Wealth percentile over time
 
-**no code in figures_cource**
+Here, we compare the mixing of the transition matrix for intergenerational social mobility $P_B$ and the transition matrix for international growth dynamics $P_Q$. 
+
+We begin by creating quantecon MarkovChain objects with each of our transition matrices. 
+
+```{code-cell}
+mc_B = qe.MarkovChain(P_B, state_values=range(1, 9))
+mc_Q = qe.MarkovChain(P_Q, state_values=range(1, 6))
+```
+
+Next we define a function to plot simultations of Markov processes. Two simulations will be run for each MarkovChain, one starting at the minimum initial value and one at the maximum. 
+
+```{code-cell}
+def sim_fig(ax, mc, T=100, seed=14, title=None):
+    X1 = mc.simulate(T, init=1, random_state=seed)
+    X2 = mc.simulate(T, init=max(mc.state_values), random_state=seed+1)
+    ax.plot(X1, label="low initial state")
+    ax.plot(X2, label="high initial state")
+    ax.set_title(title, fontsize=12)
+```
+
+Finally, we produce figure.
+
+```{code-cell}
+fig, axes = plt.subplots(2, 1)
+sim_fig(axes[0], mc_B, title="$P_B$")
+sim_fig(axes[1], mc_Q, title="$P_Q$")
+
+plt.tight_layout()
+plt.show()
+```
 
 
 ### Predicted vs realized cross-country income distributions for 2019
@@ -121,6 +171,7 @@ Here we load a pandas dataframe of GDP per capita data for countries compared to
 
 ```{code-cell}
 gdppc_df = ch4_data['gdppc_df']
+gdppc_df.head()
 ```
 
 Now we assign countries bins as per Quah (1993).
@@ -131,14 +182,9 @@ l = [0, 1, 2, 3, 4]
 
 x = pd.cut(gdppc_df.gdppc_r, bins=q, labels=l)
 gdppc_df['interval'] = x
-gdppc_df['interval'] = gdppc_df['interval'].astype(float)
-```
 
-Now we calculate year on year change in bin for each country. 
-
-```{code-cell}
-gdppc_df['diff'] = gdppc_df.groupby('country')['interval'].diff(1)
 gdppc_df = gdppc_df.reset_index()
+gdppc_df['interval'] = gdppc_df['interval'].astype(float)
 gdppc_df['year'] = gdppc_df['year'].astype(float)
 ```
 
@@ -166,12 +212,6 @@ Calculate the true distribution for 1985.
 Now, we use the transition matrix to update the 1985 distribution 𝑡 = 2019 − 1985 = 34 times to get our predicted 2019 distribution. 
 
 ```{code-cell}
-P_Q = [[0.97, 0.03, 0.00, 0.00, 0.00],
-       [0.05, 0.92, 0.03, 0.00, 0.00],
-       [0.00, 0.04, 0.92, 0.04, 0.00],
-       [0.00, 0.00, 0.04, 0.94, 0.02],
-       [0.00, 0.00, 0.00, 0.01, 0.99]]
-P_Q = np.array(P_Q)
 ψ_2019_predicted = ψ_1985 @ np.linalg.matrix_power(P_Q, 2019-1985)
 ```
 
