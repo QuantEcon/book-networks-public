@@ -36,10 +36,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import matplotlib.colors as plc
 import matplotlib.patches as mpatches
-import plotly.io as pio
-import plotly.offline as py
 import plotly.graph_objects as go
-
 ```
 
 
@@ -47,7 +44,7 @@ import plotly.graph_objects as go
 
 ### International trade in crude oil 2019
 
-We begin by loading a Networkx directed graph object the represents the international trade in crude oil.
+We begin by loading a NetworkX directed graph object the represents the international trade in crude oil.
 
 ```{code-cell}
 DG = ch1_data["crude_oil"]
@@ -87,8 +84,9 @@ fig = go.Figure(data=[go.Sankey(
       value = value
   ))])
 
+
 fig.update_layout(title_text="Crude Oil", font_size=10, width=600, height=800)
-fig
+fig.show(renderer='svg')
 ```
 
 ### International trade in commercial aircraft during 2019.
@@ -100,7 +98,7 @@ DG = ch1_data['aircraft_network_2019']
 pos = ch1_data['aircraft_network_2019_pos']
 ```
 
-We begin by calculating some features of our graph using the networkx and the quantecon_book_networks packages.
+We begin by calculating some features of our graph using the NetworkX and the quantecon_book_networks packages.
 
 ```{code-cell}
 centrality = nx.eigenvector_centrality(DG)
@@ -428,7 +426,7 @@ plt.show()
 ```
 
 
-### Networkx digraph plot
+### NetworkX digraph plot
 
 We start by creating a graph object and populating it with edges. 
 
@@ -467,7 +465,7 @@ G_p.in_degree('p')
 G_p.out_degree('p')
 ```
 
-Additionally the Networkx package supplies functions for testing communication and strong connectedness, as well as to
+Additionally the NetworkX package supplies functions for testing communication and strong connectedness, as well as to
 compute strongly conneted components.
 
 ```{code-cell} 
@@ -479,7 +477,7 @@ G.add_edge(3, 2)
 list(nx.strongly_connected_components(G))
 ```
 
-Like Networkx, the QuantEcon Python library 'quantecon' supplies a graph object that implements certain graph-theoretic algorithms. The set of available algorithms is more limited but each one is faster, accelerated by just-in-time compilation. In the case of QuantEcon’s DiGraph object, an instance is created via the adjacency matrix.
+Like NetworkX, the QuantEcon Python library 'quantecon' supplies a graph object that implements certain graph-theoretic algorithms. The set of available algorithms is more limited but each one is faster, accelerated by just-in-time compilation. In the case of QuantEcon’s DiGraph object, an instance is created via the adjacency matrix.
 
 ```{code-cell} 
 A = ((1, 0, 0),
@@ -501,7 +499,7 @@ Z_visual= ch1_data["adjacency_matrix_2019"]["Z_visual"]
 countries = ch1_data["adjacency_matrix_2019"]["countries"]
 ```
 
-Here we will use the quantecon_book_networks package to convert the adjacency matrix into a networkx graph object. 
+Here we will use the quantecon_book_networks package to convert the adjacency matrix into a NetworkX graph object. 
 
 ```{code-cell} 
 G = qbn_io.adjacency_matrix_to_graph(Z_visual, countries, tol=0.03)
@@ -549,7 +547,6 @@ nx.draw_networkx_nodes(G,
 nx.draw_networkx_labels(G, 
                         node_pos_dict,  
                         font_size=12,
-                        font_weight='black', 
                         ax=ax)
 
 nx.draw_networkx_edges(G, 
@@ -589,7 +586,7 @@ ecentral_authority = qbn_io.eigenvector_centrality(Z, authority=True)
 kcentral_authority = qbn_io.katz_centrality(Z, b=1/1_400_000, authority=True)
 ```
 
-Here we provide a helper function that returns a dataframe for each measure that is ordered by that measure and contains color information.
+Here we provide a helper function that returns a dataframe for each measure. The dataframe is ordered by that measure and contains color information.
 
 ```{code-cell}
 def centrality_plot_data(countries, centrality_measures):
@@ -628,7 +625,6 @@ for i, ax in enumerate(axes):
     patch = mpatches.Patch(color=None, label=ylabels[i], visible=False)
     ax.legend(handles=[patch], fontsize=12, loc="upper left", handlelength=0, frameon=False)
     
-    ax.set_xticklabels(df['code'], fontsize=8)
     if ylims[i] is not None:
         ax.set_ylim(ylims[i])
 
@@ -638,7 +634,7 @@ plt.show()
 
 ### Computing in and out degree distributions
 
-The in-degree distribution evaluated at 𝑘 is the fraction of nodes in a network that have in-degree 𝑘. The in-degree distribution of a Networkx DiGraph can be calculated using the below.
+The in-degree distribution evaluated at 𝑘 is the fraction of nodes in a network that have in-degree 𝑘. The in-degree distribution of a NetworkX DiGraph can be calculated using the below.
 
 ```{code-cell} 
 def in_degree_dist(G):
@@ -664,7 +660,7 @@ def out_degree_dist(G):
 Here we illustrate that the commercial aircraft international trade network is approximately scale-free by plotting the degree distribution alongside 𝑓(𝑥) = 𝑐𝑥−𝛾 with 𝑐 = 0.2 and
 𝛾 = 1.1. 
 
-In this calculation of the degree distribution, performed by the Networkx function degree_histogram, directions are ignored and the network is treated as an undirected
+In this calculation of the degree distribution, performed by the NetworkX function degree_histogram, directions are ignored and the network is treated as an undirected
 graph.
 
 ```{code-cell} 
@@ -693,7 +689,7 @@ plt.show()
 
 ### Random graphs
 
-The code to produce the Erdos–Renyi random graph, used below, applies the combinations function from the itertools library. For the call combinations(A, k), the combinations function returns a list of all subsets of 𝐴 of size 𝑘. For example:
+The code to produce the Erdos–Renyi random graph, used below, applies the combinations function from the itertools library. The function `combinations(A, k)` returns a list of all subsets of $A$ of size $k$. For example:
 
 ```{code-cell} 
 import itertools
