@@ -17,35 +17,30 @@ kernelspec:
 
 We begin with some imports
 
-```{code-cell} ipython3
-
+```{code-cell}
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.axes3d import Axes3D, proj3d
 from matplotlib import cm
-
 ```
 
 ## Functions
 
-- Figure 6.1 - One-to-one and onto functions on $(0,1)$.
+### One-to-one and onto functions on $(0,1)$.
 
 We start by defining the domain and our one-to-one and onto function examples.
 
 
-```{code-cell} ipython3
-
+```{code-cell}
 x = np.linspace(0, 1, 100)
 titles = 'one-to-one', 'onto'
 labels = '$f(x)=1/2 + x/2$', '$f(x)=4x(1-x)$'
 funcs = lambda x: 1/2 + x/2, lambda x: 4 * x * (1-x)
-
 ```
 
 The figure can now be produced as follows.
 
-```{code-cell} ipython3
-
+```{code-cell}
 fig, axes = plt.subplots(1, 2, figsize=(10, 4))
 for f, ax, lb, ti in zip(funcs, axes, labels, titles):
     ax.set_xlim(0, 1)
@@ -57,19 +52,17 @@ for f, ax, lb, ti in zip(funcs, axes, labels, titles):
     ax.set_yticks((0, 1))
 
 plt.show()
-
 ```
 
-- Figure 6.2 - Some functions are bijections
+### Some functions are bijections
 
 This figure can be produced in a similar manner to 6.1. 
 
-```{code-cell} ipython3
-
+```{code-cell}
 x = np.linspace(0, 1, 100)
-titles = 'one-to-one', 'onto'
-labels = '$f(x)=1/2 + x/2$', '$f(x)=4x(1-x)$'
-funcs = lambda x: 1/2 + x/2, lambda x: 4 * x * (1-x)
+titles = 'constant', 'bijection'
+labels = '$f(x)=1/2$', '$f(x)=1-x$'
+funcs = lambda x: 1/2 + 0 * x, lambda x: 1-x
 
 fig, axes = plt.subplots(1, 2, figsize=(10, 4))
 for f, ax, lb, ti in zip(funcs, axes, labels, titles):
@@ -82,37 +75,31 @@ for f, ax, lb, ti in zip(funcs, axes, labels, titles):
     ax.set_yticks((0, 1))
     
 plt.show()
-
 ```
 
 ## Fixed Points
 
-- Figure 6.3 - Graph and fixed points of $G \colon x \mapsto 2.125/(1 + x^{-4})$.
+### Graph and fixed points of $G \colon x \mapsto 2.125/(1 + x^{-4})$.
 
 We begin by defining the domain and the function.
 
-```{code-cell} ipython3
-
+```{code-cell}
 xmin, xmax = 0.0000001, 2
 xgrid = np.linspace(xmin, xmax, 200)
 g = lambda x: 2.125 / (1 + x**(-4))
-
 ```
 
 Next we define our fixed points
 
-```{code-cell} ipython3
-
+```{code-cell}
 fps_labels = ('$x_\ell$', '$x_m$', '$x_h$' )
 fps = (0.01, 0.94, 1.98)
 coords = ((40, 80), (40, -40), (-40, -80))
-
 ```
 
 Finally we can produce the figure.
 
-```{code-cell} ipython3
-
+```{code-cell}
 fig, ax = plt.subplots(figsize=(6.5, 6))
 
 ax.set_xlim(xmin, xmax)
@@ -135,40 +122,34 @@ for (fp, lb, coord) in zip(fps, fps_labels, coords):
              arrowprops=dict(arrowstyle="->"))
 
 plt.show()
-
 ```
 
 ## Complex Numbers
 
-- Figure 6.4 - The complex number $(a, b) = r e^{i \phi}$. 
+### The complex number $(a, b) = r e^{i \phi}$. 
 
 We start by abbreviating some useful values and functions
 
-```{code-cell} ipython3
-
+```{code-cell}
 π = np.pi
 zeros = np.zeros
 ones = np.ones
 fs = 18
-
 ```
 
 Next we set our parameters.
 
-```{code-cell} ipython3
-
+```{code-cell}
 r = 2
 φ = π/3
 x = r * np.cos(φ)
 x_range = np.linspace(0, x, 1000)
 φ_range = np.linspace(0, φ, 1000)
-
 ```
 
 Finally we produce the plot.
 
-```{code-cell} ipython3
-
+```{code-cell}
 fig = plt.figure(figsize=(7, 7))
 ax = plt.subplot(111, projection='polar')
 
@@ -203,17 +184,15 @@ plt.xticks(xT, xL, fontsize=fs+2)
 ax.grid(True)
 
 plt.show()
-
 ```
 
 ## Convergence
 
-- Figure 6.4 - Convergence of a sequence to the origin in $\mathbb{R}^3$. 
+### Convergence of a sequence to the origin in $\mathbb{R}^3$. 
 
-We define our transformation matrix, initial point, and number of itterations. 
+We define our transformation matrix, initial point, and number of iterations. 
 
-```{code-cell} ipython3
-
+```{code-cell}
 θ = 0.1
 A = ((np.cos(θ), - np.sin(θ), 0.0001),
      (np.sin(θ),   np.cos(θ), 0.001),
@@ -222,13 +201,11 @@ A = ((np.cos(θ), - np.sin(θ), 0.0001),
 A = 0.98 * np.array(A)
 p = np.array((1, 1, 1))
 n = 200
-
 ```
 
-Now we can produce the plot, by repeatedly transforming our point by the transformation matrix and plotting each resulting point.
+Now we can produce the plot by repeatedly transforming our point with the transformation matrix and plotting each resulting point.
 
-```{code-cell} ipython3
-
+```{code-cell}
 fig = plt.figure(figsize=(6, 6))
 ax = fig.add_subplot(111, projection='3d')
 ax.view_init(elev=20, azim=-40)
@@ -240,7 +217,7 @@ ax.set_yticks((-1,0,1))
 
 for i in range(n):
     x, y, z = p
-    ax.plot([x], [y], [z], 'o', ms=4, marker=(5,1), color=cm.jet_r(i / n))
+    ax.plot([x], [y], [z], 'o', ms=4, color=cm.jet_r(i / n))
     p = A @ p
     
 plt.show()
@@ -248,12 +225,11 @@ plt.show()
 
 ## Linear Algebra
 
-- Figure 6.6: The span of vectors $u$, $v$, $w$ in $\mathbb{R}$.
+### The span of vectors $u$, $v$, $w$ in $\mathbb{R}$.
 
 We begin by importing the FancyArrowPatch class and extending it.
 
-```{code-cell} ipython3
-
+```{code-cell}
 from matplotlib.patches import FancyArrowPatch
 
 class Arrow3D(FancyArrowPatch):
@@ -261,18 +237,23 @@ class Arrow3D(FancyArrowPatch):
         FancyArrowPatch.__init__(self, (0,0), (0,0), *args, **kwargs)
         self._verts3d = xs, ys, zs
 
+    def do_3d_projection(self, renderer=None):
+        xs3d, ys3d, zs3d = self._verts3d
+        xs, ys, zs = proj3d.proj_transform(xs3d, ys3d, zs3d, self.axes.M)
+        self.set_positions((xs[0],ys[0]),(xs[1],ys[1]))
+
+        return np.min(zs)
+
     def draw(self, renderer):
         xs3d, ys3d, zs3d = self._verts3d
-        xs, ys, zs = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+        xs, ys, zs = proj3d.proj_transform(xs3d, ys3d, zs3d, self.axes.M)
         self.set_positions((xs[0],ys[0]),(xs[1],ys[1]))
         FancyArrowPatch.draw(self, renderer)
-
 ```
 
 Next we generate our vectors $u$, $v$, $w$ ensuring linear dependence. 
 
-```{code-cell} ipython3
-
+```{code-cell}
 α, β = 0.2, 0.1
 def f(x, y):
     return α * x + β * y
@@ -283,13 +264,11 @@ y_coords = np.array((4, -4, 3.0))
 z_coords = f(x_coords, y_coords)
 
 vecs = [np.array((x, y, z)) for x, y, z in zip(x_coords, y_coords, z_coords)]
-
 ```
 
 Next we define the spanning plane.
 
-```{code-cell} ipython3
-
+```{code-cell}
 x_min, x_max = -5, 5
 y_min, y_max = -5, 5
 
@@ -298,15 +277,13 @@ xr2 = np.linspace(x_min, x_max, grid_size)
 yr2 = np.linspace(y_min, y_max, grid_size)
 x2, y2 = np.meshgrid(xr2, yr2)
 z2 = f(x2, y2)
-
 ```
 
 Finally we generate the plot.
 
-```{code-cell} ipython3
-
+```{code-cell}
 fig = plt.figure(figsize=(12, 7))
-ax = fig.gca(projection='3d')
+ax = plt.axes(projection ='3d')
 ax.view_init(elev=10., azim=-80)
 
 ax.set(xlim=(x_min, x_max), 
@@ -353,17 +330,15 @@ ax.plot_surface(x2, y2, z2, rstride=1, cstride=1, cmap=cm.jet,
 
 
 plt.show()
-
 ```
 
 ## Linear Maps Are Matrices
 
-- Figure 6.7 - Equivalence of the onto and one-to-one properties (for linear maps)
+### Equivalence of the onto and one-to-one properties (for linear maps)
 
 This plot is produced similarly to figures 6.1 and 6.2.
 
-```{code-cell} ipython3
-
+```{code-cell}
 fig, axes = plt.subplots(1, 2, figsize=(10, 4))
 
 x = np.linspace(-2, 2, 10)
@@ -389,12 +364,11 @@ for ax, f, lb, ti in zip(axes, funcs, labels, titles):
     ax.legend(loc='lower right', fontsize=12)
     
 plt.show()
-
 ```
 
 ## Convexity and Polyhedra
 
-- Figure 6.8 - A polyhedron $P$ represented as intersecting halfspaces.
+### A polyhedron $P$ represented as intersecting halfspaces.
 
 Inequalities are of the form
 
@@ -406,8 +380,7 @@ $$ y = c/b - a/b x $$
 
 and then fill in the halfspace using `fill_between` on points $x, y, \hat y$, where $\hat y$ is either `y_min` or `y_max`.
 
-```{code-cell} ipython3
-
+```{code-cell}
 fig, ax = plt.subplots()
 plt.axis('off')
 
@@ -440,17 +413,15 @@ ax.annotate('$P$', xy=(0, 0), fontsize=12)
 
 ax.set_ylim(y_min, y_max)
 plt.show()
-
 ```
 
 ## Saddle Points and Duality
 
-- Figure 6.9 (top left) - A saddle point $(x^*, \theta^*)$ of the function $L$ 
+### A saddle point $(x^*, \theta^*)$ of the function $L$ (top left)
 
-```{code-cell} ipython3
-
+```{code-cell}
 fig = plt.figure(figsize=(12, 7))
-ax = fig.gca(projection='3d')
+ax = plt.axes(projection ='3d')
 
 plot_args = {'rstride': 1, 'cstride': 1, 'cmap':"viridis",
              'linewidth': 0.4, 'antialiased': True, "alpha":0.75,
@@ -483,13 +454,11 @@ ax.w_zaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
 ax.set_zlabel("$L(x,\\theta)$", fontsize=14)
 
 plt.show()
-
 ```
 
-- Figure 6.9 (top right) - A saddle point $(x^*, \theta^*)$ of the function $L$  
+### A saddle point $(x^*, \theta^*)$ of the function $L$  (top right)
 
-```{code-cell} ipython3
-
+```{code-cell}
 fig, ax = plt.subplots()
 
 plot_args = {'cmap':"viridis", 'antialiased': True, "alpha":0.6,
@@ -533,13 +502,11 @@ ax.annotate(r'$L(x^*, \theta)$',
              arrowprops={"arrowstyle" : "->"})
 
 plt.show()
-
 ```
 
-- Figure 6.9 (bottom left) - A saddle point $(x^*, \theta^*)$ of the function $L$  
+### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom left)
 
-```{code-cell} ipython3
-
+```{code-cell}
 fig, ax = plt.subplots()
 
 x = np.linspace(-1, 1, 100)
@@ -550,13 +517,11 @@ ax.set_xticks([])
 ax.set_yticks([])
 
 plt.show()
-
 ```
 
-- Figure 6.9 (bottom right) - A saddle point $(x^*, \theta^*)$ of the function $L$ 
+### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom right)
 
-```{code-cell} ipython3
-
+```{code-cell}
 fig, ax = plt.subplots()
 
 x = np.linspace(-1, 1, 100)
@@ -567,5 +532,4 @@ ax.set_xticks([])
 ax.set_yticks([])
 
 plt.show()
-
 ```
