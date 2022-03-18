@@ -173,7 +173,7 @@ M = np.array([[1,2],[2,1]])
 spec_rad(M)
 ```
 
-This function, along with functions for other important calculations from the text, are available in the quantecon_book_networks package. For convenience, source code for these functions can be seen [here](pkg_funcs).
+This function, along with functions for other important calculations from the text, are available in the quantecon_book_networks package. Source code for these functions can be seen [here](pkg_funcs).
 
 ```{code-cell}
 qbn_io.spec_rad(M)
@@ -184,7 +184,7 @@ qbn_io.spec_rad(M)
 
 ### The unit simplex in $\mathbb{R}^3$.
 
-We begin by defining a function for plotting the unit simplex.
+Here we define a function for plotting the unit simplex.
 
 ```{code-cell}
 def unit_simplex(angle):

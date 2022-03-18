@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# The quantecon_book_networks package
+# quantecon_book_networks
 
 ## Chapter 1
 

@@ -37,7 +37,8 @@ from matplotlib import cm
 
 ## Multisector Models
 
-We start by loading a graph of linkages between 15 US sectors in 2019. Our graph comes as a list of sector codes, an adjacency matrix of sales between the sectors, and a list the total sales of each sector. The Z\[i,j\] weight is the sales from industry i to industry j.
+We start by loading a graph of linkages between 15 US sectors in 2019. Our graph comes as a list of sector codes, an adjacency matrix of sales between the sectors, and a list the total sales of each sector. 
+That is $Z[i,j]$ is the sales from industry $i$ to industry $j$, and $X[i]$ is the the total sales of each sector $i$.
 
 ```{code-cell}
 codes = ch2_data["us_sectors_15"]["codes"]
@@ -75,7 +76,6 @@ Here we calculate the hub-based eigenvector centrality of our backward linkage c
 
 ```{code-cell}
 centrality = qbn_io.eigenvector_centrality(A)
-color_list = qbn_io.colorise_weights(centrality,beta=False) 
 ```
 
 Now we use the quantecon_book_networks package to produce our plot. 
@@ -83,6 +83,7 @@ Now we use the quantecon_book_networks package to produce our plot.
 ```{code-cell}
 fig, ax = plt.subplots(figsize=(8, 10))
 plt.axis("off")
+color_list = qbn_io.colorise_weights(centrality,beta=False) 
 
 qbn_plt.plot_graph(A, X, ax, codes, 
               layout_type='spring',
@@ -110,7 +111,9 @@ Output multipliers are equal to the authority-based Katz centrality measure of t
 
 ```{code-cell}
 omult = qbn_io.katz_centrality(A, authority=True)
+```
 
+```{code-cell}
 fig, ax = plt.subplots()
 omult_color_list = qbn_io.colorise_weights(omult,beta=False)
 ax.bar(codes, omult, color=omult_color_list, alpha=0.6)
@@ -227,7 +230,7 @@ for i in range(sim_length):
     x = A @ x
 ```
 
-Finally, we plot the shock propergate through the economy.
+Finally, we plot the shock propergating through the economy.
 
 ```{code-cell}
 fig, axes = plt.subplots(3, 2, figsize=(8, 10))
@@ -324,6 +327,7 @@ gdp_df = ch2_data['gdp_df']
 gdp_df.head()
 ```
 
+Now we plot the growth rates and calculate their std. deviations.
 
 ```{code-cell}
 fig, axes = plt.subplots(5, 2, figsize=(8, 9))

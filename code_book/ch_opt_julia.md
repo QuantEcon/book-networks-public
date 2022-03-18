@@ -18,7 +18,7 @@ kernelspec:
 ## Bellman’s Method
 
 Our first step is to set up the cost function, which we store as an array called $c$. Note that we set $c[i, j] = Inf$ when no edge
-exists from $i$ to $j$, so that such a path is never chosen when evaluating the Bellman operator
+exists from $i$ to $j$.
 
 ```{code-cell}
 :tags: ["remove-output"]
@@ -79,7 +79,6 @@ We create our model object and select our solver.
 ```{code-cell}
 m = Model()
 set_optimizer(m, GLPK.Optimizer)
-
 ```
 
 Now we add variables, constraints and an objective to our model.

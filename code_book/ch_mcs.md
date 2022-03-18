@@ -98,7 +98,6 @@ def plot_matrices(matrix,
         co = ax.contourf(ticks, 
                          ticks,
                          matrix,
-#                          levels,
                          alpha=alpha, cmap=colormap)
         ax.plot(ticks, ticks, color=color45d)
     else:
@@ -107,8 +106,6 @@ def plot_matrices(matrix,
                          matrix,
                          levels,
                          alpha=alpha, cmap=colormap)
-
-    #plt.colorbar(co)
 
     ax.set_xlabel(xlabel, fontsize=font_size)
     ax.set_ylabel(ylabel, fontsize=font_size)
@@ -153,7 +150,7 @@ def sim_fig(ax, mc, T=100, seed=14, title=None):
     ax.set_title(title, fontsize=12)
 ```
 
-Finally, we produce figure.
+Finally, we produce the figure.
 
 ```{code-cell}
 fig, axes = plt.subplots(2, 1)
@@ -203,7 +200,7 @@ def gdp_dist_estimate(df, l, yr=(1960, 2019)):
     return Y / Y.sum()
 ```
 
-Calculate the true distribution for 1985.
+We calculate the true distribution for 1985.
 
 ```{code-cell}
 ψ_1985 = gdp_dist_estimate(gdppc_df,l,yr=(1985, 1985))
@@ -323,7 +320,7 @@ def transition(P, n, ax=None):
     return ax
 ```
 
-We now generate the marginal distirbutions after 0, 1, 2, and 100 iterations for the transition matrix described in Benhabib et al. (2015).
+We now generate the marginal distributions after 0, 1, 2, and 100 iterations for $P_B$.
 
 ```{code-cell}
 ns = (0, 1, 2, 100)
@@ -344,7 +341,7 @@ plt.show()
 
 ### Convergence of the empirical distribution to $\psi^*$
 
-We begin by creating a Markov Chain object (from the quantecon package) taking the transition matrix from Benhabib et al. (2015). 
+We begin by creating a Markov Chain object, taking $P_B$ as the transition matrix. 
 
 ```{code-cell}
 mc = qe.MarkovChain(P_B)
@@ -371,7 +368,7 @@ def simulate_distribution(mc, T=100):
 
 ```
 
-We run simulations of length 10, 100, 1,000 and 10,000 iterations.
+We run simulations of length 10, 100, 1,000 and 10,000.
 
 ```{code-cell}
 lengths = [10, 100, 1_000, 10_000]
@@ -381,7 +378,7 @@ for t in lengths:
     dists.append(simulate_distribution(mc, t))
 ```
 
-Now we produce the plots, and we see that the simulated distribution starts to aproach the true stationary distribution. 
+Now we produce the plots. We see that the simulated distribution starts to aproach the true stationary distribution. 
 
 ```{code-cell}
 fig, axes = plt.subplots(2, 2, figsize=(9, 6), sharex='all')#, sharey='all')
