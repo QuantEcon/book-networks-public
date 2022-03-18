@@ -364,10 +364,10 @@ Here we solve a simple network flow problem as a linear program. We begin by def
 
 ```{code-cell}
 A = (
-( 1, 1, 0, 0),
-(-1, 0, 1, 0),
-( 0, 0, -1, 1),
-( 0, -1, 0, -1)
+( 1,  1,  0,  0),
+(-1,  0,  1,  0),
+( 0,  0, -1,  1),
+( 0, -1,  0, -1)
 )
 ```
 
