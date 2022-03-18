@@ -39,32 +39,32 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 In this chapter two transition matrices are used.
 
-First, a Markov model is estimated in the international growth dynamics study of Quah (1993). The state is real GDP per capita in a given country relative to the world average. Quah discretizes the possible values to $0$–$1/4$, $1/4$–$1/2$, $1/2$–$1$, $1$–$2$ and $2$–$\inf$, calling these states 1 to 5 respectively. The transitions are over a one year period. 
+First, a Markov model is estimated in the international growth dynamics study of Quah (1993). The state is real GDP per capita in a given country relative to the world average. Quah discretizes the possible values to 0–1/4, 1/4–1/2, 1/2–1, 1–2 and 2–inf, calling these states 1 to 5 respectively. The transitions are over a one year period. 
 
 ```{code-cell}
 P_Q = [
-    [0.97, 0.03, 0, 0, 0],
-    [0.05, 0.92, 0.03, 0, 0],
-    [0, 0.04, 0.92, 0.04, 0],
-    [0, 0, 0.04, 0.94, 0.02],
-    [0, 0, 0, 0.01, 0.99]
+    [0.97, 0.03, 0,    0,    0   ],
+    [0.05, 0.92, 0.03, 0,    0   ],
+    [0,    0.04, 0.92, 0.04, 0   ],
+    [0,    0,    0.04, 0.94, 0.02],
+    [0,    0,    0,    0.01, 0.99]
 ]
 P_Q = np.array(P_Q)
 codes_Q =  ( '1','2','3','4','5')
 ```
 
-Second, Benhabib et al. (2015) estimate the following transition matrix for intergenerational social mobility. The states are percentiles of the wealth distribution, in particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100% respectively. 
+Second, Benhabib et al. (2015) estimate the following transition matrix for intergenerational social mobility. The states are percentiles of the wealth distribution, in particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100%. 
 
 ```{code-cell}
 P_B = [
     [0.222, 0.222, 0.215, 0.187, 0.081, 0.038, 0.029, 0.006],
-    [0.221, 0.22, 0.215, 0.188, 0.082, 0.039, 0.029, 0.006],
-    [0.207, 0.209, 0.21, 0.194, 0.09, 0.046, 0.036, 0.008],
-    [0.198, 0.201, 0.207, 0.198, 0.095, 0.052, 0.04, 0.009],
-    [0.175, 0.178, 0.197, 0.207, 0.11, 0.067, 0.054, 0.012],
-    [0.182, 0.184, 0.2, 0.205, 0.106, 0.062, 0.05, 0.011],
+    [0.221, 0.22,  0.215, 0.188, 0.082, 0.039, 0.029, 0.006],
+    [0.207, 0.209, 0.21,  0.194, 0.09,  0.046, 0.036, 0.008],
+    [0.198, 0.201, 0.207, 0.198, 0.095, 0.052, 0.04,  0.009],
+    [0.175, 0.178, 0.197, 0.207, 0.11,  0.067, 0.054, 0.012],
+    [0.182, 0.184, 0.2,   0.205, 0.106, 0.062, 0.05,  0.011],
     [0.123, 0.125, 0.166, 0.216, 0.141, 0.114, 0.094, 0.021],
-    [0.084, 0.084, 0.142, 0.228, 0.17, 0.143, 0.121, 0.028]
+    [0.084, 0.084, 0.142, 0.228, 0.17,  0.143, 0.121, 0.028]
     ]
 
 P_B = np.array(P_B)

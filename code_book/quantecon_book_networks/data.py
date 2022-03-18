@@ -447,11 +447,11 @@ def markov_chains_and_networks():
     ind = ['NY.GDP.PCAP.CD']
 
     # NY.GDP.PCAP.CD GDP per capita in current US$ and NY.GDP.PCAP.PP.CD GDP per capita in current international $
-    dat = wb.download(indicator=ind, country=countries, start=1960, end=2019)
+    dat = wb.download(indicator=ind, country=countries, start=1960, end=2019, errors="ignore")
     dat = dat.reset_index()
     dat.columns = 'country', 'year', 'gdppc'
 
-    dat0 = wb.download(indicator=ind, country='WLD', start=1960, end=2019)
+    dat0 = wb.download(indicator=ind, country='WLD', start=1960, end=2019, errors="ignore")
     dat0 = dat0.reset_index()
     dat0.columns = 'country', 'year', 'gdppc_w'
  
