@@ -28,6 +28,18 @@ def node_total_exports(G):
     return node_exports
 ```
 
+### node_total_imports
+```{code-cell}
+def node_total_imports(G):
+    node_imports = []
+    for node1 in G.nodes():
+        total_import = 0
+        for node2 in G[node1]:
+            total_import += G[node2][node1]['weight']
+        node_imports.append(total_import)
+    return node_imports
+```
+
 ### edge_weights
 ```{code-cell}
 def edge_weights(G):
@@ -40,6 +52,15 @@ def edge_weights(G):
 def normalise_weights(weights,scalar=1):
     max_value = np.max(weights)
     return [scalar * (weight / max_value) for weight in weights]
+```
+
+### to_zero_one
+```{code-cell}
+def to_zero_one(x):
+    "Map vector x to the zero one interval."
+    x = np.array(x)
+    x_min, x_max = x.min(), x.max()
+    return (x - x_min)/(x_max - x_min)
 ```
 
 ### to_zero_one_beta
@@ -65,8 +86,12 @@ def to_zero_one_beta(x,
 ### colorise_weights
 ```{code-cell}
 import matplotlib.cm as cm
-def colorise_weights(weights,zero_one_func=to_zero_one_beta,color_palette=cm.plasma):
-    return color_palette(zero_one_func(weights))
+def colorise_weights(weights,beta=True,color_palette=cm.plasma):
+    if beta:
+        cp = color_palette(to_zero_one_beta(weights))
+    else:
+        cp = color_palette(to_zero_one(weights))
+    return cp 
 ```
 
 ### spec_rad
@@ -157,4 +182,24 @@ def erdos_renyi_graph(n=100, p=0.5, seed=1234):
         if np.random.rand() < p:
             G.add_edge(*e)
     return G
+```
+
+### build_coefficient_matrices
+```{code-cell}
+def build_coefficient_matrices(Z, X):
+    """
+    Build coefficient matrices A and F from Z and X via 
+    
+        A[i, j] = Z[i, j] / X[j] 
+        F[i, j] = Z[i, j] / X[i]
+    
+    """
+    A, F = np.empty_like(Z), np.empty_like(Z)
+    n = A.shape[0]
+    for i in range(n):
+        for j in range(n):
+            A[i, j] = Z[i, j] / X[j]
+            F[i, j] = Z[i, j] / X[i]
+
+    return A, F
 ```
