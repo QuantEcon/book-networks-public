@@ -317,7 +317,7 @@ Here we show that the distribution of firm sizes has a Pareto tail. We start by 
 dfff = ch1_data['forbes_global_2000']
 ```
 
-We calculate empirical_ccdf.
+We calculate values of the empirical_ccdf.
 
 ```{code-cell} 
 data = np.asarray(dfff['Market Value'])[0:500]
@@ -531,22 +531,57 @@ plt.show()
 
 This figure looks at six different centrality measures.
 
-We begin by generating an unweighted version of our matrix to help calculate in-degree and out-degree.  
+We begin by defining a function for calculating eigenvector centrality. By default hub-based centrality is calculated but authority-based centrality can be calculated by setting `authority=True`.
+
+```{code-cell}
+def eigenvector_centrality(A, k=40, authority=False):
+    """
+    Computes the dominant eigenvector of A. Assumes A is 
+    primitive and uses the power method.  
+    
+    """
+    A_temp = A.T if authority else A
+    n = len(A_temp)
+    r = spec_rad(A_temp)
+    e = r**(-k) * (np.linalg.matrix_power(A_temp, k) @ np.ones(n))
+    return e / np.sum(e)
+```
+
+Here a similar function is defined for calculating Katz centrality.
+
+```{code-cell}
+def katz_centrality(A, b=1, authority=False):
+    """
+    Computes the Katz centrality of A, defined as the x solving
+
+    x = 1 + b A x    (1 = vector of ones)
+
+    Assumes that A is square.
+
+    If authority=True, then A is replaced by its transpose.
+    """
+    n = len(A)
+    I = np.identity(n)
+    C = I - b * A.T if authority else I - b * A
+    return np.linalg.solve(C, np.ones(n))
+```
+
+Now we generate an unweighted version of our matrix to help calculate in-degree and out-degree.  
 
 ```{code-cell}
 D = qbn_io.build_unweighted_matrix(Z)
 ```
 
-We now calculate the centrality measures.
+We now use the above to calculate the six centrality measures.
 
 ```{code-cell}
 outdegree = D.sum(axis=1)
-ecentral_hub = qbn_io.eigenvector_centrality(Z, authority=False)
-kcentral_hub = qbn_io.katz_centrality(Z, b=1/1_400_000)
+ecentral_hub = eigenvector_centrality(Z, authority=False)
+kcentral_hub = katz_centrality(Z, b=1/1_400_000)
 
 indegree = D.sum(axis=0)
-ecentral_authority = qbn_io.eigenvector_centrality(Z, authority=True)
-kcentral_authority = qbn_io.katz_centrality(Z, b=1/1_400_000, authority=True)
+ecentral_authority = eigenvector_centrality(Z, authority=True)
+kcentral_authority = katz_centrality(Z, b=1/1_400_000, authority=True)
 ```
 
 Here we provide a helper function that returns a dataframe for each measure. The dataframe is ordered by that measure and contains color information.
@@ -560,7 +595,7 @@ def centrality_plot_data(countries, centrality_measures):
     return df.sort_values('centrality')
 ```
 
-We now plot the various centrality measures. 
+Finally, we plot the various centrality measures. 
 
 ```{code-cell} 
 centrality_measures = [outdegree, indegree, 
@@ -592,7 +627,6 @@ for i, ax in enumerate(axes):
         ax.set_ylim(ylims[i])
 
 plt.show()
-
 ```
 
 ### Computing in and out degree distributions

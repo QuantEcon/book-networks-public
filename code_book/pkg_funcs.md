@@ -15,7 +15,6 @@ kernelspec:
 
 # quantecon_book_networks
 
-## Chapter 1
 
 ### node_total_exports
 ```{code-cell}
