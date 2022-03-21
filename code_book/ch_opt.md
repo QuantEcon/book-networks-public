@@ -40,7 +40,7 @@ from matplotlib.artist import Artist
 
 ### Betweenness centrality (by color and node size) for the Florentine families
 
-We load the Florentine Families data from the networkx package.
+We load the Florentine Families data from the NetworkX package.
 ```{code-cell}
 G = nx.florentine_families_graph()
 ```
@@ -139,7 +139,7 @@ plt.show()
 
 ### Transforming distribution $\phi$ into distribution $\psi$
 
-Below we provide code to produce a visualisation of the Monge-Kantorovich problem.
+Below we provide code to produce a visualisation of transforming one distribution into another in one dimension.
 
 ```{code-cell}
 σ = 0.1
@@ -337,14 +337,14 @@ plt.show()
 
 ### Solving linear assignment as an optimal transport problem
 
-Here we set up a linear assignment problem (matching n workers to n jobs).
+Here we set up a linear assignment problem (matching $n$ workers to $n$ jobs).
 ```{code-cell}
 n = 4
 phi = np.ones(n)
 psi = np.ones(n)
 ```
 
-We generate our cost matrix (the cost of training the ith worker for the jth job)
+We generate our cost matrix (the cost of training the $i$th worker for the $j$th job)
 ```{code-cell}
 c = np.random.uniform(size=(n, n))
 ```
@@ -354,17 +354,21 @@ Finally, we solve our linear assignment problem as a special case of optimal tra
 ot.emd(phi, psi, c)
 ```
 
-Readers interested in computational optimal transport should also consider PySAL, the Python Spatial Analysis library (link to https://pysal.org/). See, for example, https://pysal.org/spaghetti/notebooks/transportation-problem.html.
+### Python Spatial Analysis library
+
+Readers interested in computational optimal transport should also consider PySAL, the [Python Spatial Analysis library](https://pysal.org/). See, for example, https://pysal.org/spaghetti/notebooks/transportation-problem.html.
 
 ### The General Flow Problem
 
 Here we solve a simple network flow problem as a linear program. We begin by defining the node-edge incidence matrix.
 
 ```{code-cell}
-A = (( 1, 1, 0, 0),
-(-1, 0, 1, 0),
-( 0, 0, -1, 1),
-( 0, -1, 0, -1))
+A = (
+( 1,  1,  0,  0),
+(-1,  0,  1,  0),
+( 0,  0, -1,  1),
+( 0, -1,  0, -1)
+)
 ```
 
 Now we define exogonous supply and transport costs.

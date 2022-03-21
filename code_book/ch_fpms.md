@@ -35,7 +35,7 @@ from matplotlib import cm
 
 ### Equity-Cross Holdings
 
-Here we define a class for modelling a financial network where firms are linked by share cross-holdings, and there are failure costs as described by (Elliott et al., 2014).
+Here we define a class for modelling a financial network where firms are linked by share cross-holdings, and there are failure costs as described by [Elliott et al. (2014)](https://www.aeaweb.org/articles?id=10.1257/aer.104.10.3115).
 
 ```{code-cell}
 class FinNet:
