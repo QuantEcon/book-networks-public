@@ -15,6 +15,11 @@ kernelspec:
 
 # Chapter 1 - Introduction (Python Code)
 
+```{code-cell}
+:tag: [hide-output]
+pip install --upgrade kaleido
+```
+
 We begin by importing the quantecon package as well as some functions and data that have been packaged for release with this text.
 
 ```{code-cell}
