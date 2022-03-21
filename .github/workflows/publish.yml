@@ -21,6 +21,14 @@ jobs:
           python-version: 3.8
           environment-file: environment.yml
           activate-environment: networks
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v1
+        with:
+          version: 1.6.5
+      - name: Install IJulia and Setup Project
+        shell: bash
+        run: |
+          julia -e 'using Pkg; Pkg.add(["JuMP","GLPK","PyPlot","IJulia"]);'
       - name: Install latex dependencies
         run: |
           sudo apt-get -qq update

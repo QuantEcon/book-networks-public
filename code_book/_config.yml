@@ -6,6 +6,8 @@ only_build_toc_files: true
 sphinx:
     extra_extensions: ["sphinx_design"]
     config:
+        html_js_files:
+        - https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js
         html_theme: quantecon_book_theme
         mathjax_config:
             TeX:
