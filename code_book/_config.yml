@@ -27,10 +27,6 @@ sphinx:
                     "linop" : ["\\mathcal{L}(\\mathbb{B})"]
                     "linopell" : ["\\mathcal{L}(\\ell_1)"]
 
-execute:
-    execute_notebooks: force
-    timeout: -1
-
 latex:
     latex_engine: "xelatex"
     latex_documents:
