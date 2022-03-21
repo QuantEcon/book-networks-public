@@ -1,0 +1,120 @@
+Traceback (most recent call last):
+  File "/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/nbclient/client.py", line 1112, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/usr/share/miniconda3/envs/networks/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/nbclient/client.py", line 553, in async_execute
+    await self.async_execute_cell(
+  File "/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/nbclient/client.py", line 857, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/nbclient/client.py", line 760, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+using PyPlot
+fig, ax = plt.subplots()
+
+n = 7
+q = zeros(n)
+ax.plot(1:n, q)
+
+for i in 1:3
+    new_q = T(q)
+    ax.plot(1:n, new_q, "-o", alpha=0.7, label ="iterate $i")
+    q = new_q
+end
+
+ax.legend()
+------------------
+
+InitError: PyError (PyImport_ImportModule
+
+The Python package matplotlib could not be imported by pyimport. Usually this means
+that you did not install matplotlib in the Python version being used by PyCall.
+
+PyCall is currently configured to use the Python version at:
+
+/usr/bin/python3
+
+and you should use whatever mechanism you usually use (apt-get, pip, conda,
+etcetera) to install the Python package containing the matplotlib module.
+
+One alternative is to re-configure PyCall to use a different Python
+version on your system: set ENV["PYTHON"] to the path/name of the python
+executable you want to use, run Pkg.build("PyCall"), and re-launch Julia.
+
+Another alternative is to configure PyCall to use a Julia-specific Python
+distribution via the Conda.jl package (which installs a private Anaconda
+Python distribution), which has the advantage that packages can be installed
+and kept up-to-date via Julia.  As explained in the PyCall documentation,
+set ENV["PYTHON"]="", run Pkg.build("PyCall"), and re-launch Julia. Then,
+To install the matplotlib module, you can use `pyimport_conda("matplotlib", PKG)`,
+where PKG is the Anaconda package that contains the module matplotlib,
+or alternatively you can use the Conda package directly (via
+`using Conda` followed by `Conda.add` etcetera).
+
+) <class 'ModuleNotFoundError'>
+ModuleNotFoundError("No module named 'matplotlib'")
+
+during initialization of module PyPlot
+
+Stacktrace:
+  [1] pyimport(name::String)
+    @ PyCall ~/.julia/packages/PyCall/7a7w0/src/PyCall.jl:550
+  [2] pyimport_conda(modulename::String, condapkg::String, channel::String)
+    @ PyCall ~/.julia/packages/PyCall/7a7w0/src/PyCall.jl:708
+  [3] pyimport_conda
+    @ ~/.julia/packages/PyCall/7a7w0/src/PyCall.jl:707 [inlined]
+  [4] __init__()
+    @ PyPlot ~/.julia/packages/PyPlot/XaELc/src/init.jl:185
+  [5] _include_from_serialized(path::String, depmods::Vector{Any})
+    @ Base ./loading.jl:696
+  [6] _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String)
+    @ Base ./loading.jl:782
+  [7] _require(pkg::Base.PkgId)
+    @ Base ./loading.jl:1020
+  [8] require(uuidkey::Base.PkgId)
+    @ Base ./loading.jl:936
+  [9] require(into::Module, mod::Symbol)
+    @ Base ./loading.jl:923
+ [10] eval
+    @ ./boot.jl:360 [inlined]
+ [11] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:1116
+LoadError: InitError: PyError (PyImport_ImportModule
+
+The Python package matplotlib could not be imported by pyimport. Usually this means
+that you did not install matplotlib in the Python version being used by PyCall.
+
+PyCall is currently configured to use the Python version at:
+
+/usr/bin/python3
+
+and you should use whatever mechanism you usually use (apt-get, pip, conda,
+etcetera) to install the Python package containing the matplotlib module.
+
+One alternative is to re-configure PyCall to use a different Python
+version on your system: set ENV["PYTHON"] to the path/name of the python
+executable you want to use, run Pkg.build("PyCall"), and re-launch Julia.
+
+Another alternative is to configure PyCall to use a Julia-specific Python
+distribution via the Conda.jl package (which installs a private Anaconda
+Python distribution), which has the advantage that packages can be installed
+and kept up-to-date via Julia.  As explained in the PyCall documentation,
+set ENV["PYTHON"]="", run Pkg.build("PyCall"), and re-launch Julia. Then,
+To install the matplotlib module, you can use `pyimport_conda("matplotlib", PKG)`,
+where PKG is the Anaconda package that contains the module matplotlib,
+or alternatively you can use the Conda package directly (via
+`using Conda` followed by `Conda.add` etcetera).
+
+) <class 'ModuleNotFoundError'>
+ModuleNotFoundError("No module named 'matplotlib'")
+
+during initialization of module PyPlot
+

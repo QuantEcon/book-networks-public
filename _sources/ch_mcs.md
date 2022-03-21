@@ -17,9 +17,15 @@ kernelspec:
 
 We begin with some imports.
 
-```{code-cell} ipython3
-
+```{code-cell}
 import quantecon as qe
+import quantecon_book_networks.input_output as qbn_io
+import quantecon_book_networks.plotting as qbn_plt
+import quantecon_book_networks.data as qbn_data
+ch4_data = qbn_data.markov_chains_and_networks()
+```
+
+```{code-cell} ipython3
 import numpy as np
 import pandas as pd
 import networkx as nx
@@ -27,32 +33,52 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-
 ```
+
+## Example transition matrices
+
+In this chapter two transition matrices are used.
+
+First, a Markov model is estimated in the international growth dynamics study of Quah (1993). The state is real GDP per capita in a given country relative to the world average. Quah discretizes the possible values to $0$–$1/4$, $1/4$–$1/2$, $1/2$–$1$, $1$–$2$ and $2$–$\inf$, calling these states 1 to 5 respectively. The transitions are over a one year period. 
+
+```{code-cell}
+P_Q = [
+    [0.97, 0.03, 0, 0, 0],
+    [0.05, 0.92, 0.03, 0, 0],
+    [0, 0.04, 0.92, 0.04, 0],
+    [0, 0, 0.04, 0.94, 0.02],
+    [0, 0, 0, 0.01, 0.99]
+]
+P_Q = np.array(P_Q)
+codes_Q =  ( '1','2','3','4','5')
+```
+
+Second, Benhabib et al. (2015) estimate the following transition matrix for intergenerational social mobility. The states are percentiles of the wealth distribution, in particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100% respectively. 
+
+```{code-cell}
+P_B = [
+    [0.222, 0.222, 0.215, 0.187, 0.081, 0.038, 0.029, 0.006],
+    [0.221, 0.22, 0.215, 0.188, 0.082, 0.039, 0.029, 0.006],
+    [0.207, 0.209, 0.21, 0.194, 0.09, 0.046, 0.036, 0.008],
+    [0.198, 0.201, 0.207, 0.198, 0.095, 0.052, 0.04, 0.009],
+    [0.175, 0.178, 0.197, 0.207, 0.11, 0.067, 0.054, 0.012],
+    [0.182, 0.184, 0.2, 0.205, 0.106, 0.062, 0.05, 0.011],
+    [0.123, 0.125, 0.166, 0.216, 0.141, 0.114, 0.094, 0.021],
+    [0.084, 0.084, 0.142, 0.228, 0.17, 0.143, 0.121, 0.028]
+    ]
+
+P_B = np.array(P_B)
+codes_B =  ( '1','2','3','4','5','6','7','8')
+```
+
 
 ## Markov Chains as Digraphs
 
-- Figure 4.3: Contour plot of transition matrix $P_B$
+### Contour plot of transition matrix $P_B$
 
-```{code-cell} ipython3
+Here we define a function for producing contour plots of matrices.
 
-codes =  ( '1','2','3','4','5','6','7','8')
-
-P_B = [[0.222, 0.222, 0.215, 0.187, 0.081, 0.038, 0.029, 0.006],
-       [0.221, 0.22, 0.215, 0.188, 0.082, 0.039, 0.029, 0.006],
-       [0.207, 0.209, 0.21, 0.194, 0.09, 0.046, 0.036, 0.008],
-       [0.198, 0.201, 0.207, 0.198, 0.095, 0.052, 0.04, 0.009],
-       [0.175, 0.178, 0.197, 0.207, 0.11, 0.067, 0.054, 0.012],
-       [0.182, 0.184, 0.2, 0.205, 0.106, 0.062, 0.05, 0.011],
-       [0.123, 0.125, 0.166, 0.216, 0.141, 0.114, 0.094, 0.021],
-       [0.084, 0.084, 0.142, 0.228, 0.17, 0.143, 0.121, 0.028]]
-
-P_B = np.array(P_B)
-
-```
-
-```{code-cell} ipython3
-
+```{code-cell}
 def plot_matrices(matrix,
                   codes,
                   ax,
@@ -87,104 +113,116 @@ def plot_matrices(matrix,
     ax.set_xlabel(xlabel, fontsize=font_size)
     ax.set_ylabel(ylabel, fontsize=font_size)
     ax.set_yticks(ticks)
-    ax.set_yticklabels(codes)
+    ax.set_yticklabels(codes_B)
     ax.set_xticks(ticks)
-    ax.set_xticklabels(codes)
+    ax.set_xticklabels(codes_B)
 
 ```
 
+Now we use our function to produce a plot of the transition matrix for intergenerational social mobility, $P_B$.
 
-
-```{code-cell} ipython3
-
+```{code-cell}
 fig, ax = plt.subplots(figsize=(6,6))
-plot_matrices(P_B.transpose(), codes, ax, alpha=0.75, 
+plot_matrices(P_B.transpose(), codes_B, ax, alpha=0.75, 
                  colormap=cm.viridis, color45d='black',
                  xlabel='state at time $t$', ylabel='state at time $t+1$')
 
 plt.show()
-
 ```
 
 
-- Figure 4.4: Wealth percentile over time
+### Wealth percentile over time
 
-**no code in figures_cource**
+Here, we compare the mixing of the transition matrix for intergenerational social mobility $P_B$ and the transition matrix for international growth dynamics $P_Q$. 
 
+We begin by creating quantecon MarkovChain objects with each of our transition matrices. 
 
-- Figure 4.5: Predicted vs realized cross-country income distributions for 2019
-
-```{code-cell} ipython3
-def divide_two_cols(df_sub):
-    df_sub['gdppc_r'] = df_sub['gdppc'] / df_sub['gdppc_w']
-    return df_sub
+```{code-cell}
+mc_B = qe.MarkovChain(P_B, state_values=range(1, 9))
+mc_Q = qe.MarkovChain(P_Q, state_values=range(1, 6))
 ```
 
-```{code-cell} ipython3
-def gdp_dist_estimate(yr=(1960, 2019)):
-    Y = np.zeros(len(l))
-    for i in l:
-        Y[i] = df3[(df3['interval'] == i) & (df3['year'] <= yr[1]) & (df3['year'] >= yr[0])].count()[0]
-    
-    return Y / Y.sum()
+Next we define a function to plot simultations of Markov processes. Two simulations will be run for each MarkovChain, one starting at the minimum initial value and one at the maximum. 
 
+```{code-cell}
+def sim_fig(ax, mc, T=100, seed=14, title=None):
+    X1 = mc.simulate(T, init=1, random_state=seed)
+    X2 = mc.simulate(T, init=max(mc.state_values), random_state=seed+1)
+    ax.plot(X1, label="low initial state")
+    ax.plot(X2, label="high initial state")
+    ax.set_title(title, fontsize=12)
 ```
 
-```{code-cell} ipython3
-from pandas_datareader import wb
+Finally, we produce figure.
 
-data = wb.get_countries()
-data = data[data['region'] != 'Aggregates']
-countries = list(data['iso2c'])
+```{code-cell}
+fig, axes = plt.subplots(2, 1)
+sim_fig(axes[0], mc_B, title="$P_B$")
+sim_fig(axes[1], mc_Q, title="$P_Q$")
 
-# NY.GDP.PCAP.CD GDP per capita in current US$ and NY.GDP.PCAP.PP.CD GDP per capita in current international $
-ind = ['NY.GDP.PCAP.CD'] 
-dat = wb.download(indicator=ind, country=countries, start=1960, end=2019)
-dat = dat.reset_index()
-dat.columns = 'country', 'year', 'gdppc'
+plt.tight_layout()
+plt.show()
+```
 
-dat0 = wb.download(indicator=ind, country='WLD', start=1960, end=2019)
-dat0 = dat0.reset_index()
-dat0.columns = 'country', 'year', 'gdppc_w'
-dat0 = dat0[['year', 'gdppc_w']]
 
-df1 = pd.merge(dat, dat0, on='year').set_index(['country','year'])
-df2 = df1.groupby('country').apply(divide_two_cols)
+### Predicted vs realized cross-country income distributions for 2019
 
+Here we load a pandas dataframe of GDP per capita data for countries compared to the global average.
+
+```{code-cell}
+gdppc_df = ch4_data['gdppc_df']
+gdppc_df.head()
+```
+
+Now we assign countries bins as per Quah (1993).
+
+```{code-cell}
 q = [0, 0.25, 0.5, 1.0, 2.0, np.inf]
 l = [0, 1, 2, 3, 4]
 
-x = pd.cut(df2.gdppc_r, bins=q, labels=l)
-df2['interval'] = x
-df2['interval'] = df2['interval'].astype(float)
+x = pd.cut(gdppc_df.gdppc_r, bins=q, labels=l)
+gdppc_df['interval'] = x
 
-df3 = df2
-df3['diff'] = df3.groupby('country')['interval'].diff(1)
-df3 = df3.reset_index()
-df3['year'] = df3['year'].astype(float)
-
+gdppc_df = gdppc_df.reset_index()
+gdppc_df['interval'] = gdppc_df['interval'].astype(float)
+gdppc_df['year'] = gdppc_df['year'].astype(float)
 ```
 
+Here we define a function for calculating the cross-country income distributions for a given date range.
 
-```{code-cell} ipython3
-ψ_1985 = gdp_dist_estimate(yr=(1985, 1985))
-ψ_2019 = gdp_dist_estimate(yr=(2019, 2019))
-
+```{code-cell}
+def gdp_dist_estimate(df, l, yr=(1960, 2019)):
+    Y = np.zeros(len(l))
+    for i in l:
+        Y[i] = df[
+            (df['interval'] == i) & 
+            (df['year'] <= yr[1]) & 
+            (df['year'] >= yr[0])
+            ].count()[0]
+    
+    return Y / Y.sum()
 ```
 
-```{code-cell} ipython3
-P_Q = [[0.97, 0.03, 0.00, 0.00, 0.00],
-       [0.05, 0.92, 0.03, 0.00, 0.00],
-       [0.00, 0.04, 0.92, 0.04, 0.00],
-       [0.00, 0.00, 0.04, 0.94, 0.02],
-       [0.00, 0.00, 0.00, 0.01, 0.99]]
-P_Q = np.array(P_Q)
+Calculate the true distribution for 1985.
+
+```{code-cell}
+ψ_1985 = gdp_dist_estimate(gdppc_df,l,yr=(1985, 1985))
+```
+
+Now, we use the transition matrix to update the 1985 distribution 𝑡 = 2019 − 1985 = 34 times to get our predicted 2019 distribution. 
+
+```{code-cell}
 ψ_2019_predicted = ψ_1985 @ np.linalg.matrix_power(P_Q, 2019-1985)
-
 ```
 
-```{code-cell} ipython3
+Now, calculate the true 2019 distribution.
+```{code-cell}
+ψ_2019 = gdp_dist_estimate(gdppc_df,l,yr=(2019, 2019))
+```
 
+Finally we produce the plot. 
+
+```{code-cell}
 states = np.arange(1, 6)
 
 fig, ax = plt.subplots()
@@ -196,59 +234,17 @@ ax.legend(loc='upper center', fontsize=12)
 plt.show()
 
 ```
-**Plot slightly different to that in text**
 
-```{code-cell} ipython3
+### Distribution dynamics
 
-def unit_simplex(angle):
-    
-    fig = plt.figure(figsize=(10, 8))
-    ax = fig.add_subplot(111, projection='3d')
+Here we define a function for plotting the convergence of marginal distributions $ψ$ under a transition matrix $P$ on the unit simplex.
 
-    vtx = [[0, 0, 1],
-           [0, 1, 0], 
-           [1, 0, 0]]
-    
-    tri = Poly3DCollection([vtx], color='darkblue', alpha=0.3)
-    tri.set_facecolor([0.5, 0.5, 1])
-    ax.add_collection3d(tri)
+```{code-cell}
+def convergence_plot(ψ, P, n=14, angle=50):
 
-    ax.set(xlim=(0, 1), ylim=(0, 1), zlim=(0, 1), 
-           xticks=(1,), yticks=(1,), zticks=(1,))
-
-    ax.set_xticklabels(['$(1, 0, 0)$'], fontsize=16)
-    ax.set_yticklabels([f'$(0, 1, 0)$'], fontsize=16)
-    ax.set_zticklabels([f'$(0, 0, 1)$'], fontsize=16)
-
-    ax.xaxis.majorTicks[0].set_pad(15)
-    ax.yaxis.majorTicks[0].set_pad(15)
-    ax.zaxis.majorTicks[0].set_pad(35)
-
-    ax.view_init(30, angle)
-
-    # Move axis to origin
-    ax.xaxis._axinfo['juggled'] = (0, 0, 0)
-    ax.yaxis._axinfo['juggled'] = (1, 1, 1)
-    ax.zaxis._axinfo['juggled'] = (2, 2, 0)
-    
-    ax.grid(False)
-    
-    return ax
-
-```
-
-
-```{code-cell} ipython3
-
-def convergence_plot(ψ, n=14, angle=50):
-
-    ax = unit_simplex(angle)
+    ax = qbn_plt.unit_simplex(angle)
 
     # Convergence plot
-
-    P = ((0.9, 0.1, 0.0),
-         (0.4, 0.4, 0.2),
-         (0.1, 0.1, 0.8))
     
     P = np.array(P)
 
@@ -271,30 +267,149 @@ def convergence_plot(ψ, n=14, angle=50):
 
 ```
 
-- Figure 4.6: A trajectory from $\psi_0 = (0, 0, 1)$
-
-```{code-cell} ipython3
-
-ψ = convergence_plot((0, 0, 1))
-plt.show()
-
+Now we define P.
+```{code-cell}
+P = (
+    (0.9, 0.1, 0.0),
+    (0.4, 0.4, 0.2),
+    (0.1, 0.1, 0.8)
+    )
 ```
 
-- Figure 4.7: A trajectory from $\psi_0 = (0, 1/2, 1/2)$
+#### A trajectory from $\psi_0 = (0, 0, 1)$
 
-```{code-cell} ipython3
+Here we see the sequence of marginals appears to converge. 
 
-ψ = convergence_plot((0, 0.5, 0.5), n=12)
+```{code-cell}
+ψ_0 = (0, 0, 1)
+ψ = convergence_plot(ψ_0, P)
 plt.show()
-
 ```
 
-**Background lines missing**
+#### A trajectory from $\psi_0 = (0, 1/2, 1/2)$
 
-- Figure 4.8: Distribution projections from $P_B$
+Here we see again that the sequence of marginals appears to converge, and the limit appears not to depend on the initial distribution.
 
-**code not in figures_source**
+```{code-cell}
+ψ_0 = (0, 1/2, 1/2)
+ψ = convergence_plot(ψ_0, P, n=12)
+plt.show()
+```
+
+
+### Distribution projections from $P_B$
+
+Here we define a function for plotting $\psi$ after $n$ iterations of the transition matrix $P$. $\psi_0$ is taken as the unifrom distribution over the state space.
+
+```{code-cell}
+def transition(P, n, ax=None):
+    
+    P = np.array(P)
+    nstates = P.shape[1]
+    s0 = np.ones(8) * 1/nstates
+    s = s0
+    
+    for i in range(n):
+        s = s @ P
+        
+    if ax is None:
+        fig, ax = plt.subplots()
+        
+    ax.plot(range(1, nstates+1), s, '-o', alpha=0.6)
+    ax.set(ylim=(0, 0.25), 
+           xticks=((1, nstates)))
+    ax.set_title(f"t = {n}")
+    
+    return ax
+```
+
+We now generate the marginal distirbutions after 0, 1, 2, and 100 iterations for the transition matrix described in Benhabib et al. (2015).
+
+```{code-cell}
+ns = (0, 1, 2, 100)
+fig, axes = plt.subplots(1, len(ns))
+
+for n, ax in zip(ns, axes):
+    ax = transition(P_B, n, ax=ax)
+    
+axes[-1].set_xlabel("Quantile")
+
+plt.tight_layout()
+plt.show()
+```
+
+
 
 ## Asymptotics
 
-- Figure 4.10: Convergence of the empirical distribution to $\psi^*$
+### Convergence of the empirical distribution to $\psi^*$
+
+We begin by creating a Markov Chain object (from the quantecon package) taking the transition matrix from Benhabib et al. (2015). 
+
+```{code-cell}
+mc = qe.MarkovChain(P_B)
+```
+
+Next we use the quantecon package to calculate the true stationary distribution.
+
+```{code-cell}
+stationary = mc.stationary_distributions[0]
+n = len(mc.P)
+```
+
+Now we define a function simulate the Markov chain.
+
+```{code-cell}
+def simulate_distribution(mc, T=100):
+    # Simulate path 
+    n = len(mc.P)
+    path = mc.simulate_indices(ts_length=T, random_state=1)
+    distribution = np.empty(n)
+    for i in range(n):
+        distribution[i] = np.mean(path==i)
+    return distribution
+
+```
+
+We run simulations of length 10, 100, 1,000 and 10,000 iterations.
+
+```{code-cell}
+lengths = [10, 100, 1_000, 10_000]
+dists = []
+
+for t in lengths:
+    dists.append(simulate_distribution(mc, t))
+```
+
+Now we produce the plots, and we see that the simulated distribution starts to aproach the true stationary distribution. 
+
+```{code-cell}
+fig, axes = plt.subplots(2, 2, figsize=(9, 6), sharex='all')#, sharey='all')
+
+axes = axes.flatten()
+
+for dist, ax, t in zip(dists, axes, lengths):
+    
+    ax.plot(np.arange(n)+1 + .25, 
+           stationary, 
+            '-o',
+           #width = 0.25, 
+           label='$\\psi^*$', 
+           alpha=0.75)
+    
+    ax.plot(np.arange(n)+1, 
+           dist, 
+            '-o',
+           #width = 0.25, 
+           label=f'$\\hat \\psi_k$ with $k={t}$', 
+           alpha=0.75)
+
+
+    ax.set_xlabel("state", fontsize=12)
+    ax.set_ylabel("prob.", fontsize=12)
+    ax.set_xticks(np.arange(n)+1)
+    ax.legend(loc='upper right', fontsize=12, frameon=False)
+    ax.set_ylim(0, 0.5)
+    
+plt.show()
+```

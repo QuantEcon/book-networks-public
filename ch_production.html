@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chapter 2 - Production Code &#8212; Economic Networks - Theory and Computation</title>
+    <title>Chapter 2 - Production (Python Code) &#8212; Economic Networks - Theory and Computation</title>
     <script src="https://unpkg.com/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6.3.1/dist/tippy-bundle.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
@@ -95,6 +95,7 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Chapter 3 - Optimal Flows (Python Code)" href="ch_opt.html" />
@@ -103,22 +104,22 @@
 <!-- Normal Meta Tags -->
 <meta name="author" context="John Stachurski and Thomas J. Sargent" />
 <meta name="keywords" content="" />
-<meta name="description" content=Chapter 2 - Production Code  We begin with some imports  import quantecon as qe import numpy as np import pandas as pd  import matplotlib.pyplot as plt import m />
+<meta name="description" content=Chapter 2 - Production (Python Code)  We begin with some imports  import quantecon as qe import quantecon_book_networks.input_output as qbn_io import quantecon_ />
 
 <!-- Twitter tags -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@" />
-<meta name="twitter:title" content="Chapter 2 - Production Code"/>
-<meta name="twitter:description" content="Chapter 2 - Production Code  We begin with some imports  import quantecon as qe import numpy as np import pandas as pd  import matplotlib.pyplot as plt import m">
+<meta name="twitter:title" content="Chapter 2 - Production (Python Code)"/>
+<meta name="twitter:description" content="Chapter 2 - Production (Python Code)  We begin with some imports  import quantecon as qe import quantecon_book_networks.input_output as qbn_io import quantecon_">
 <meta name="twitter:creator" content="@">
 <meta name="twitter:image" content="">
 
 <!-- Opengraph tags -->
-<meta property="og:title" content="Chapter 2 - Production Code" />
+<meta property="og:title" content="Chapter 2 - Production (Python Code)" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="None" />
 <meta property="og:image" content="" />
-<meta property="og:description" content="Chapter 2 - Production Code  We begin with some imports  import quantecon as qe import numpy as np import pandas as pd  import matplotlib.pyplot as plt import m" />
+<meta property="og:description" content="Chapter 2 - Production (Python Code)  We begin with some imports  import quantecon as qe import quantecon_book_networks.input_output as qbn_io import quantecon_" />
 <meta property="og:site_name" content="Economic Networks - Theory and Computation" />
 <meta name="theme-color" content="#ffffff" />
 
@@ -150,11 +151,63 @@
   <a class="reference internal nav-link" href="#multisector-models">
    Multisector Models
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#general-equilibrium">
-   General Equilibrium
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#backward-linkages-for-15-us-sectors-in-2019">
+     Backward linkages for 15 US sectors in 2019
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#eigenvector-centrality-of-across-us-industrial-sectors">
+     Eigenvector centrality of across US industrial sectors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#output-multipliers-across-15-us-industrial-sectors">
+     Output multipliers across 15 US industrial sectors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#forward-linkages-and-upstreamness-over-us-industrial-sectors">
+     Forward linkages and upstreamness over US industrial sectors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#relative-upstreamness-of-us-industrial-sectors">
+     Relative upstreamness of US industrial sectors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hub-based-katz-centrality-of-across-15-us-industrial-sectors">
+     Hub-based Katz centrality of across 15 US industrial sectors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-leontief-inverse-hot-colors-are-larger-values">
+     The Leontief inverse 𝐿 (hot colors are larger values)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#propagation-of-demand-shocks-via-backward-linkages">
+     Propagation of demand shocks via backward linkages
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#network-for-71-us-sectors-in-2019">
+     Network for 71 US sectors in 2019
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#network-for-114-australian-industry-sectors-in-2018">
+     Network for 114 Australian industry sectors in 2018
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gdp-growth-rates-and-std-deviations-in-parentheses-for-8-countries">
+     GDP growth rates and std. deviations (in parentheses) for 8 countries
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -182,7 +235,7 @@
 
                         <p class="qe-page__header-heading"><a href="intro.html">Economic Networks - Theory and Computation</a></p>
 
-                        <p class="qe-page__header-subheading">Chapter 2 - Production Code</p>
+                        <p class="qe-page__header-subheading">Chapter 2 - Production (Python Code)</p>
 
                     </div>
 
@@ -197,106 +250,49 @@
                     
                     <div>
                         
-  <div class="tex2jax_ignore mathjax_ignore section" id="chapter-2-production-code">
-<h1>Chapter 2 - Production Code<a class="headerlink" href="#chapter-2-production-code" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="chapter-2-production-python-code">
+<h1>Chapter 2 - Production (Python Code)<a class="headerlink" href="#chapter-2-production-python-code" title="Permalink to this headline">¶</a></h1>
 <p>We begin with some imports</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quantecon</span> <span class="k">as</span> <span class="nn">qe</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">quantecon_book_networks.input_output</span> <span class="k">as</span> <span class="nn">qbn_io</span>
+<span class="kn">import</span> <span class="nn">quantecon_book_networks.plotting</span> <span class="k">as</span> <span class="nn">qbn_plt</span>
+<span class="kn">import</span> <span class="nn">quantecon_book_networks.data</span> <span class="k">as</span> <span class="nn">qbn_data</span>
+<span class="n">ch2_data</span> <span class="o">=</span> <span class="n">qbn_data</span><span class="o">.</span><span class="n">production</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>           <span class="c1"># import colormap stuff!</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
 <span class="kn">import</span> <span class="nn">matplotlib.colors</span> <span class="k">as</span> <span class="nn">plc</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
-
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="multisector-models">
 <h2>Multisector Models<a class="headerlink" href="#multisector-models" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Figure 2.1: Backward linkages for 15 US sectors in 2019</p></li>
-</ul>
-<p>Define IO functions.</p>
+<p>We start by loading a graph of linkages between 15 US sectors in 2019. Our graph comes as a list of sector codes, an adjacency matrix of sales between the sectors, and a list the total sales of each sector. The Z[i,j] weight is the sales from industry i to industry j.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">spec_rad</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute the spectral radius of M.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigvals</span><span class="p">(</span><span class="n">M</span><span class="p">)))</span>
-
-<span class="k">def</span> <span class="nf">katz_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">authority</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Computes the Katz centrality of A, defined as the x solving</span>
-
-<span class="sd">    x = 1 + b A x    (1 = vector of ones)</span>
-
-<span class="sd">    Assumes that A is square.</span>
-
-<span class="sd">    If authority=True, then A is replaced by its transpose.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-    <span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-    <span class="n">C</span> <span class="o">=</span> <span class="n">I</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="k">if</span> <span class="n">authority</span> <span class="k">else</span> <span class="n">I</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">A</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-
-
-<span class="k">def</span> <span class="nf">eigenvector_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">authority</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Computes the dominant eigenvector of A. Assumes A is </span>
-<span class="sd">    primitive and uses the power method.  </span>
-<span class="sd">    </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">A_temp</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="k">if</span> <span class="n">authority</span> <span class="k">else</span> <span class="n">A</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A_temp</span><span class="p">)</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">spec_rad</span><span class="p">(</span><span class="n">A_temp</span><span class="p">)</span>
-    <span class="n">e</span> <span class="o">=</span> <span class="n">r</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">A_temp</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">e</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">read_Z</span><span class="p">(</span><span class="n">data_file</span><span class="o">=</span><span class="s1">&#39;data/csv_files/use_15_2019.csv&#39;</span><span class="p">,</span> 
-           <span class="n">N</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> 
-           <span class="n">columnlist</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span>
-                       <span class="s1">&#39;Total Intermediate&#39;</span><span class="p">,</span>
-                       <span class="s1">&#39;Personal consumption expenditures&#39;</span><span class="p">,</span>
-                       <span class="s1">&#39;Private fixed investment&#39;</span><span class="p">,</span>
-                       <span class="s1">&#39;Change in private inventories&#39;</span><span class="p">,</span>
-                       <span class="s1">&#39;Exports of goods and services&#39;</span><span class="p">,</span>
-                       <span class="s1">&#39;Government consumption expenditures and gross investment&#39;</span><span class="p">,</span>
-                       <span class="s1">&#39;Total use of products&#39;</span><span class="p">]):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Build the Z matrix from the use table.</span>
-<span class="sd">    </span>
-<span class="sd">    * Z[i, j] = sales from sector i to sector j</span>
-<span class="sd">    </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
-    <span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[:</span><span class="n">N</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">columnlist</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">df3</span> <span class="o">=</span> <span class="n">df2</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columnlist</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">df3</span> <span class="o">=</span> <span class="n">df2</span>
-    <span class="n">df4</span> <span class="o">=</span> <span class="n">df3</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;...&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">df4</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">Z</span>
-
-<span class="k">def</span> <span class="nf">read_X</span><span class="p">(</span><span class="n">data_file</span><span class="o">=</span><span class="s1">&#39;data/csv_files/make_15_2019.csv&#39;</span><span class="p">,</span>
-           <span class="n">colname</span><span class="o">=</span><span class="s1">&#39;Total Industry Output&#39;</span><span class="p">,</span>
-           <span class="n">N</span><span class="o">=</span><span class="mi">15</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Read total industry sales column from the make table.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">df5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">df5</span><span class="p">[</span><span class="n">colname</span><span class="p">])</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">N</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">X</span>
-
-<span class="k">def</span> <span class="nf">build_coefficient_matrices</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">codes</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s2">&quot;us_sectors_15&quot;</span><span class="p">][</span><span class="s2">&quot;codes&quot;</span><span class="p">]</span>
+<span class="n">Z</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s2">&quot;us_sectors_15&quot;</span><span class="p">][</span><span class="s2">&quot;adjacency_matrix&quot;</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s2">&quot;us_sectors_15&quot;</span><span class="p">][</span><span class="s2">&quot;total_industry_sales&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we define a function to build coefficient matrices. Two coefficient matrices are returned. The backward linkage case, where sales between sector i and j are given as a fraction of total sales of sector j. The forward linkage case, where sales between sector i and j are given as a fraction of total sales of sector i.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_coefficient_matrices</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Build coefficient matrices A and F from Z and X via </span>
 <span class="sd">    </span>
@@ -313,317 +309,71 @@
 
     <span class="k">return</span> <span class="n">A</span><span class="p">,</span> <span class="n">F</span>
 
-<span class="k">def</span> <span class="nf">to_zero_one</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="s2">&quot;Map vector x to the zero one interval.&quot;</span>
-    <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Define plot graph.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_graph</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> 
-               <span class="n">X</span><span class="p">,</span>
-               <span class="n">ax</span><span class="p">,</span>
-               <span class="n">codes</span><span class="p">,</span>
-               <span class="n">node_color_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-               <span class="n">node_size_multiple</span><span class="o">=</span><span class="mf">0.0005</span><span class="p">,</span> 
-               <span class="n">edge_size_multiple</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
-               <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;circular&#39;</span><span class="p">,</span>
-               <span class="n">layout_seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span>
-               <span class="n">tol</span><span class="o">=</span><span class="mf">0.03</span><span class="p">):</span>  <span class="c1"># clip entries below tol</span>
-
-    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
-    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-
-    <span class="c1"># Add nodes, with weights by sales of the sector</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">weight</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-
-    <span class="n">node_sizes</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">node_size_multiple</span>
-
-    <span class="c1"># Position the nodes</span>
-    <span class="k">if</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;circular&#39;</span><span class="p">:</span>
-        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">circular_layout</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;spring&#39;</span><span class="p">:</span>
-        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">layout_seed</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span>
-        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">layout_seed</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;spiral&#39;</span><span class="p">:</span>
-        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spiral_layout</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
-
-    <span class="c1"># Add the edges, along with their colors and widths</span>
-    <span class="n">edge_colors</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">edge_widths</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">:</span>
-                <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">codes</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
-                <span class="n">edge_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_color_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-                <span class="n">width</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">edge_size_multiple</span>
-                <span class="n">edge_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
-    
-    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> 
-                           <span class="n">node_pos_dict</span><span class="p">,</span> 
-                           <span class="n">node_color</span><span class="o">=</span><span class="n">node_color_list</span><span class="p">,</span> 
-                           <span class="n">node_size</span><span class="o">=</span><span class="n">node_sizes</span><span class="p">,</span> 
-                           <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> 
-                           <span class="n">linewidths</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
-                           <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> 
-                           <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-
-    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> 
-                            <span class="n">node_pos_dict</span><span class="p">,</span> 
-                            <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
-                            <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-
-    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> 
-                           <span class="n">node_pos_dict</span><span class="p">,</span> 
-                           <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">,</span> 
-                           <span class="n">width</span><span class="o">=</span><span class="n">edge_widths</span><span class="p">,</span> 
-                           <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
-                           <span class="n">arrowsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
-                           <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>  
-                           <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> 
-                           <span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">,</span> 
-                           <span class="n">node_size</span><span class="o">=</span><span class="n">node_sizes</span><span class="p">,</span> 
-                           <span class="n">connectionstyle</span><span class="o">=</span><span class="s1">&#39;arc3,rad=0.15&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Set params.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">codes</span> <span class="o">=</span>  <span class="p">(</span> <span class="s1">&#39;ag&#39;</span><span class="p">,</span>    
-           <span class="s1">&#39;mi&#39;</span><span class="p">,</span>  
-           <span class="s1">&#39;ut&#39;</span><span class="p">,</span>  
-           <span class="s1">&#39;co&#39;</span><span class="p">,</span>  
-           <span class="s1">&#39;ma&#39;</span><span class="p">,</span>  
-           <span class="s1">&#39;wh&#39;</span><span class="p">,</span>  
-           <span class="s1">&#39;re&#39;</span><span class="p">,</span> 
-           <span class="s1">&#39;tr&#39;</span><span class="p">,</span>  
-           <span class="s1">&#39;in&#39;</span><span class="p">,</span>  
-           <span class="s1">&#39;fi&#39;</span><span class="p">,</span>  
-           <span class="s1">&#39;pr&#39;</span><span class="p">,</span> 
-           <span class="s1">&#39;ed&#39;</span><span class="p">,</span>   
-           <span class="s1">&#39;ar&#39;</span><span class="p">,</span>  
-           <span class="s1">&#39;ot&#39;</span><span class="p">,</span>  
-           <span class="s1">&#39;go&#39;</span><span class="p">)</span>
-
-<span class="n">Z</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">read_Z</span><span class="p">(),</span> <span class="n">read_X</span><span class="p">()</span>
-
 <span class="n">A</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">build_coefficient_matrices</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-
-<span class="n">ecentral</span> <span class="o">=</span> <span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="n">ecentral_color_list</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">ecentral</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9897/2792980170.py:70: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
-Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
-  X = X[0:N].astype(np.float)
 </pre></div>
 </div>
 </div>
 </div>
+<div class="section" id="backward-linkages-for-15-us-sectors-in-2019">
+<h3>Backward linkages for 15 US sectors in 2019<a class="headerlink" href="#backward-linkages-for-15-us-sectors-in-2019" title="Permalink to this headline">¶</a></h3>
+<p>Here we calculate the hub-based eigenvector centrality of our backward linkage coefficient matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">color_list</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">colorise_weights</span><span class="p">(</span><span class="n">centrality</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we use the quantecon_book_networks package to produce our plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 
-<span class="n">plot_graph</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> 
-              <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="c1"># alternative layouts: spring, circular, random, spiral</span>
+<span class="n">qbn_plt</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> 
+              <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span>
               <span class="n">layout_seed</span><span class="o">=</span><span class="mi">5432167</span><span class="p">,</span>
               <span class="n">tol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-              <span class="n">node_color_list</span><span class="o">=</span><span class="n">ecentral_color_list</span><span class="p">)</span> 
+              <span class="n">node_color_list</span><span class="o">=</span><span class="n">color_list</span><span class="p">)</span> 
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_8_0.png" src="_images/ch_production_8_0.png" />
+<img alt="_images/ch_production_10_0.png" src="_images/ch_production_10_0.png" />
 </div>
 </div>
-<ul class="simple">
-<li><p>Figure 2.2: Network for 71 US sectors in 2019</p></li>
-</ul>
+</div>
+<div class="section" id="eigenvector-centrality-of-across-us-industrial-sectors">
+<h3>Eigenvector centrality of across US industrial sectors<a class="headerlink" href="#eigenvector-centrality-of-across-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
+<p>Now we plot a bar chart of hub-based eigenvector centrality by sector.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">codes_71</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;111CA&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;113FF&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;211&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;212&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;213&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;22&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;23&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;321&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;327&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;331&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;332&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;333&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;334&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;335&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;3361MV&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;3364OT&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;337&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;339&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;311FT&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;313TT&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;315AL&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;322&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;323&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;324&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;325&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;326&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;42&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;441&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;445&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;452&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;4A0&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;481&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;482&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;483&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;484&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;485&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;486&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;487OS&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;493&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;511&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;512&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;513&#39;</span><span class="p">,</span> 
-         <span class="s1">&#39;514&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;521CI&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;523&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;524&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;525&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;HS&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;ORE&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;532RL&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;5411&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;5415&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;5412OP&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;55&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;561&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;562&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;61&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;621&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;622&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;623&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;624&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;711AS&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;713&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;721&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;722&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;81&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;GFGD&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;GFGN&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;GFE&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;GSLG&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;GSLE&#39;</span><span class="p">)</span>
-
-<span class="n">Z_71</span><span class="p">,</span> <span class="n">X_71</span> <span class="o">=</span> <span class="n">read_Z</span><span class="p">(</span><span class="n">data_file</span><span class="o">=</span><span class="s1">&#39;data/csv_files/use_71_2019.csv&#39;</span><span class="p">,</span>
-                 <span class="n">N</span><span class="o">=</span><span class="mi">71</span><span class="p">,</span>
-                 <span class="n">columnlist</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;T001&#39;</span><span class="p">,</span> <span class="s1">&#39;F010&#39;</span><span class="p">,</span> <span class="s1">&#39;F02E&#39;</span><span class="p">,</span> <span class="s1">&#39;F02N&#39;</span><span class="p">,</span> 
-                             <span class="s1">&#39;F02R&#39;</span><span class="p">,</span> <span class="s1">&#39;F02S&#39;</span><span class="p">,</span> <span class="s1">&#39;F030&#39;</span><span class="p">,</span> <span class="s1">&#39;F040&#39;</span><span class="p">,</span> <span class="s1">&#39;F06C&#39;</span><span class="p">,</span> <span class="s1">&#39;F06E&#39;</span><span class="p">,</span> 
-                             <span class="s1">&#39;F06N&#39;</span><span class="p">,</span> <span class="s1">&#39;F06S&#39;</span><span class="p">,</span> <span class="s1">&#39;F07C&#39;</span><span class="p">,</span> <span class="s1">&#39;F07E&#39;</span><span class="p">,</span> <span class="s1">&#39;F07N&#39;</span><span class="p">,</span> <span class="s1">&#39;F07S&#39;</span><span class="p">,</span> 
-                             <span class="s1">&#39;F10C&#39;</span><span class="p">,</span> <span class="s1">&#39;F10E&#39;</span><span class="p">,</span> <span class="s1">&#39;F10N&#39;</span><span class="p">,</span> <span class="s1">&#39;F10S&#39;</span><span class="p">,</span> <span class="s1">&#39;T019&#39;</span><span class="p">]),</span> <span class="n">read_X</span><span class="p">(</span><span class="n">data_file</span><span class="o">=</span><span class="s1">&#39;data/csv_files/make_71_2019.csv&#39;</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">71</span><span class="p">)</span>
-
-<span class="n">A_71</span><span class="p">,</span> <span class="n">F_71</span> <span class="o">=</span> <span class="n">build_coefficient_matrices</span><span class="p">(</span><span class="n">Z_71</span><span class="p">,</span> <span class="n">X_71</span><span class="p">)</span>
-
-<span class="n">ecentral_71</span> <span class="o">=</span> <span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A_71</span><span class="p">)</span>
-<span class="n">ecentral_color_list_71</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">ecentral_71</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_9897/2792980170.py:70: DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`. To silence this warning, use `float` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.float64` here.
-Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
-  X = X[0:N].astype(np.float)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-
-<span class="n">plot_graph</span><span class="p">(</span><span class="n">A_71</span><span class="p">,</span> <span class="n">X_71</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes_71</span><span class="p">,</span>
-              <span class="n">node_size_multiple</span><span class="o">=</span><span class="mf">0.0005</span><span class="p">,</span>
-              <span class="n">edge_size_multiple</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
-              <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="c1"># alternative layouts: spring, circular, random, spiral</span>
-              <span class="n">layout_seed</span><span class="o">=</span><span class="mi">5432167</span><span class="p">,</span>
-              <span class="n">tol</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
-              <span class="n">node_color_list</span><span class="o">=</span><span class="n">ecentral_color_list_71</span><span class="p">)</span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">centrality</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;eigenvector centrality&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_11_0.png" src="_images/ch_production_11_0.png" />
+<img alt="_images/ch_production_12_0.png" src="_images/ch_production_12_0.png" />
 </div>
 </div>
-<ul class="simple">
-<li><p>Figure 2.4: The Leontief inverse 𝐿 (hot colors are larger values)</p></li>
-</ul>
+</div>
+<div class="section" id="output-multipliers-across-15-us-industrial-sectors">
+<h3>Output multipliers across 15 US industrial sectors<a class="headerlink" href="#output-multipliers-across-15-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
+<p>Output multipliers are equal to the authority-based Katz centrality measure of the backward linkage coefficient matrix. Here we calculate authority-based Katz centrality using the quantecon_book_networks package.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_matrices</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span>
-                  <span class="n">codes</span><span class="p">,</span>
-                  <span class="n">ax</span><span class="p">,</span>
-                  <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-                  <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> 
-                  <span class="n">colormap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">,</span> 
-                  <span class="n">color45d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
-                  <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;sector $j$&#39;</span><span class="p">,</span> 
-                  <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;sector $i$&#39;</span><span class="p">):</span>
-    
-    <span class="n">ticks</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">omult</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">katz_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">authority</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
-    
-    
-    <span class="k">if</span> <span class="n">color45d</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">co</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> 
-                         <span class="n">ticks</span><span class="p">,</span>
-                         <span class="n">matrix</span><span class="p">,</span>
-<span class="c1">#                          levels,</span>
-                         <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> <span class="n">ticks</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color45d</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">co</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> 
-                         <span class="n">ticks</span><span class="p">,</span>
-                         <span class="n">matrix</span><span class="p">,</span>
-                         <span class="n">levels</span><span class="p">,</span>
-                         <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">)</span>
-
-    <span class="c1">#plt.colorbar(co)</span>
-
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
-<span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">I</span> <span class="o">-</span> <span class="n">A</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">))</span>
-<span class="n">plot_matrices</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
-
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">omult_color_list</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">colorise_weights</span><span class="p">(</span><span class="n">omult</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">omult</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">omult_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Output multipliers&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -632,15 +382,139 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 <img alt="_images/ch_production_14_0.png" src="_images/ch_production_14_0.png" />
 </div>
 </div>
-<ul class="simple">
-<li><p>Figure 2.5: Propagation of demand shocks via backward linkages</p></li>
-</ul>
+</div>
+<div class="section" id="forward-linkages-and-upstreamness-over-us-industrial-sectors">
+<h3>Forward linkages and upstreamness over US industrial sectors<a class="headerlink" href="#forward-linkages-and-upstreamness-over-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
+<p>Upstreamness is the hub-based Katz centrality of the forward linkage coefficient matrix. Here we calculate hub-based Katz centrality using the quantecon_book_networks package.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">upstreamness</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">katz_centrality</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we plot the network.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">upstreamness_color_list</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">colorise_weights</span><span class="p">(</span><span class="n">upstreamness</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">qbn_plt</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> 
+              <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="c1"># alternative layouts: spring, circular, random, spiral</span>
+              <span class="n">layout_seed</span><span class="o">=</span><span class="mi">5432167</span><span class="p">,</span>
+              <span class="n">tol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+              <span class="n">node_color_list</span><span class="o">=</span><span class="n">upstreamness_color_list</span><span class="p">)</span> 
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_18_0.png" src="_images/ch_production_18_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="relative-upstreamness-of-us-industrial-sectors">
+<h3>Relative upstreamness of US industrial sectors<a class="headerlink" href="#relative-upstreamness-of-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
+<p>Here we produce a barplot of upstreamness.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">upstreamness</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">upstreamness_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;upstreamness&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_20_0.png" src="_images/ch_production_20_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="hub-based-katz-centrality-of-across-15-us-industrial-sectors">
+<h3>Hub-based Katz centrality of across 15 US industrial sectors<a class="headerlink" href="#hub-based-katz-centrality-of-across-15-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
+<p>Here we plot the hub-based Katz centrality of the backward linkage coefficient matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kcentral</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">katz_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">kcentral_color_list</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">colorise_weights</span><span class="p">(</span><span class="n">kcentral</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">kcentral</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">kcentral_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Katz hub centrality&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_23_0.png" src="_images/ch_production_23_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="the-leontief-inverse-hot-colors-are-larger-values">
+<h3>The Leontief inverse 𝐿 (hot colors are larger values)<a class="headerlink" href="#the-leontief-inverse-hot-colors-are-larger-values" title="Permalink to this headline">¶</a></h3>
+<p>We construct the Leontief inverse matrix from 15 sector adjacency matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">I</span> <span class="o">-</span> <span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we produce the plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">))</span>
+
+<span class="n">ticks</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
+
+<span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+<span class="n">co</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> 
+                    <span class="n">ticks</span><span class="p">,</span>
+                    <span class="n">L</span><span class="p">,</span>
+                    <span class="n">levels</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;sector $j$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;sector $i$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_27_0.png" src="_images/ch_production_27_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="propagation-of-demand-shocks-via-backward-linkages">
+<h3>Propagation of demand shocks via backward linkages<a class="headerlink" href="#propagation-of-demand-shocks-via-backward-linkages" title="Permalink to this headline">¶</a></h3>
+<p>We begin by generating a demand shock vector d.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> 
+<span class="n">d</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># positive shock to agriculture</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we simulate the demand shock propergating through the economy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_length</span> <span class="o">=</span> <span class="mi">6</span>
-<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="c1"># np.zeros(N)</span>
-<span class="n">d</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># positive shock to agriculture</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">d</span>
 <span class="n">x_vecs</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sim_length</span><span class="p">):</span>
@@ -650,6 +524,7 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 </div>
 </div>
 </div>
+<p>Finally, we plot the shock propergate through the economy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
@@ -657,9 +532,9 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 
 <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">x_vec</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">x_vecs</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">sim_length</span><span class="p">)):</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;round </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">x_vec_cols</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">x_vec</span><span class="p">))</span>
-    <span class="n">plot_graph</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span>
-                  <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="c1"># alternative layouts: spring, circular, random, spiral</span>
+    <span class="n">x_vec_cols</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">colorise_weights</span><span class="p">(</span><span class="n">x_vec</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">qbn_plt</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span>
+                  <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span>
                   <span class="n">layout_seed</span><span class="o">=</span><span class="mi">342156</span><span class="p">,</span>
                   <span class="n">node_color_list</span><span class="o">=</span><span class="n">x_vec_cols</span><span class="p">,</span>
                   <span class="n">node_size_multiple</span><span class="o">=</span><span class="mf">0.00028</span><span class="p">,</span>
@@ -671,139 +546,247 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_17_0.png" src="_images/ch_production_17_0.png" />
+<img alt="_images/ch_production_33_0.png" src="_images/ch_production_33_0.png" />
 </div>
 </div>
-<ul class="simple">
-<li><p>Figure 2.6: Eigenvector centrality of across US industrial sectors</p></li>
-</ul>
+</div>
+<div class="section" id="network-for-71-us-sectors-in-2019">
+<h3>Network for 71 US sectors in 2019<a class="headerlink" href="#network-for-71-us-sectors-in-2019" title="Permalink to this headline">¶</a></h3>
+<p>We start by loading a graph of linkages between 71 US sectors in 2019.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ecentral</span> <span class="o">=</span> <span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="n">ecentral_color_list</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">ecentral</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">codes_71</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s1">&#39;us_sectors_71&#39;</span><span class="p">][</span><span class="s1">&#39;codes&#39;</span><span class="p">]</span>
+<span class="n">A_71</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s1">&#39;us_sectors_71&#39;</span><span class="p">][</span><span class="s1">&#39;adjacency_matrix&#39;</span><span class="p">]</span>
+<span class="n">X_71</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s1">&#39;us_sectors_71&#39;</span><span class="p">][</span><span class="s1">&#39;total_industry_sales&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">ecentral</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">ecentral_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;eigenvector centrality&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/ch_production_20_0.png" src="_images/ch_production_20_0.png" />
-</div>
-</div>
-<ul class="simple">
-<li><p>Figure 2.8: Output multipliers across 15 US industrial sectors</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">omult</span> <span class="o">=</span> <span class="n">katz_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">authority</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">omult_color_list</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">omult</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality_71</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A_71</span><span class="p">)</span>
+<span class="n">color_list_71</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">colorise_weights</span><span class="p">(</span><span class="n">centrality_71</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Finally we produce the plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">omult</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">omult_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Output multipliers&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/ch_production_23_0.png" src="_images/ch_production_23_0.png" />
-</div>
-</div>
-<ul class="simple">
-<li><p>Figure 2.9: Forward linkages and upstreamness over US industrial sectors</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">upstreamness</span> <span class="o">=</span> <span class="n">katz_centrality</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
-<span class="n">upstreamness_color_list</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">upstreamness</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
 
-<span class="n">plot_graph</span><span class="p">(</span><span class="n">F</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> 
-              <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span> <span class="c1"># alternative layouts: spring, circular, random, spiral</span>
+<span class="n">qbn_plt</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">A_71</span><span class="p">,</span> <span class="n">X_71</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes_71</span><span class="p">,</span>
+              <span class="n">node_size_multiple</span><span class="o">=</span><span class="mf">0.0005</span><span class="p">,</span>
+              <span class="n">edge_size_multiple</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+              <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span>
               <span class="n">layout_seed</span><span class="o">=</span><span class="mi">5432167</span><span class="p">,</span>
-              <span class="n">tol</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
-              <span class="n">node_color_list</span><span class="o">=</span><span class="n">upstreamness_color_list</span><span class="p">)</span> 
+              <span class="n">tol</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+              <span class="n">node_color_list</span><span class="o">=</span><span class="n">color_list_71</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_26_0.png" src="_images/ch_production_26_0.png" />
+<img alt="_images/ch_production_39_0.png" src="_images/ch_production_39_0.png" />
 </div>
 </div>
-<ul class="simple">
-<li><p>Figure 2.10: Relative upstreamness of US industrial sectors</p></li>
-</ul>
+</div>
+<div class="section" id="network-for-114-australian-industry-sectors-in-2018">
+<h3>Network for 114 Australian industry sectors in 2018<a class="headerlink" href="#network-for-114-australian-industry-sectors-in-2018" title="Permalink to this headline">¶</a></h3>
+<p>We start by loading a graph of linkages between 75 US sectors in 2019.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">upstreamness</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">upstreamness_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;upstreamness&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/ch_production_28_0.png" src="_images/ch_production_28_0.png" />
-</div>
-</div>
-</div>
-<div class="section" id="general-equilibrium">
-<h2>General Equilibrium<a class="headerlink" href="#general-equilibrium" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Figure 2.11: GDP growth rates and std. deviations (in parentheses) for 8 countries</p></li>
-</ul>
-<p><strong>No code in repo</strong></p>
-<ul class="simple">
-<li><p>Figure 2.14: Hub-based Katz centrality of across 15 US industrial sectors</p></li>
-</ul>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kcentral</span> <span class="o">=</span> <span class="n">katz_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="n">kcentral_color_list</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">kcentral</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">codes_114</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s1">&#39;au_sectors_114&#39;</span><span class="p">][</span><span class="s1">&#39;codes&#39;</span><span class="p">]</span>
+<span class="n">A_114</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s1">&#39;au_sectors_114&#39;</span><span class="p">][</span><span class="s1">&#39;adjacency_matrix&#39;</span><span class="p">]</span>
+<span class="n">X_114</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s1">&#39;au_sectors_114&#39;</span><span class="p">][</span><span class="s1">&#39;total_industry_sales&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">kcentral</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">kcentral_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Katz hub centrality&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality_114</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A_114</span><span class="p">)</span>
+<span class="n">color_list_114</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">colorise_weights</span><span class="p">(</span><span class="n">centrality_114</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally we produce the plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+<span class="n">qbn_plt</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">A_114</span><span class="p">,</span> <span class="n">X_114</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes_114</span><span class="p">,</span>
+              <span class="n">node_size_multiple</span><span class="o">=</span><span class="mf">0.008</span><span class="p">,</span>
+              <span class="n">edge_size_multiple</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+              <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span>
+              <span class="n">layout_seed</span><span class="o">=</span><span class="mi">5432167</span><span class="p">,</span>
+              <span class="n">tol</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
+              <span class="n">node_color_list</span><span class="o">=</span><span class="n">color_list_114</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_31_0.png" src="_images/ch_production_31_0.png" />
+<img alt="_images/ch_production_45_0.png" src="_images/ch_production_45_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="gdp-growth-rates-and-std-deviations-in-parentheses-for-8-countries">
+<h3>GDP growth rates and std. deviations (in parentheses) for 8 countries<a class="headerlink" href="#gdp-growth-rates-and-std-deviations-in-parentheses-for-8-countries" title="Permalink to this headline">¶</a></h3>
+<p>Here we load a pandas dataframe of GDP growth rates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_df</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s1">&#39;gdp_df&#39;</span><span class="p">]</span>
+<span class="n">gdp_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>country</th>
+      <th>Canada</th>
+      <th>United States</th>
+      <th>United Kingdom</th>
+      <th>France</th>
+      <th>Japan</th>
+      <th>Indonesia</th>
+      <th>Argentina</th>
+      <th>Mexico</th>
+      <th>Australia</th>
+      <th>South Africa</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1961</th>
+      <td>3.163292</td>
+      <td>2.3</td>
+      <td>2.677119</td>
+      <td>4.980112</td>
+      <td>12.043536</td>
+      <td>5.740646</td>
+      <td>5.427843</td>
+      <td>5.000000</td>
+      <td>2.483271</td>
+      <td>3.844751</td>
+    </tr>
+    <tr>
+      <th>1962</th>
+      <td>7.425385</td>
+      <td>6.1</td>
+      <td>1.102910</td>
+      <td>6.843470</td>
+      <td>8.908973</td>
+      <td>1.841978</td>
+      <td>-0.852022</td>
+      <td>4.664415</td>
+      <td>1.294468</td>
+      <td>6.177883</td>
+    </tr>
+    <tr>
+      <th>1963</th>
+      <td>5.349546</td>
+      <td>4.4</td>
+      <td>4.874384</td>
+      <td>6.233680</td>
+      <td>8.473642</td>
+      <td>-2.237030</td>
+      <td>-5.308197</td>
+      <td>8.106887</td>
+      <td>6.214949</td>
+      <td>7.373613</td>
+    </tr>
+    <tr>
+      <th>1964</th>
+      <td>6.642894</td>
+      <td>5.8</td>
+      <td>5.533659</td>
+      <td>6.652100</td>
+      <td>11.676708</td>
+      <td>3.529698</td>
+      <td>10.130298</td>
+      <td>11.905481</td>
+      <td>6.978540</td>
+      <td>7.939782</td>
+    </tr>
+    <tr>
+      <th>1965</th>
+      <td>6.316714</td>
+      <td>6.4</td>
+      <td>2.142177</td>
+      <td>4.861508</td>
+      <td>5.819708</td>
+      <td>1.081589</td>
+      <td>10.569433</td>
+      <td>7.100000</td>
+      <td>5.980893</td>
+      <td>6.122761</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="n">countries</span> <span class="o">=</span> <span class="n">gdp_df</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">gdp_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span>
+<span class="n">series</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">gdp_df</span><span class="p">[</span><span class="n">country</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span> <span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">countries</span><span class="p">]</span>
+
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="n">gdp_data</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">countries</span><span class="p">,</span> <span class="n">series</span><span class="p">):</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">gdp_data</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">country</span><span class="si">}</span><span class="s1"> ($</span><span class="si">{</span><span class="n">gdp_data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s1">1.2f</span><span class="si">}</span><span class="s1">$%)&#39;</span> <span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;%&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">((</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ch_production_48_0.png" src="_images/ch_production_48_0.png" />
+</div>
 </div>
 </div>
 </div>
@@ -873,12 +856,17 @@ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdo
  </li>
  <li class="toctree-l1 current active active">
   <a class="current reference internal" href="#">
-   Chapter 2 - Production Code
+   Chapter 2 - Production (Python Code)
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="ch_opt.html">
    Chapter 3 - Optimal Flows (Python Code)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ch_opt_julia.html">
+   Chapter 3 - Optimal Flows (Julia Code)
   </a>
  </li>
  <li class="toctree-l1">
