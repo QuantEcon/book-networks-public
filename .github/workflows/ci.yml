@@ -67,7 +67,7 @@ jobs:
       - name: Build HTML
         shell: bash -l {0}
         run: |
-          jb build -W --keep-going code_book --path-output ./
+          jb build code_book --path-output ./
       - name: Upload Execution Reports
         uses: actions/upload-artifact@v2
         if: failure()
