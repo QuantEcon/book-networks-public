@@ -3,9 +3,9 @@ Economic Networks: Theory and Computation
 
 **Authors**: [John Stachurski](https://johnstachurski.net/), [Thomas J. Sargent](http://www.tomsargent.com/)
 
-
 ::::{grid} 2
 :::{grid-item-card} PDF
+:link: https://raw.githubusercontent.com/QuantEcon/book-networks/main/code_book/downloads/networks-book.pdf
 :img-background: img/betweenness_centrality_1.pdf
 :::
 :::{grid-item-card} Code Book
