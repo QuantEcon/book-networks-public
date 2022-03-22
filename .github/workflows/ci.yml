@@ -22,7 +22,7 @@ jobs:
       - name: Install IJulia and Setup Project
         shell: bash
         run: |
-          julia -e 'using Pkg; ENV["PYTHON"]="/usr/share/miniconda3"; Pkg.add(["JuMP","GLPK","PyPlot","IJulia"]);'
+          julia -e 'using Pkg; ENV["PYTHON"]="/usr/share/miniconda3"; Pkg.add(["JuMP","GLPK","PyPlot","IJulia"]); using PyPlot'
       # - name: Install latex dependencies
       #   run: |
       #     sudo apt-get -qq update
