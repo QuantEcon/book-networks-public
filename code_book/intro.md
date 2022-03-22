@@ -1,5 +1,5 @@
-Economic Networks Code Book
-===========================
+Economic Networks: Theory and Computation
+=========================================
 
 **Authors**: [John Stachurski](https://johnstachurski.net/), [Thomas J. Sargent](http://www.tomsargent.com/)
 
