@@ -8,7 +8,7 @@ Economic Networks: Theory and Computation
 :::{grid-item-card} PDF
 :img-background: img/betweenness_centrality_1.pdf
 :::
-:::{grid-item-card} Code
+:::{grid-item-card} Code Book
 :link: toc
 :link-type: ref
 
