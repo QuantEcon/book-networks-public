@@ -71,6 +71,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
@@ -87,6 +88,7 @@
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script src="_static/quantecon-book-theme.15b0c36fffe88f468997fa7b698991d3.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"TeX": {"Macros": {"Exp": ["\\operatorname{Exp}"], "Binomial": ["\\operatorname{Binomial}"], "Poisson": ["\\operatorname{Poisson}"], "BB": ["\\mathbb{B}"], "EE": ["\\mathbb{E}"], "PP": ["\\mathbb{P}"], "RR": ["\\mathbb{R}"], "NN": ["\\mathbb{N}"], "ZZ": ["\\mathbb{Z}"], "dD": ["\\mathcal{D}"], "fF": ["\\mathcal{F}"], "lL": ["\\mathcal{L}"], "linop": ["\\mathcal{L}(\\mathbb{B})"], "linopell": ["\\mathcal{L}(\\ell_1)"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -106,13 +108,13 @@
 <!-- Normal Meta Tags -->
 <meta name="author" context="John Stachurski and Thomas J. Sargent" />
 <meta name="keywords" content="" />
-<meta name="description" content=Chapter 3 - Optimal Flows (Julia Code)  Bellman’s Method  Our first step is to set up the cost function, which we store as an array called c. Note that we set c />
+<meta name="description" content=Chapter 3 - Optimal Flows (Julia Code)  Bellman’s Method  Here we demonstrate solving a shortest path problem using Belmman’s method. Our first step is to set u />
 
 <!-- Twitter tags -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@" />
 <meta name="twitter:title" content="Chapter 3 - Optimal Flows (Julia Code)"/>
-<meta name="twitter:description" content="Chapter 3 - Optimal Flows (Julia Code)  Bellman’s Method  Our first step is to set up the cost function, which we store as an array called c. Note that we set c">
+<meta name="twitter:description" content="Chapter 3 - Optimal Flows (Julia Code)  Bellman’s Method  Here we demonstrate solving a shortest path problem using Belmman’s method. Our first step is to set u">
 <meta name="twitter:creator" content="@">
 <meta name="twitter:image" content="">
 
@@ -121,7 +123,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="None" />
 <meta property="og:image" content="" />
-<meta property="og:description" content="Chapter 3 - Optimal Flows (Julia Code)  Bellman’s Method  Our first step is to set up the cost function, which we store as an array called c. Note that we set c" />
+<meta property="og:description" content="Chapter 3 - Optimal Flows (Julia Code)  Bellman’s Method  Here we demonstrate solving a shortest path problem using Belmman’s method. Our first step is to set u" />
 <meta property="og:site_name" content="Economic Networks - Theory and Computation" />
 <meta name="theme-color" content="#ffffff" />
 
@@ -204,8 +206,7 @@
 <h1>Chapter 3 - Optimal Flows (Julia Code)<a class="headerlink" href="#chapter-3-optimal-flows-julia-code" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="bellmans-method">
 <h2>Bellman’s Method<a class="headerlink" href="#bellmans-method" title="Permalink to this headline">¶</a></h2>
-<p>Our first step is to set up the cost function, which we store as an array called <span class="math notranslate nohighlight">\(c\)</span>. Note that we set <span class="math notranslate nohighlight">\(c[i, j] = Inf\)</span> when no edge
-exists from <span class="math notranslate nohighlight">\(i\)</span> to <span class="math notranslate nohighlight">\(j\)</span>, so that such a path is never chosen when evaluating the Bellman operator</p>
+<p>Here we demonstrate solving a shortest path problem using Belmman’s method. Our first step is to set up the cost function, which we store as an array called <span class="math notranslate nohighlight">\(c\)</span>. Note that we set <span class="math notranslate nohighlight">\(c[i, j] = Inf\)</span> when no edge exists from <span class="math notranslate nohighlight">\(i\)</span> to <span class="math notranslate nohighlight">\(j\)</span>.</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">fill</span><span class="p">(</span><span class="nb">Inf</span><span class="p">,</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -235,7 +236,7 @@ exists from <span class="math notranslate nohighlight">\(i\)</span> to <span cla
 </div>
 </div>
 </div>
-<p>Now we arbitraryly set <span class="math notranslate nohighlight">\(𝑞 ≡ 0\)</span>, generate the sequence of iterates <span class="math notranslate nohighlight">\(𝑇𝑞\)</span>, <span class="math notranslate nohighlight">\(𝑇^2𝑞\)</span>, <span class="math notranslate nohighlight">\(𝑇^3𝑞\)</span> and plot them.</p>
+<p>Now we arbitraryly set <span class="math notranslate nohighlight">\(𝑞 ≡ 0\)</span>, generate the sequence of iterates <span class="math notranslate nohighlight">\(𝑇𝑞\)</span>, <span class="math notranslate nohighlight">\(𝑇^2𝑞\)</span>, <span class="math notranslate nohighlight">\(𝑇^3𝑞\)</span> and plot them. By <span class="math notranslate nohighlight">\(𝑇^3 \)</span>𝑞<span class="math notranslate nohighlight">\( has already converged on \)</span>𝑞^∗$.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">PyPlot</span>
@@ -256,60 +257,8 @@ exists from <span class="math notranslate nohighlight">\(i\)</span> to <span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>InitError: PyError (PyImport_ImportModule
-
-The Python package matplotlib could not be imported by pyimport. Usually this means
-that you did not install matplotlib in the Python version being used by PyCall.
-
-PyCall is currently configured to use the Python version at:
-
-/usr/bin/python3
-
-and you should use whatever mechanism you usually use (apt-get, pip, conda,
-etcetera) to install the Python package containing the matplotlib module.
-
-One alternative is to re-configure PyCall to use a different Python
-version on your system: set ENV[&quot;PYTHON&quot;] to the path/name of the python
-executable you want to use, run Pkg.build(&quot;PyCall&quot;), and re-launch Julia.
-
-Another alternative is to configure PyCall to use a Julia-specific Python
-distribution via the Conda.jl package (which installs a private Anaconda
-Python distribution), which has the advantage that packages can be installed
-and kept up-to-date via Julia.  As explained in the PyCall documentation,
-set ENV[&quot;PYTHON&quot;]=&quot;&quot;, run Pkg.build(&quot;PyCall&quot;), and re-launch Julia. Then,
-To install the matplotlib module, you can use `pyimport_conda(&quot;matplotlib&quot;, PKG)`,
-where PKG is the Anaconda package that contains the module matplotlib,
-or alternatively you can use the Conda package directly (via
-`using Conda` followed by `Conda.add` etcetera).
-
-) &lt;class &#39;ModuleNotFoundError&#39;&gt;
-ModuleNotFoundError(&quot;No module named &#39;matplotlib&#39;&quot;)
-
-during initialization of module PyPlot
-
-Stacktrace:
-  [1] pyimport(name::String)
-    @ PyCall ~/.julia/packages/PyCall/7a7w0/src/PyCall.jl:550
-  [2] pyimport_conda(modulename::String, condapkg::String, channel::String)
-    @ PyCall ~/.julia/packages/PyCall/7a7w0/src/PyCall.jl:708
-  [3] pyimport_conda
-    @ ~/.julia/packages/PyCall/7a7w0/src/PyCall.jl:707 [inlined]
-  [4] __init__()
-    @ PyPlot ~/.julia/packages/PyPlot/XaELc/src/init.jl:185
-  [5] _include_from_serialized(path::String, depmods::Vector{Any})
-    @ Base ./loading.jl:696
-  [6] _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String)
-    @ Base ./loading.jl:782
-  [7] _require(pkg::Base.PkgId)
-    @ Base ./loading.jl:1020
-  [8] require(uuidkey::Base.PkgId)
-    @ Base ./loading.jl:936
-  [9] require(into::Module, mod::Symbol)
-    @ Base ./loading.jl:923
- [10] eval
-    @ ./boot.jl:360 [inlined]
- [11] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-    @ Base ./loading.jl:1116
+<img alt="_images/ch_opt_julia_5_0.png" src="_images/ch_opt_julia_5_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PyObject &lt;matplotlib.legend.Legend object at 0x7f23f77fcc70&gt;
 </pre></div>
 </div>
 </div>
@@ -357,6 +306,12 @@ Stacktrace:
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.5
+5.0
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -370,16 +325,16 @@ Stacktrace:
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "julia-1.6"
+            mode: "julia-1.7"
         },
         kernelOptions: {
-            kernelName: "julia-1.6",
+            kernelName: "julia-1.7",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'julia-1.6'</script>
+    <script>kernelName = 'julia-1.7'</script>
 
                     </div>
                     
@@ -413,10 +368,15 @@ Stacktrace:
                     <ul class="nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Economic Networks Code Book
+   Economic Networks: Theory and Computation
   </a>
  </li>
 </ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Code Book
+ </span>
+</p>
 <ul class="current nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="ch_intro.html">
@@ -455,7 +415,7 @@ Stacktrace:
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="pkg_funcs.html">
-   The quantecon_book_networks package
+   quantecon_book_networks
   </a>
  </li>
 </ul>

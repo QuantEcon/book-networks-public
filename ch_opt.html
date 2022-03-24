@@ -71,6 +71,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
@@ -87,6 +88,7 @@
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script src="_static/quantecon-book-theme.15b0c36fffe88f468997fa7b698991d3.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"TeX": {"Macros": {"Exp": ["\\operatorname{Exp}"], "Binomial": ["\\operatorname{Binomial}"], "Poisson": ["\\operatorname{Poisson}"], "BB": ["\\mathbb{B}"], "EE": ["\\mathbb{E}"], "PP": ["\\mathbb{P}"], "RR": ["\\mathbb{R}"], "NN": ["\\mathbb{N}"], "ZZ": ["\\mathbb{Z}"], "dD": ["\\mathcal{D}"], "fF": ["\\mathcal{F}"], "lL": ["\\mathcal{L}"], "linop": ["\\mathcal{L}(\\mathbb{B})"], "linopell": ["\\mathcal{L}(\\ell_1)"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -199,6 +201,11 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#python-spatial-analysis-library">
+     Python Spatial Analysis library
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#the-general-flow-problem">
      The General Flow Problem
     </a>
@@ -278,7 +285,7 @@
 <h2>Linear Programming and Duality<a class="headerlink" href="#linear-programming-and-duality" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="betweenness-centrality-by-color-and-node-size-for-the-florentine-families">
 <h3>Betweenness centrality (by color and node size) for the Florentine families<a class="headerlink" href="#betweenness-centrality-by-color-and-node-size-for-the-florentine-families" title="Permalink to this headline">¶</a></h3>
-<p>We load the Florentine Families data from the networkx package.</p>
+<p>We load the Florentine Families data from the NetworkX package.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">florentine_families_graph</span><span class="p">()</span>
@@ -405,7 +412,7 @@
 <h2>Optimal Transport<a class="headerlink" href="#optimal-transport" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="transforming-distribution-phi-into-distribution-psi">
 <h3>Transforming distribution <span class="math notranslate nohighlight">\(\phi\)</span> into distribution <span class="math notranslate nohighlight">\(\psi\)</span><a class="headerlink" href="#transforming-distribution-phi-into-distribution-psi" title="Permalink to this headline">¶</a></h3>
-<p>Below we provide code to produce a visualisation of the Monge-Kantorovich problem.</p>
+<p>Below we provide code to produce a visualisation of transforming one distribution into another in one dimension.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">σ</span> <span class="o">=</span> <span class="mf">0.1</span>
@@ -650,7 +657,7 @@
 </div>
 <div class="section" id="solving-linear-assignment-as-an-optimal-transport-problem">
 <h3>Solving linear assignment as an optimal transport problem<a class="headerlink" href="#solving-linear-assignment-as-an-optimal-transport-problem" title="Permalink to this headline">¶</a></h3>
-<p>Here we set up a linear assignment problem (matching n workers to n jobs).</p>
+<p>Here we set up a linear assignment problem (matching <span class="math notranslate nohighlight">\(n\)</span> workers to <span class="math notranslate nohighlight">\(n\)</span> jobs).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
@@ -660,7 +667,7 @@
 </div>
 </div>
 </div>
-<p>We generate our cost matrix (the cost of training the ith worker for the jth job)</p>
+<p>We generate our cost matrix (the cost of training the <span class="math notranslate nohighlight">\(i\)</span>th worker for the <span class="math notranslate nohighlight">\(j\)</span>th job)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
@@ -684,17 +691,22 @@
 </div>
 </div>
 </div>
-<p>Readers interested in computational optimal transport should also consider PySAL, the Python Spatial Analysis library (link to <a class="reference external" href="https://pysal.org/">https://pysal.org/</a>). See, for example, <a class="reference external" href="https://pysal.org/spaghetti/notebooks/transportation-problem.html">https://pysal.org/spaghetti/notebooks/transportation-problem.html</a>.</p>
+</div>
+<div class="section" id="python-spatial-analysis-library">
+<h3>Python Spatial Analysis library<a class="headerlink" href="#python-spatial-analysis-library" title="Permalink to this headline">¶</a></h3>
+<p>Readers interested in computational optimal transport should also consider PySAL, the <a class="reference external" href="https://pysal.org/">Python Spatial Analysis library</a>. See, for example, <a class="reference external" href="https://pysal.org/spaghetti/notebooks/transportation-problem.html">https://pysal.org/spaghetti/notebooks/transportation-problem.html</a>.</p>
 </div>
 <div class="section" id="the-general-flow-problem">
 <h3>The General Flow Problem<a class="headerlink" href="#the-general-flow-problem" title="Permalink to this headline">¶</a></h3>
 <p>Here we solve a simple network flow problem as a linear program. We begin by defining the node-edge incidence matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">((</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-<span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-<span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-<span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">(</span>
+<span class="p">(</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">),</span>
+<span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">),</span>
+<span class="p">(</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">),</span>
+<span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -778,10 +790,15 @@
                     <ul class="nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Economic Networks Code Book
+   Economic Networks: Theory and Computation
   </a>
  </li>
 </ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Code Book
+ </span>
+</p>
 <ul class="current nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="ch_intro.html">
@@ -820,7 +837,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="pkg_funcs.html">
-   The quantecon_book_networks package
+   quantecon_book_networks
   </a>
  </li>
 </ul>

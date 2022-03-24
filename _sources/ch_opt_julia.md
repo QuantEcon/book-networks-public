@@ -10,15 +10,14 @@ jupytext:
 kernelspec:
   display_name: Julia
   language: Julia
-  name: julia-1.6
+  name: julia-1.7
 ---
 
 # Chapter 3 - Optimal Flows (Julia Code)
 
 ## Bellman’s Method
 
-Our first step is to set up the cost function, which we store as an array called $c$. Note that we set $c[i, j] = Inf$ when no edge
-exists from $i$ to $j$, so that such a path is never chosen when evaluating the Bellman operator
+Here we demonstrate solving a shortest path problem using Belmman's method. Our first step is to set up the cost function, which we store as an array called $c$. Note that we set $c[i, j] = Inf$ when no edge exists from $i$ to $j$.
 
 ```{code-cell}
 :tags: ["remove-output"]
@@ -48,7 +47,7 @@ function T(q)
 end
 ```
 
-Now we arbitraryly set $𝑞 ≡ 0$, generate the sequence of iterates $𝑇𝑞$, $𝑇^2𝑞$, $𝑇^3𝑞$ and plot them.
+Now we arbitraryly set $𝑞 ≡ 0$, generate the sequence of iterates $𝑇𝑞$, $𝑇^2𝑞$, $𝑇^3𝑞$ and plot them. By $𝑇^3 $𝑞$ has already converged on $𝑞^∗$.
 
 ```{code-cell}
 using PyPlot
@@ -79,7 +78,6 @@ We create our model object and select our solver.
 ```{code-cell}
 m = Model()
 set_optimizer(m, GLPK.Optimizer)
-
 ```
 
 Now we add variables, constraints and an objective to our model.

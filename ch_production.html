@@ -71,6 +71,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
@@ -87,7 +88,10 @@
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script src="_static/quantecon-book-theme.15b0c36fffe88f468997fa7b698991d3.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"TeX": {"Macros": {"Exp": ["\\operatorname{Exp}"], "Binomial": ["\\operatorname{Binomial}"], "Poisson": ["\\operatorname{Poisson}"], "BB": ["\\mathbb{B}"], "EE": ["\\mathbb{E}"], "PP": ["\\mathbb{P}"], "RR": ["\\mathbb{R}"], "NN": ["\\mathbb{N}"], "ZZ": ["\\mathbb{Z}"], "dD": ["\\mathcal{D}"], "fF": ["\\mathcal{F}"], "lL": ["\\mathcal{L}"], "linop": ["\\mathcal{L}(\\mathbb{B})"], "linopell": ["\\mathcal{L}(\\ell_1)"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -279,7 +283,8 @@
 </div>
 <div class="section" id="multisector-models">
 <h2>Multisector Models<a class="headerlink" href="#multisector-models" title="Permalink to this headline">¶</a></h2>
-<p>We start by loading a graph of linkages between 15 US sectors in 2019. Our graph comes as a list of sector codes, an adjacency matrix of sales between the sectors, and a list the total sales of each sector. The Z[i,j] weight is the sales from industry i to industry j.</p>
+<p>We start by loading a graph of linkages between 15 US sectors in 2019. Our graph comes as a list of sector codes, an adjacency matrix of sales between the sectors, and a list the total sales of each sector.
+That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sales from industry <span class="math notranslate nohighlight">\(i\)</span> to industry <span class="math notranslate nohighlight">\(j\)</span>, and <span class="math notranslate nohighlight">\(X[i]\)</span> is the the total sales of each sector <span class="math notranslate nohighlight">\(i\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">codes</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s2">&quot;us_sectors_15&quot;</span><span class="p">][</span><span class="s2">&quot;codes&quot;</span><span class="p">]</span>
@@ -320,7 +325,6 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="n">color_list</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">colorise_weights</span><span class="p">(</span><span class="n">centrality</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
@@ -330,6 +334,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">color_list</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">colorise_weights</span><span class="p">(</span><span class="n">centrality</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
 
 <span class="n">qbn_plt</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">codes</span><span class="p">,</span> 
               <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;spring&#39;</span><span class="p">,</span>
@@ -369,8 +374,13 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">omult</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">katz_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">authority</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">omult_color_list</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">colorise_weights</span><span class="p">(</span><span class="n">omult</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">codes</span><span class="p">,</span> <span class="n">omult</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">omult_color_list</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Output multipliers&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
@@ -379,7 +389,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_14_0.png" src="_images/ch_production_14_0.png" />
+<img alt="_images/ch_production_15_0.png" src="_images/ch_production_15_0.png" />
 </div>
 </div>
 </div>
@@ -410,7 +420,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_18_0.png" src="_images/ch_production_18_0.png" />
+<img alt="_images/ch_production_19_0.png" src="_images/ch_production_19_0.png" />
 </div>
 </div>
 </div>
@@ -427,7 +437,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_20_0.png" src="_images/ch_production_20_0.png" />
+<img alt="_images/ch_production_21_0.png" src="_images/ch_production_21_0.png" />
 </div>
 </div>
 </div>
@@ -452,7 +462,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_23_0.png" src="_images/ch_production_23_0.png" />
+<img alt="_images/ch_production_24_0.png" src="_images/ch_production_24_0.png" />
 </div>
 </div>
 </div>
@@ -494,7 +504,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_27_0.png" src="_images/ch_production_27_0.png" />
+<img alt="_images/ch_production_28_0.png" src="_images/ch_production_28_0.png" />
 </div>
 </div>
 </div>
@@ -524,7 +534,7 @@
 </div>
 </div>
 </div>
-<p>Finally, we plot the shock propergate through the economy.</p>
+<p>Finally, we plot the shock propergating through the economy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
@@ -546,7 +556,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_33_0.png" src="_images/ch_production_33_0.png" />
+<img alt="_images/ch_production_34_0.png" src="_images/ch_production_34_0.png" />
 </div>
 </div>
 </div>
@@ -590,7 +600,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_39_0.png" src="_images/ch_production_39_0.png" />
+<img alt="_images/ch_production_40_0.png" src="_images/ch_production_40_0.png" />
 </div>
 </div>
 </div>
@@ -634,7 +644,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_45_0.png" src="_images/ch_production_45_0.png" />
+<img alt="_images/ch_production_46_0.png" src="_images/ch_production_46_0.png" />
 </div>
 </div>
 </div>
@@ -762,6 +772,7 @@
 </table>
 </div></div></div>
 </div>
+<p>Now we plot the growth rates and calculate their std. deviations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
@@ -785,7 +796,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_48_0.png" src="_images/ch_production_48_0.png" />
+<img alt="_images/ch_production_50_0.png" src="_images/ch_production_50_0.png" />
 </div>
 </div>
 </div>
@@ -844,10 +855,15 @@
                     <ul class="nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Economic Networks Code Book
+   Economic Networks: Theory and Computation
   </a>
  </li>
 </ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Code Book
+ </span>
+</p>
 <ul class="current nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="ch_intro.html">
@@ -886,7 +902,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="pkg_funcs.html">
-   The quantecon_book_networks package
+   quantecon_book_networks
   </a>
  </li>
 </ul>

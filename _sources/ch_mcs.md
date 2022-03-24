@@ -39,32 +39,32 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 In this chapter two transition matrices are used.
 
-First, a Markov model is estimated in the international growth dynamics study of Quah (1993). The state is real GDP per capita in a given country relative to the world average. Quah discretizes the possible values to $0$–$1/4$, $1/4$–$1/2$, $1/2$–$1$, $1$–$2$ and $2$–$\inf$, calling these states 1 to 5 respectively. The transitions are over a one year period. 
+First, a Markov model is estimated in the international growth dynamics study of [Quah (1993)](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.142.5504&rep=rep1&type=pdf). The state is real GDP per capita in a given country relative to the world average. Quah discretizes the possible values to 0–1/4, 1/4–1/2, 1/2–1, 1–2 and 2–inf, calling these states 1 to 5 respectively. The transitions are over a one year period. 
 
 ```{code-cell}
 P_Q = [
-    [0.97, 0.03, 0, 0, 0],
-    [0.05, 0.92, 0.03, 0, 0],
-    [0, 0.04, 0.92, 0.04, 0],
-    [0, 0, 0.04, 0.94, 0.02],
-    [0, 0, 0, 0.01, 0.99]
+    [0.97, 0.03, 0,    0,    0   ],
+    [0.05, 0.92, 0.03, 0,    0   ],
+    [0,    0.04, 0.92, 0.04, 0   ],
+    [0,    0,    0.04, 0.94, 0.02],
+    [0,    0,    0,    0.01, 0.99]
 ]
 P_Q = np.array(P_Q)
 codes_Q =  ( '1','2','3','4','5')
 ```
 
-Second, Benhabib et al. (2015) estimate the following transition matrix for intergenerational social mobility. The states are percentiles of the wealth distribution, in particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100% respectively. 
+Second, [Benhabib et al. (2015)](https://www.economicdynamics.org/meetpapers/2015/paper_364.pdf) estimate the following transition matrix for intergenerational social mobility. The states are percentiles of the wealth distribution, in particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100%. 
 
 ```{code-cell}
 P_B = [
     [0.222, 0.222, 0.215, 0.187, 0.081, 0.038, 0.029, 0.006],
-    [0.221, 0.22, 0.215, 0.188, 0.082, 0.039, 0.029, 0.006],
-    [0.207, 0.209, 0.21, 0.194, 0.09, 0.046, 0.036, 0.008],
-    [0.198, 0.201, 0.207, 0.198, 0.095, 0.052, 0.04, 0.009],
-    [0.175, 0.178, 0.197, 0.207, 0.11, 0.067, 0.054, 0.012],
-    [0.182, 0.184, 0.2, 0.205, 0.106, 0.062, 0.05, 0.011],
+    [0.221, 0.22,  0.215, 0.188, 0.082, 0.039, 0.029, 0.006],
+    [0.207, 0.209, 0.21,  0.194, 0.09,  0.046, 0.036, 0.008],
+    [0.198, 0.201, 0.207, 0.198, 0.095, 0.052, 0.04,  0.009],
+    [0.175, 0.178, 0.197, 0.207, 0.11,  0.067, 0.054, 0.012],
+    [0.182, 0.184, 0.2,   0.205, 0.106, 0.062, 0.05,  0.011],
     [0.123, 0.125, 0.166, 0.216, 0.141, 0.114, 0.094, 0.021],
-    [0.084, 0.084, 0.142, 0.228, 0.17, 0.143, 0.121, 0.028]
+    [0.084, 0.084, 0.142, 0.228, 0.17,  0.143, 0.121, 0.028]
     ]
 
 P_B = np.array(P_B)
@@ -98,7 +98,6 @@ def plot_matrices(matrix,
         co = ax.contourf(ticks, 
                          ticks,
                          matrix,
-#                          levels,
                          alpha=alpha, cmap=colormap)
         ax.plot(ticks, ticks, color=color45d)
     else:
@@ -107,8 +106,6 @@ def plot_matrices(matrix,
                          matrix,
                          levels,
                          alpha=alpha, cmap=colormap)
-
-    #plt.colorbar(co)
 
     ax.set_xlabel(xlabel, fontsize=font_size)
     ax.set_ylabel(ylabel, fontsize=font_size)
@@ -153,7 +150,7 @@ def sim_fig(ax, mc, T=100, seed=14, title=None):
     ax.set_title(title, fontsize=12)
 ```
 
-Finally, we produce figure.
+Finally, we produce the figure.
 
 ```{code-cell}
 fig, axes = plt.subplots(2, 1)
@@ -203,7 +200,7 @@ def gdp_dist_estimate(df, l, yr=(1960, 2019)):
     return Y / Y.sum()
 ```
 
-Calculate the true distribution for 1985.
+We calculate the true distribution for 1985.
 
 ```{code-cell}
 ψ_1985 = gdp_dist_estimate(gdppc_df,l,yr=(1985, 1985))
@@ -323,7 +320,7 @@ def transition(P, n, ax=None):
     return ax
 ```
 
-We now generate the marginal distirbutions after 0, 1, 2, and 100 iterations for the transition matrix described in Benhabib et al. (2015).
+We now generate the marginal distributions after 0, 1, 2, and 100 iterations for $P_B$.
 
 ```{code-cell}
 ns = (0, 1, 2, 100)
@@ -344,7 +341,7 @@ plt.show()
 
 ### Convergence of the empirical distribution to $\psi^*$
 
-We begin by creating a Markov Chain object (from the quantecon package) taking the transition matrix from Benhabib et al. (2015). 
+We begin by creating a Markov Chain object, taking $P_B$ as the transition matrix. 
 
 ```{code-cell}
 mc = qe.MarkovChain(P_B)
@@ -371,7 +368,7 @@ def simulate_distribution(mc, T=100):
 
 ```
 
-We run simulations of length 10, 100, 1,000 and 10,000 iterations.
+We run simulations of length 10, 100, 1,000 and 10,000.
 
 ```{code-cell}
 lengths = [10, 100, 1_000, 10_000]
@@ -381,7 +378,7 @@ for t in lengths:
     dists.append(simulate_distribution(mc, t))
 ```
 
-Now we produce the plots, and we see that the simulated distribution starts to aproach the true stationary distribution. 
+Now we produce the plots. We see that the simulated distribution starts to aproach the true stationary distribution. 
 
 ```{code-cell}
 fig, axes = plt.subplots(2, 2, figsize=(9, 6), sharex='all')#, sharey='all')

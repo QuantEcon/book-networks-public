@@ -71,6 +71,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
@@ -87,6 +88,7 @@
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script src="_static/quantecon-book-theme.15b0c36fffe88f468997fa7b698991d3.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"TeX": {"Macros": {"Exp": ["\\operatorname{Exp}"], "Binomial": ["\\operatorname{Binomial}"], "Poisson": ["\\operatorname{Poisson}"], "BB": ["\\mathbb{B}"], "EE": ["\\mathbb{E}"], "PP": ["\\mathbb{P}"], "RR": ["\\mathbb{R}"], "NN": ["\\mathbb{N}"], "ZZ": ["\\mathbb{Z}"], "dD": ["\\mathcal{D}"], "fF": ["\\mathcal{F}"], "lL": ["\\mathcal{L}"], "linop": ["\\mathcal{L}(\\mathbb{B})"], "linopell": ["\\mathcal{L}(\\ell_1)"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -279,16 +281,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/pandas_datareader/wb.py:592: UserWarning: Non-standard ISO country codes: JG, XK
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/pandas_datareader/wb.py:592: UserWarning: Non-standard ISO country codes: WLD
-  warnings.warn(
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -306,15 +298,15 @@
 <div class="section" id="example-transition-matrices">
 <h2>Example transition matrices<a class="headerlink" href="#example-transition-matrices" title="Permalink to this headline">¶</a></h2>
 <p>In this chapter two transition matrices are used.</p>
-<p>First, a Markov model is estimated in the international growth dynamics study of Quah (1993). The state is real GDP per capita in a given country relative to the world average. Quah discretizes the possible values to <span class="math notranslate nohighlight">\(0\)</span>–<span class="math notranslate nohighlight">\(1/4\)</span>, <span class="math notranslate nohighlight">\(1/4\)</span>–<span class="math notranslate nohighlight">\(1/2\)</span>, <span class="math notranslate nohighlight">\(1/2\)</span>–<span class="math notranslate nohighlight">\(1\)</span>, <span class="math notranslate nohighlight">\(1\)</span>–<span class="math notranslate nohighlight">\(2\)</span> and <span class="math notranslate nohighlight">\(2\)</span>–<span class="math notranslate nohighlight">\(\inf\)</span>, calling these states 1 to 5 respectively. The transitions are over a one year period.</p>
+<p>First, a Markov model is estimated in the international growth dynamics study of <a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.142.5504&amp;rep=rep1&amp;type=pdf">Quah (1993)</a>. The state is real GDP per capita in a given country relative to the world average. Quah discretizes the possible values to 0–1/4, 1/4–1/2, 1/2–1, 1–2 and 2–inf, calling these states 1 to 5 respectively. The transitions are over a one year period.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">P_Q</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="mf">0.97</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.94</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">]</span>
+    <span class="p">[</span><span class="mf">0.97</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span>   <span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span>   <span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span>    <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mi">0</span>   <span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>    <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.94</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>    <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">]</span>
 <span class="p">]</span>
 <span class="n">P_Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">P_Q</span><span class="p">)</span>
 <span class="n">codes_Q</span> <span class="o">=</span>  <span class="p">(</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;5&#39;</span><span class="p">)</span>
@@ -322,18 +314,18 @@
 </div>
 </div>
 </div>
-<p>Second, Benhabib et al. (2015) estimate the following transition matrix for intergenerational social mobility. The states are percentiles of the wealth distribution, in particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100% respectively.</p>
+<p>Second, <a class="reference external" href="https://www.economicdynamics.org/meetpapers/2015/paper_364.pdf">Benhabib et al. (2015)</a> estimate the following transition matrix for intergenerational social mobility. The states are percentiles of the wealth distribution, in particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100%.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">P_B</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">[</span><span class="mf">0.222</span><span class="p">,</span> <span class="mf">0.222</span><span class="p">,</span> <span class="mf">0.215</span><span class="p">,</span> <span class="mf">0.187</span><span class="p">,</span> <span class="mf">0.081</span><span class="p">,</span> <span class="mf">0.038</span><span class="p">,</span> <span class="mf">0.029</span><span class="p">,</span> <span class="mf">0.006</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">0.221</span><span class="p">,</span> <span class="mf">0.22</span><span class="p">,</span> <span class="mf">0.215</span><span class="p">,</span> <span class="mf">0.188</span><span class="p">,</span> <span class="mf">0.082</span><span class="p">,</span> <span class="mf">0.039</span><span class="p">,</span> <span class="mf">0.029</span><span class="p">,</span> <span class="mf">0.006</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">0.207</span><span class="p">,</span> <span class="mf">0.209</span><span class="p">,</span> <span class="mf">0.21</span><span class="p">,</span> <span class="mf">0.194</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">,</span> <span class="mf">0.046</span><span class="p">,</span> <span class="mf">0.036</span><span class="p">,</span> <span class="mf">0.008</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">0.198</span><span class="p">,</span> <span class="mf">0.201</span><span class="p">,</span> <span class="mf">0.207</span><span class="p">,</span> <span class="mf">0.198</span><span class="p">,</span> <span class="mf">0.095</span><span class="p">,</span> <span class="mf">0.052</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.009</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">0.175</span><span class="p">,</span> <span class="mf">0.178</span><span class="p">,</span> <span class="mf">0.197</span><span class="p">,</span> <span class="mf">0.207</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">,</span> <span class="mf">0.067</span><span class="p">,</span> <span class="mf">0.054</span><span class="p">,</span> <span class="mf">0.012</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">0.182</span><span class="p">,</span> <span class="mf">0.184</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.205</span><span class="p">,</span> <span class="mf">0.106</span><span class="p">,</span> <span class="mf">0.062</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.011</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.221</span><span class="p">,</span> <span class="mf">0.22</span><span class="p">,</span>  <span class="mf">0.215</span><span class="p">,</span> <span class="mf">0.188</span><span class="p">,</span> <span class="mf">0.082</span><span class="p">,</span> <span class="mf">0.039</span><span class="p">,</span> <span class="mf">0.029</span><span class="p">,</span> <span class="mf">0.006</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.207</span><span class="p">,</span> <span class="mf">0.209</span><span class="p">,</span> <span class="mf">0.21</span><span class="p">,</span>  <span class="mf">0.194</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">,</span>  <span class="mf">0.046</span><span class="p">,</span> <span class="mf">0.036</span><span class="p">,</span> <span class="mf">0.008</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.198</span><span class="p">,</span> <span class="mf">0.201</span><span class="p">,</span> <span class="mf">0.207</span><span class="p">,</span> <span class="mf">0.198</span><span class="p">,</span> <span class="mf">0.095</span><span class="p">,</span> <span class="mf">0.052</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span>  <span class="mf">0.009</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.175</span><span class="p">,</span> <span class="mf">0.178</span><span class="p">,</span> <span class="mf">0.197</span><span class="p">,</span> <span class="mf">0.207</span><span class="p">,</span> <span class="mf">0.11</span><span class="p">,</span>  <span class="mf">0.067</span><span class="p">,</span> <span class="mf">0.054</span><span class="p">,</span> <span class="mf">0.012</span><span class="p">],</span>
+    <span class="p">[</span><span class="mf">0.182</span><span class="p">,</span> <span class="mf">0.184</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span>   <span class="mf">0.205</span><span class="p">,</span> <span class="mf">0.106</span><span class="p">,</span> <span class="mf">0.062</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span>  <span class="mf">0.011</span><span class="p">],</span>
     <span class="p">[</span><span class="mf">0.123</span><span class="p">,</span> <span class="mf">0.125</span><span class="p">,</span> <span class="mf">0.166</span><span class="p">,</span> <span class="mf">0.216</span><span class="p">,</span> <span class="mf">0.141</span><span class="p">,</span> <span class="mf">0.114</span><span class="p">,</span> <span class="mf">0.094</span><span class="p">,</span> <span class="mf">0.021</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">0.084</span><span class="p">,</span> <span class="mf">0.084</span><span class="p">,</span> <span class="mf">0.142</span><span class="p">,</span> <span class="mf">0.228</span><span class="p">,</span> <span class="mf">0.17</span><span class="p">,</span> <span class="mf">0.143</span><span class="p">,</span> <span class="mf">0.121</span><span class="p">,</span> <span class="mf">0.028</span><span class="p">]</span>
+    <span class="p">[</span><span class="mf">0.084</span><span class="p">,</span> <span class="mf">0.084</span><span class="p">,</span> <span class="mf">0.142</span><span class="p">,</span> <span class="mf">0.228</span><span class="p">,</span> <span class="mf">0.17</span><span class="p">,</span>  <span class="mf">0.143</span><span class="p">,</span> <span class="mf">0.121</span><span class="p">,</span> <span class="mf">0.028</span><span class="p">]</span>
     <span class="p">]</span>
 
 <span class="n">P_B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">P_B</span><span class="p">)</span>
@@ -369,7 +361,6 @@
         <span class="n">co</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> 
                          <span class="n">ticks</span><span class="p">,</span>
                          <span class="n">matrix</span><span class="p">,</span>
-<span class="c1">#                          levels,</span>
                          <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> <span class="n">ticks</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color45d</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -378,8 +369,6 @@
                          <span class="n">matrix</span><span class="p">,</span>
                          <span class="n">levels</span><span class="p">,</span>
                          <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">)</span>
-
-    <span class="c1">#plt.colorbar(co)</span>
 
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
@@ -433,7 +422,7 @@
 </div>
 </div>
 </div>
-<p>Finally, we produce figure.</p>
+<p>Finally, we produce the figure.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -565,7 +554,7 @@
 </div>
 </div>
 </div>
-<p>Calculate the true distribution for 1985.</p>
+<p>We calculate the true distribution for 1985.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ψ_1985</span> <span class="o">=</span> <span class="n">gdp_dist_estimate</span><span class="p">(</span><span class="n">gdppc_df</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">yr</span><span class="o">=</span><span class="p">(</span><span class="mi">1985</span><span class="p">,</span> <span class="mi">1985</span><span class="p">))</span>
@@ -715,7 +704,7 @@
 </div>
 </div>
 </div>
-<p>We now generate the marginal distirbutions after 0, 1, 2, and 100 iterations for the transition matrix described in Benhabib et al. (2015).</p>
+<p>We now generate the marginal distributions after 0, 1, 2, and 100 iterations for <span class="math notranslate nohighlight">\(P_B\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -741,7 +730,7 @@
 <h2>Asymptotics<a class="headerlink" href="#asymptotics" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="convergence-of-the-empirical-distribution-to-psi">
 <h3>Convergence of the empirical distribution to <span class="math notranslate nohighlight">\(\psi^*\)</span><a class="headerlink" href="#convergence-of-the-empirical-distribution-to-psi" title="Permalink to this headline">¶</a></h3>
-<p>We begin by creating a Markov Chain object (from the quantecon package) taking the transition matrix from Benhabib et al. (2015).</p>
+<p>We begin by creating a Markov Chain object, taking <span class="math notranslate nohighlight">\(P_B\)</span> as the transition matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mc</span> <span class="o">=</span> <span class="n">qe</span><span class="o">.</span><span class="n">MarkovChain</span><span class="p">(</span><span class="n">P_B</span><span class="p">)</span>
@@ -773,7 +762,7 @@
 </div>
 </div>
 </div>
-<p>We run simulations of length 10, 100, 1,000 and 10,000 iterations.</p>
+<p>We run simulations of length 10, 100, 1,000 and 10,000.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lengths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1_000</span><span class="p">,</span> <span class="mi">10_000</span><span class="p">]</span>
@@ -785,7 +774,7 @@
 </div>
 </div>
 </div>
-<p>Now we produce the plots, and we see that the simulated distribution starts to aproach the true stationary distribution.</p>
+<p>Now we produce the plots. We see that the simulated distribution starts to aproach the true stationary distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span><span class="c1">#, sharey=&#39;all&#39;)</span>
@@ -879,10 +868,15 @@
                     <ul class="nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Economic Networks Code Book
+   Economic Networks: Theory and Computation
   </a>
  </li>
 </ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Code Book
+ </span>
+</p>
 <ul class="current nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="ch_intro.html">
@@ -921,7 +915,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="pkg_funcs.html">
-   The quantecon_book_networks package
+   quantecon_book_networks
   </a>
  </li>
 </ul>

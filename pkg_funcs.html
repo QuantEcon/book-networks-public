@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The quantecon_book_networks package &#8212; Economic Networks - Theory and Computation</title>
+    <title>quantecon_book_networks &#8212; Economic Networks - Theory and Computation</title>
     <script src="https://unpkg.com/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6.3.1/dist/tippy-bundle.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
@@ -71,6 +71,7 @@
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
@@ -87,6 +88,7 @@
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script src="_static/quantecon-book-theme.15b0c36fffe88f468997fa7b698991d3.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
@@ -103,22 +105,22 @@
 <!-- Normal Meta Tags -->
 <meta name="author" context="John Stachurski and Thomas J. Sargent" />
 <meta name="keywords" content="" />
-<meta name="description" content=The quantecon_book_networks package  Chapter 1  node_total_exports  def node_total_exports(G):     node_exports = []     for node1 in G.nodes():         total_e />
+<meta name="description" content=quantecon_book_networks  input_output  node_total_exports  def node_total_exports(G):     node_exports = []     for node1 in G.nodes():         total_export = 0 />
 
 <!-- Twitter tags -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@" />
-<meta name="twitter:title" content="The quantecon_book_networks package"/>
-<meta name="twitter:description" content="The quantecon_book_networks package  Chapter 1  node_total_exports  def node_total_exports(G):     node_exports = []     for node1 in G.nodes():         total_e">
+<meta name="twitter:title" content="quantecon_book_networks"/>
+<meta name="twitter:description" content="quantecon_book_networks  input_output  node_total_exports  def node_total_exports(G):     node_exports = []     for node1 in G.nodes():         total_export = 0">
 <meta name="twitter:creator" content="@">
 <meta name="twitter:image" content="">
 
 <!-- Opengraph tags -->
-<meta property="og:title" content="The quantecon_book_networks package" />
+<meta property="og:title" content="quantecon_book_networks" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="None" />
 <meta property="og:image" content="" />
-<meta property="og:description" content="The quantecon_book_networks package  Chapter 1  node_total_exports  def node_total_exports(G):     node_exports = []     for node1 in G.nodes():         total_e" />
+<meta property="og:description" content="quantecon_book_networks  input_output  node_total_exports  def node_total_exports(G):     node_exports = []     for node1 in G.nodes():         total_export = 0" />
 <meta property="og:site_name" content="Economic Networks - Theory and Computation" />
 <meta name="theme-color" content="#ffffff" />
 
@@ -147,13 +149,18 @@
                         <nav id="bd-toc-nav" class="qe-page__toc-nav">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#chapter-1">
-   Chapter 1
+  <a class="reference internal nav-link" href="#input-output">
+   input_output
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#node-total-exports">
      node_total_exports
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#node-total-imports">
+     node_total_imports
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -164,6 +171,11 @@
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#normalise-weights">
      normalise_weights
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#to-zero-one">
+     to_zero_one
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -206,6 +218,33 @@
      erdos_renyi_graph
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#build-coefficient-matrices">
+     build_coefficient_matrices
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plotting">
+   plotting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-graph">
+     plot_graph
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-matrices">
+     plot_matrices
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unit-simplex">
+     unit_simplex
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -234,7 +273,7 @@
 
                         <p class="qe-page__header-heading"><a href="intro.html">Economic Networks - Theory and Computation</a></p>
 
-                        <p class="qe-page__header-subheading">The quantecon_book_networks package</p>
+                        <p class="qe-page__header-subheading">quantecon_book_networks</p>
 
                     </div>
 
@@ -249,10 +288,10 @@
                     
                     <div>
                         
-  <div class="tex2jax_ignore mathjax_ignore section" id="the-quantecon-book-networks-package">
-<h1>The quantecon_book_networks package<a class="headerlink" href="#the-quantecon-book-networks-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="chapter-1">
-<h2>Chapter 1<a class="headerlink" href="#chapter-1" title="Permalink to this headline">¶</a></h2>
+  <div class="tex2jax_ignore mathjax_ignore section" id="quantecon-book-networks">
+<h1>quantecon_book_networks<a class="headerlink" href="#quantecon-book-networks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="input-output">
+<h2>input_output<a class="headerlink" href="#input-output" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="node-total-exports">
 <h3>node_total_exports<a class="headerlink" href="#node-total-exports" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
@@ -265,6 +304,23 @@
             <span class="n">total_export</span> <span class="o">+=</span> <span class="n">G</span><span class="p">[</span><span class="n">node1</span><span class="p">][</span><span class="n">node2</span><span class="p">][</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span>
         <span class="n">node_exports</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_export</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">node_exports</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="node-total-imports">
+<h3>node_total_imports<a class="headerlink" href="#node-total-imports" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">node_total_imports</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
+    <span class="n">node_imports</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">node1</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+        <span class="n">total_import</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">node2</span> <span class="ow">in</span> <span class="n">G</span><span class="p">[</span><span class="n">node1</span><span class="p">]:</span>
+            <span class="n">total_import</span> <span class="o">+=</span> <span class="n">G</span><span class="p">[</span><span class="n">node2</span><span class="p">][</span><span class="n">node1</span><span class="p">][</span><span class="s1">&#39;weight&#39;</span><span class="p">]</span>
+        <span class="n">node_imports</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">total_import</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">node_imports</span>
 </pre></div>
 </div>
 </div>
@@ -289,6 +345,20 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">normalise_weights</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span><span class="n">scalar</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">max_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">scalar</span> <span class="o">*</span> <span class="p">(</span><span class="n">weight</span> <span class="o">/</span> <span class="n">max_value</span><span class="p">)</span> <span class="k">for</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">weights</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="to-zero-one">
+<h3>to_zero_one<a class="headerlink" href="#to-zero-one" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">to_zero_one</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="s2">&quot;Map vector x to the zero one interval.&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -324,8 +394,12 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
-<span class="k">def</span> <span class="nf">colorise_weights</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span><span class="n">zero_one_func</span><span class="o">=</span><span class="n">to_zero_one_beta</span><span class="p">,</span><span class="n">color_palette</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">color_palette</span><span class="p">(</span><span class="n">zero_one_func</span><span class="p">(</span><span class="n">weights</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">colorise_weights</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span><span class="n">beta</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">color_palette</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">beta</span><span class="p">:</span>
+        <span class="n">cp</span> <span class="o">=</span> <span class="n">color_palette</span><span class="p">(</span><span class="n">to_zero_one_beta</span><span class="p">(</span><span class="n">weights</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cp</span> <span class="o">=</span> <span class="n">color_palette</span><span class="p">(</span><span class="n">to_zero_one</span><span class="p">(</span><span class="n">weights</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">cp</span> 
 </pre></div>
 </div>
 </div>
@@ -451,6 +525,199 @@
 </div>
 </div>
 </div>
+<div class="section" id="build-coefficient-matrices">
+<h3>build_coefficient_matrices<a class="headerlink" href="#build-coefficient-matrices" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_coefficient_matrices</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Build coefficient matrices A and F from Z and X via </span>
+<span class="sd">    </span>
+<span class="sd">        A[i, j] = Z[i, j] / X[j] </span>
+<span class="sd">        F[i, j] = Z[i, j] / X[i]</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">A</span><span class="p">,</span> <span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">Z</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">F</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">A</span><span class="p">,</span> <span class="n">F</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="plotting">
+<h2>plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="plot-graph">
+<h3>plot_graph<a class="headerlink" href="#plot-graph" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_graph</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> 
+               <span class="n">X</span><span class="p">,</span>
+               <span class="n">ax</span><span class="p">,</span>
+               <span class="n">codes</span><span class="p">,</span>
+               <span class="n">node_color_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">node_size_multiple</span><span class="o">=</span><span class="mf">0.0005</span><span class="p">,</span> 
+               <span class="n">edge_size_multiple</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+               <span class="n">layout_type</span><span class="o">=</span><span class="s1">&#39;circular&#39;</span><span class="p">,</span>
+               <span class="n">layout_seed</span><span class="o">=</span><span class="mi">1234</span><span class="p">,</span>
+               <span class="n">tol</span><span class="o">=</span><span class="mf">0.03</span><span class="p">):</span>  <span class="c1"># clip entries below tol</span>
+
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+    <span class="c1"># Add nodes, with weights by sales of the sector</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">weight</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="n">node_sizes</span> <span class="o">=</span> <span class="n">X</span> <span class="o">*</span> <span class="n">node_size_multiple</span>
+
+    <span class="c1"># Position the nodes</span>
+    <span class="k">if</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;circular&#39;</span><span class="p">:</span>
+        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">circular_layout</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;spring&#39;</span><span class="p">:</span>
+        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spring_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">layout_seed</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">:</span>
+        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_layout</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">layout_seed</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">layout_type</span> <span class="o">==</span> <span class="s1">&#39;spiral&#39;</span><span class="p">:</span>
+        <span class="n">node_pos_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">spiral_layout</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+
+    <span class="c1"># Add the edges, along with their colors and widths</span>
+    <span class="n">edge_colors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">edge_widths</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">:</span>
+                <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">codes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">codes</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                <span class="n">edge_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_color_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">width</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">edge_size_multiple</span>
+                <span class="n">edge_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+    
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> 
+                           <span class="n">node_pos_dict</span><span class="p">,</span> 
+                           <span class="n">node_color</span><span class="o">=</span><span class="n">node_color_list</span><span class="p">,</span> 
+                           <span class="n">node_size</span><span class="o">=</span><span class="n">node_sizes</span><span class="p">,</span> 
+                           <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> 
+                           <span class="n">linewidths</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+                           <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> 
+                           <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_labels</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> 
+                            <span class="n">node_pos_dict</span><span class="p">,</span> 
+                            <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+                            <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_edges</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> 
+                           <span class="n">node_pos_dict</span><span class="p">,</span> 
+                           <span class="n">edge_color</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">,</span> 
+                           <span class="n">width</span><span class="o">=</span><span class="n">edge_widths</span><span class="p">,</span> 
+                           <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+                           <span class="n">arrowsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
+                           <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>  
+                           <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> 
+                           <span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">,</span> 
+                           <span class="n">node_size</span><span class="o">=</span><span class="n">node_sizes</span><span class="p">,</span> 
+                           <span class="n">connectionstyle</span><span class="o">=</span><span class="s1">&#39;arc3,rad=0.15&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="plot-matrices">
+<h3>plot_matrices<a class="headerlink" href="#plot-matrices" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_matrices</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span>
+                  <span class="n">codes</span><span class="p">,</span>
+                  <span class="n">ax</span><span class="p">,</span>
+                  <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                  <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> 
+                  <span class="n">colormap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">,</span> 
+                  <span class="n">color45d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+                  <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;sector $j$&#39;</span><span class="p">,</span> 
+                  <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;sector $i$&#39;</span><span class="p">):</span>
+    
+    <span class="n">ticks</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span>
+
+    <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+    
+    
+    <span class="k">if</span> <span class="n">color45d</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">co</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> 
+                         <span class="n">ticks</span><span class="p">,</span>
+                         <span class="n">matrix</span><span class="p">,</span>
+<span class="c1">#                          levels,</span>
+                         <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> <span class="n">ticks</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color45d</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">co</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> 
+                         <span class="n">ticks</span><span class="p">,</span>
+                         <span class="n">matrix</span><span class="p">,</span>
+                         <span class="n">levels</span><span class="p">,</span>
+                         <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">colormap</span><span class="p">)</span>
+
+    <span class="c1">#plt.colorbar(co)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">codes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="unit-simplex">
+<h3>unit_simplex<a class="headerlink" href="#unit-simplex" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">unit_simplex</span><span class="p">(</span><span class="n">angle</span><span class="p">):</span>
+    
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+
+    <span class="n">vtx</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> 
+           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
+    
+    <span class="n">tri</span> <span class="o">=</span> <span class="n">Poly3DCollection</span><span class="p">([</span><span class="n">vtx</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">tri</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">add_collection3d</span><span class="p">(</span><span class="n">tri</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">zlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> 
+           <span class="n">xticks</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">yticks</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">zticks</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,))</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s1">&#39;$(1, 0, 0)$&#39;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;$(0, 1, 0)$&#39;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_zticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;$(0, 0, 1)$&#39;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">majorTicks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_pad</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">majorTicks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_pad</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">zaxis</span><span class="o">.</span><span class="n">majorTicks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_pad</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
+
+    <span class="c1"># Move axis to origin</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">_axinfo</span><span class="p">[</span><span class="s1">&#39;juggled&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">_axinfo</span><span class="p">[</span><span class="s1">&#39;juggled&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">zaxis</span><span class="o">.</span><span class="n">_axinfo</span><span class="p">[</span><span class="s1">&#39;juggled&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">ax</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -506,10 +773,15 @@
                     <ul class="nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Economic Networks Code Book
+   Economic Networks: Theory and Computation
   </a>
  </li>
 </ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Code Book
+ </span>
+</p>
 <ul class="current nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="ch_intro.html">
@@ -548,7 +820,7 @@
  </li>
  <li class="toctree-l1 current active active">
   <a class="current reference internal" href="#">
-   The quantecon_book_networks package
+   quantecon_book_networks
   </a>
  </li>
 </ul>
