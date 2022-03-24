@@ -5,7 +5,7 @@ Economic Networks: Theory and Computation
 
 ::::{grid} 2
 :::{grid-item-card} PDF
-:link: https://raw.githubusercontent.com/QuantEcon/book-networks/main/code_book/downloads/networks-book.pdf
+:link: https://arxiv.org/pdf/2203.11972.pdf
 
 ```{figure} img/betweenness_centrality_1.pdf
 ```
