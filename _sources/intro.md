@@ -5,7 +5,7 @@ Economic Networks: Theory and Computation
 
 ::::{grid} 2
 :::{grid-item-card} PDF
-:link: https://arxiv.org/pdf/2203.11972.pdf
+:link: http://arxiv.org/abs/2203.11972
 
 ```{figure} img/betweenness_centrality_1.pdf
 ```

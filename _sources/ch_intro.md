@@ -16,7 +16,9 @@ kernelspec:
 # Chapter 1 - Introduction (Python Code)
 
 ```{code-cell}
-:tag: [hide-output]
+---
+tags: [hide-output]
+---
 pip install --upgrade kaleido
 ```
 
@@ -29,7 +31,8 @@ import quantecon_book_networks.data as qbn_data
 ch1_data = qbn_data.introduction()
 ```
 
-Next we import some common python libraries. 
+Next we import some common python libraries.
+
 ```{code-cell}
 import numpy as np
 import pandas as pd
