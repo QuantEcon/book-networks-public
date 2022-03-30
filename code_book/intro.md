@@ -28,7 +28,7 @@ comfortable with linear algebra or to beginning graduate students.
 :::{grid-item-card} PDF
 :link: http://arxiv.org/abs/2203.11972
 
-```{figure} img/betweenness_centrality_1.pdf
+```{figure} img/betweenness_centrality_1.png
 ```
 :::
 
