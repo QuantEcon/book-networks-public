@@ -1,13 +1,34 @@
-Economic Networks: Theory and Computation
-=========================================
+---
+substitutions:
+  br: |
+    ```{eval-rst}
+    .. raw:: html
 
-**Authors**: [John Stachurski](https://johnstachurski.net/), [Thomas J. Sargent](http://www.tomsargent.com/)
+       <br/>
+    ```
+---
+# Economic Networks: {{ br }} Theory and Computation
+
+**Authors**: [John Stachurski](https://johnstachurski.net/) and [Thomas J. Sargent](http://www.tomsargent.com/)
+
+::::{grid} 1
+:::{grid-item-card}
+This textbook is an introduction to economic networks, intended for
+students and researchers in the fields of economics and applied
+mathematics. The textbook emphasizes quantitative modeling, with the
+main underlying tools being graph theory, linear algebra, fixed point
+theory and programming. The text is suitable for a one-semester
+course, taught either to advanced undergraduate students who are
+comfortable with linear algebra or to beginning graduate students.
+:::
+::::
+
 
 ::::{grid} 2
 :::{grid-item-card} PDF
 :link: http://arxiv.org/abs/2203.11972
 
-```{figure} img/betweenness_centrality_1.pdf
+```{figure} img/betweenness_centrality_1.png
 ```
 :::
 
