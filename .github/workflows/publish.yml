@@ -89,7 +89,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: _build/html/
-          # cname: python.quantecon.org
+          cname: networks.quantecon.org
       # - name: Prepare book-networks.notebooks sync
       #   shell: bash -l {0}
       #   run: |
