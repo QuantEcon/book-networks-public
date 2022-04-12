@@ -1,7 +1,5 @@
 format: jb-book
 root: intro
-options:
-  caption: Code Book
 chapters:
 - file: ch_intro
 - file: ch_production
