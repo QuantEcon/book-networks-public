@@ -11,7 +11,8 @@ substitutions:
 
 **Authors**: [John Stachurski](https://johnstachurski.net/) and [Thomas J. Sargent](http://www.tomsargent.com/)
 
+(toc)=
+# Table of Contents
+
 ```{tableofcontents}
 ```
-
-This code book is created using [Jupyter Book](https://jupyterbook.org/intro.html).
