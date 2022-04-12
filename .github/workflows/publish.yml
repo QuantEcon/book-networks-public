@@ -84,6 +84,12 @@ jobs:
         shell: bash -l {0}
         run: |
           jb build code_book --path-output ./
+      - name: Custom Front Page
+        shell: bash -l {0}
+        run: |
+          cp -r frontpage/assets _build/html/
+          cp -r frontpage/images _build/html/
+          cp frontpage/index.html _build/html/
       - name: Deploy website to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:

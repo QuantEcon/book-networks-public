@@ -74,6 +74,12 @@ jobs:
         with:
           name: execution-reports
           path: _build/html/reports
+      - name: Custom Front Page
+        shell: bash -l {0}
+        run: |
+          cp -r frontpage/assets _build/html/
+          cp -r frontpage/images _build/html/
+          cp frontpage/index.html _build/html/
       - name: Save Build as Artifact
         uses: actions/upload-artifact@v1
         with:
