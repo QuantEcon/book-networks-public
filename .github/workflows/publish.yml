@@ -90,6 +90,11 @@ jobs:
           cp -r frontpage/assets _build/html/
           cp -r frontpage/images _build/html/
           cp frontpage/index.html _build/html/
+      - name: Book PDF
+        shell: bash -l {0}
+        run: |
+          mkdir -p _build/html/_downloads
+          cp pdf/networks.pdf _build/html/_downloads/
       - name: Deploy website to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
