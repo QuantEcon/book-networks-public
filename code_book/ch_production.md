@@ -15,7 +15,7 @@ kernelspec:
 
 # Chapter 2 - Production (Python Code)
 
-We begin with some imports
+We begin with some imports.
 
 ```{code-cell}
 import quantecon as qe
@@ -46,7 +46,7 @@ Z = ch2_data["us_sectors_15"]["adjacency_matrix"]
 X = ch2_data["us_sectors_15"]["total_industry_sales"]
 ```
 
-Now we define a function to build coefficient matrices. Two coefficient matrices are returned. The backward linkage case, where sales between sector i and j are given as a fraction of total sales of sector j. The forward linkage case, where sales between sector i and j are given as a fraction of total sales of sector i. 
+Now we define a function to build coefficient matrices. Two coefficient matrices are returned. The backward linkage case, where sales between sector $i$ and $j$ are given as a fraction of total sales of sector $j$. The forward linkage case, where sales between sector $i$ and $j$ are given as a fraction of total sales of sector $i$. 
 
 ```{code-cell}
 def build_coefficient_matrices(Z, X):
@@ -78,7 +78,7 @@ Here we calculate the hub-based eigenvector centrality of our backward linkage c
 centrality = qbn_io.eigenvector_centrality(A)
 ```
 
-Now we use the quantecon_book_networks package to produce our plot. 
+Now we use the `quantecon_book_networks` package to produce our plot. 
 
 ```{code-cell}
 fig, ax = plt.subplots(figsize=(8, 10))
@@ -107,7 +107,7 @@ plt.show()
 
 ### Output multipliers across 15 US industrial sectors
 
-Output multipliers are equal to the authority-based Katz centrality measure of the backward linkage coefficient matrix. Here we calculate authority-based Katz centrality using the quantecon_book_networks package. 
+Output multipliers are equal to the authority-based Katz centrality measure of the backward linkage coefficient matrix. Here we calculate authority-based Katz centrality using the `quantecon_book_networks` package. 
 
 ```{code-cell}
 omult = qbn_io.katz_centrality(A, authority=True)
@@ -123,7 +123,7 @@ plt.show()
 
 ### Forward linkages and upstreamness over US industrial sectors
 
-Upstreamness is the hub-based Katz centrality of the forward linkage coefficient matrix. Here we calculate hub-based Katz centrality using the quantecon_book_networks package.
+Upstreamness is the hub-based Katz centrality of the forward linkage coefficient matrix. Here we calculate hub-based Katz centrality using the `quantecon_book_networks` package.
 
 ```{code-cell}
 upstreamness = qbn_io.katz_centrality(F)
@@ -210,7 +210,7 @@ plt.show()
 
 ### Propagation of demand shocks via backward linkages
 
-We begin by generating a demand shock vector d. 
+We begin by generating a demand shock vector $d$. 
 
 ```{code-cell}
 N = len(A)
@@ -219,7 +219,7 @@ d = np.random.rand(N)
 d[6] = 1  # positive shock to agriculture
 ```
 
-Now we simulate the demand shock propergating through the economy.
+Now we simulate the demand shock propagating through the economy.
 
 ```{code-cell}
 sim_length = 6
@@ -230,7 +230,7 @@ for i in range(sim_length):
     x = A @ x
 ```
 
-Finally, we plot the shock propergating through the economy.
+Finally, we plot the shock propagating through the economy.
 
 ```{code-cell}
 fig, axes = plt.subplots(3, 2, figsize=(8, 10))
