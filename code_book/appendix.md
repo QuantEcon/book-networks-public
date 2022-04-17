@@ -18,10 +18,10 @@ kernelspec:
 We begin with some imports
 
 ```{code-cell}
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.axes3d import Axes3D, proj3d
-from matplotlib import cm
+import numpy as np                                            
+import matplotlib.pyplot as plt                         
+from mpl_toolkits.mplot3d.axes3d import Axes3D, proj3d  
+from matplotlib import cm                               
 ```
 
 ## Functions
@@ -54,7 +54,7 @@ for f, ax, lb, ti in zip(funcs, axes, labels, titles):
 plt.show()
 ```
 
-### Some functions are bijections
+### Some functions are bijections.
 
 This figure can be produced in a similar manner to 6.1. 
 
@@ -89,7 +89,7 @@ xgrid = np.linspace(xmin, xmax, 200)
 g = lambda x: 2.125 / (1 + x**(-4))
 ```
 
-Next we define our fixed points
+Next we define our fixed points.
 
 ```{code-cell}
 fps_labels = ('$x_\ell$', '$x_m$', '$x_h$' )
@@ -128,7 +128,7 @@ plt.show()
 
 ### The complex number $(a, b) = r e^{i \phi}$. 
 
-We start by abbreviating some useful values and functions
+We start by abbreviating some useful values and functions.
 
 ```{code-cell}
 π = np.pi
@@ -334,7 +334,7 @@ plt.show()
 
 ## Linear Maps Are Matrices
 
-### Equivalence of the onto and one-to-one properties (for linear maps)
+### Equivalence of the onto and one-to-one properties (for linear maps).
 
 This plot is produced similarly to figures 6.1 and 6.2.
 
@@ -417,7 +417,7 @@ plt.show()
 
 ## Saddle Points and Duality
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$ (top left)
+### A saddle point $(x^*, \theta^*)$ of the function $L$ (top left).
 
 ```{code-cell}
 fig = plt.figure(figsize=(12, 7))
@@ -456,7 +456,7 @@ ax.set_zlabel("$L(x,\\theta)$", fontsize=14)
 plt.show()
 ```
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$  (top right)
+### A saddle point $(x^*, \theta^*)$ of the function $L$  (top right).
 
 ```{code-cell}
 fig, ax = plt.subplots()
@@ -504,7 +504,7 @@ ax.annotate(r'$L(x^*, \theta)$',
 plt.show()
 ```
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom left)
+### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom left).
 
 ```{code-cell}
 fig, ax = plt.subplots()
@@ -519,7 +519,7 @@ ax.set_yticks([])
 plt.show()
 ```
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom right)
+### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom right).
 
 ```{code-cell}
 fig, ax = plt.subplots()
