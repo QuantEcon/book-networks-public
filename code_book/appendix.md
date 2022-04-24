@@ -26,7 +26,7 @@ from matplotlib import cm
 
 ## Functions
 
-### One-to-one and onto functions on $(0,1)$.
+### One-to-one and onto functions on $(0,1)$
 
 We start by defining the domain and our one-to-one and onto function examples.
 
@@ -54,7 +54,7 @@ for f, ax, lb, ti in zip(funcs, axes, labels, titles):
 plt.show()
 ```
 
-### Some functions are bijections.
+### Some functions are bijections
 
 This figure can be produced in a similar manner to 6.1. 
 
@@ -79,7 +79,7 @@ plt.show()
 
 ## Fixed Points
 
-### Graph and fixed points of $G \colon x \mapsto 2.125/(1 + x^{-4})$.
+### Graph and fixed points of $G \colon x \mapsto 2.125/(1 + x^{-4})$
 
 We begin by defining the domain and the function.
 
@@ -126,7 +126,7 @@ plt.show()
 
 ## Complex Numbers
 
-### The complex number $(a, b) = r e^{i \phi}$. 
+### The complex number $(a, b) = r e^{i \phi}$
 
 We start by abbreviating some useful values and functions.
 
@@ -188,7 +188,7 @@ plt.show()
 
 ## Convergence
 
-### Convergence of a sequence to the origin in $\mathbb{R}^3$. 
+### Convergence of a sequence to the origin in $\mathbb{R}^3$
 
 We define our transformation matrix, initial point, and number of iterations. 
 
@@ -225,7 +225,7 @@ plt.show()
 
 ## Linear Algebra
 
-### The span of vectors $u$, $v$, $w$ in $\mathbb{R}$.
+### The span of vectors $u$, $v$, $w$ in $\mathbb{R}$
 
 We begin by importing the FancyArrowPatch class and extending it.
 
@@ -334,7 +334,7 @@ plt.show()
 
 ## Linear Maps Are Matrices
 
-### Equivalence of the onto and one-to-one properties (for linear maps).
+### Equivalence of the onto and one-to-one properties (for linear maps)
 
 This plot is produced similarly to figures 6.1 and 6.2.
 
@@ -368,7 +368,7 @@ plt.show()
 
 ## Convexity and Polyhedra
 
-### A polyhedron $P$ represented as intersecting halfspaces.
+### A polyhedron $P$ represented as intersecting halfspaces
 
 Inequalities are of the form
 
@@ -417,7 +417,7 @@ plt.show()
 
 ## Saddle Points and Duality
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$ (top left).
+### A saddle point $(x^*, \theta^*)$ of the function $L$ (top left)
 
 ```{code-cell}
 fig = plt.figure(figsize=(12, 7))
@@ -456,7 +456,7 @@ ax.set_zlabel("$L(x,\\theta)$", fontsize=14)
 plt.show()
 ```
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$  (top right).
+### A saddle point $(x^*, \theta^*)$ of the function $L$  (top right)
 
 ```{code-cell}
 fig, ax = plt.subplots()
@@ -504,7 +504,7 @@ ax.annotate(r'$L(x^*, \theta)$',
 plt.show()
 ```
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom left).
+### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom left)
 
 ```{code-cell}
 fig, ax = plt.subplots()
@@ -519,7 +519,7 @@ ax.set_yticks([])
 plt.show()
 ```
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom right).
+### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom right)
 
 ```{code-cell}
 fig, ax = plt.subplots()
