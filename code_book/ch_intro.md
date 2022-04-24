@@ -99,7 +99,7 @@ fig.update_layout(title_text="Crude Oil", font_size=10, width=600, height=800)
 fig.show(renderer='svg')
 ```
 
-### International trade in commercial aircraft during 2019.
+### International trade in commercial aircraft during 2019
 
 For this plot we will use a cleaned dataset from [Harvard, CID Dataverse](https://dataverse.harvard.edu/dataverse/atlas).
 
@@ -192,7 +192,7 @@ qbn_io.spec_rad(M)
 
 ## Probability
 
-### The unit simplex in $\mathbb{R}^3$.
+### The unit simplex in $\mathbb{R}^3$
 
 Here we define a function for plotting the unit simplex.
 
@@ -241,7 +241,7 @@ plt.show()
 ```
 
 
-### Independent draws from Student’s t and Normal distributions.
+### Independent draws from Student’s t and Normal distributions
 
 Here we illustrate the occurence of "extreme" events in heavy tailed distributions. We start by generating 1000 samples from a normal distribution and a student's t distribution.
 
@@ -282,7 +282,7 @@ plt.show()
 
 ```
 
-### CCDF plots for the Pareto and Exponential distributions.
+### CCDF plots for the Pareto and Exponential distributions
 
 When the Pareto tail property holds, the CCDF is eventually log linear. Here we illustrates this using a Pareto distribution. For comparison an exponential distribution is also shown. First we define our domain and the Pareto and Exponential distributions.
 
@@ -317,7 +317,7 @@ ax.set_ylabel("$\ln G(x)$", fontsize=12)
 plt.show()
 ```
 
-### Empirical CCDF plots for largest firms (Forbes).
+### Empirical CCDF plots for largest firms (Forbes)
 
 Here we show that the distribution of firm sizes has a Pareto tail. We start by loading the `forbes_global_2000` dataset.
 
@@ -363,7 +363,7 @@ plt.show()
 
 ## Graph Theory
 
-### Zeta and Pareto distributions.
+### Zeta and Pareto distributions
 
 We begin by defining the Zeta and Pareto distributions.
 ```{code-cell} 
@@ -385,7 +385,7 @@ def p(x, c=2.0):
 x_grid = np.linspace(1, 10, 200)
 ```
 
-Then we can produce our plot.
+Then we can produce our plot
 
 ```{code-cell} 
 fig, ax = plt.subplots()
@@ -396,8 +396,7 @@ ax.set_yticks((0, 1, 2))
 plt.show()
 ```
 
-
-### NetworkX digraph plot.
+### NetworkX digraph plot
 
 We start by creating a graph object and populating it with edges. 
 
@@ -460,7 +459,7 @@ G = qe.DiGraph(A)
 G.strongly_connected_components
 ```
 
-### International private credit flows by country.
+### International private credit flows by country
 
 We begin by loading an adjacency matrix of international private credit flows (in the form of a numpy array and a list of country labels).
 
@@ -535,7 +534,7 @@ nx.draw_networkx_edges(G,
 plt.show()
 ```
 
-### Centrality measures for the credit network.
+### Centrality measures for the credit network
 
 This figure looks at six different centrality measures.
 
@@ -637,7 +636,7 @@ for i, ax in enumerate(axes):
 plt.show()
 ```
 
-### Computing in and out degree distributions.
+### Computing in and out degree distributions
 
 The in-degree distribution evaluated at $k$ is the fraction of nodes in a network that have in-degree $k$. The in-degree distribution of a NetworkX DiGraph can be calculated using the below.
 
@@ -660,7 +659,7 @@ def out_degree_dist(G):
 ```
 
 
-### Degree distribution for international aircraft trade.
+### Degree distribution for international aircraft trade
 
 Here we illustrate that the commercial aircraft international trade network is approximately scale-free by plotting the degree distribution alongside $f(x)=cx-\gamma$ with $c=0.2$ and $\gamma=1.1$. 
 
@@ -730,7 +729,7 @@ def plot_random_graph(RG,ax):
                            ax=ax)
 ```
 
-### An instance of an Erdos–Renyi random graph.
+### An instance of an Erdos–Renyi random graph
 
 ```{code-cell} 
 n = 100
@@ -751,7 +750,7 @@ plot_degree_dist(G_er, axes[1], loglog=False)
 plt.show()
 ```
 
-### An instance of a preferential attachment random graph.
+### An instance of a preferential attachment random graph
 
 ```{code-cell} 
 n = 100
