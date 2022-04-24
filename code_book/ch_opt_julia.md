@@ -17,7 +17,7 @@ kernelspec:
 
 ## Bellman’s Method
 
-Here we demonstrate solving a shortest path problem using Belmman's method. Our first step is to set up the cost function, which we store as an array called $c$. Note that we set $c[i, j] = Inf$ when no edge exists from $i$ to $j$.
+Here we demonstrate solving a shortest path problem using Bellman's method. Our first step is to set up the cost function, which we store as an array called $c$. Note that we set $c[i, j] = Inf$ when no edge exists from $i$ to $j$.
 
 ```{code-cell}
 :tags: ["remove-output"]
@@ -47,7 +47,7 @@ function T(q)
 end
 ```
 
-Now we arbitraryly set $𝑞 ≡ 0$, generate the sequence of iterates $𝑇𝑞$, $𝑇^2𝑞$, $𝑇^3𝑞$ and plot them. By $𝑇^3 $𝑞$ has already converged on $𝑞^∗$.
+Now we arbitrarily set $q \equiv 0$, generate the sequence of iterates $T_q$, $T^2_q$, $T^3_q$ and plot them. By $T^3_q$ has already converged on $q^∗$.
 
 ```{code-cell}
 using PyPlot
@@ -67,7 +67,7 @@ ax.legend()
 ```
 
 ## Linear programming
-When solving linear programs, one option is to use a domain specific modeling language to set out the objective and constraints in the optimization problem. Here we demonstrate the Julia package JuMP.
+When solving linear programs, one option is to use a domain specific modeling language to set out the objective and constraints in the optimization problem. Here we demonstrate the Julia package `JuMP`.
 
 ```{code-cell}
 using JuMP
