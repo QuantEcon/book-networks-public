@@ -22,7 +22,7 @@ tags: [hide-output]
 pip install --upgrade kaleido
 ```
 
-We begin by importing the quantecon package as well as some functions and data that have been packaged for release with this text.
+We begin by importing the `quantecon` package as well as some functions and data that have been packaged for release with this text.
 
 ```{code-cell}
 import quantecon as qe
@@ -54,7 +54,7 @@ import plotly.graph_objects as go
 
 ### International trade in crude oil 2019
 
-We begin by loading a NetworkX directed graph object the represents the international trade in crude oil.
+We begin by loading a NetworkX directed graph object that represents the international trade in crude oil.
 
 ```{code-cell}
 DG = ch1_data["crude_oil"]
@@ -77,7 +77,7 @@ for src,tgt in DG.edges():
     value.append(DG[src][tgt]['weight'])
 ```
 
-Finaly we produce our plot.
+Finally we produce our plot.
 
 ```{code-cell}
 fig = go.Figure(data=[go.Sankey(
@@ -99,7 +99,7 @@ fig.update_layout(title_text="Crude Oil", font_size=10, width=600, height=800)
 fig.show(renderer='svg')
 ```
 
-### International trade in commercial aircraft during 2019.
+### International trade in commercial aircraft during 2019
 
 For this plot we will use a cleaned dataset from [Harvard, CID Dataverse](https://dataverse.harvard.edu/dataverse/atlas).
 
@@ -108,7 +108,7 @@ DG = ch1_data['aircraft_network_2019']
 pos = ch1_data['aircraft_network_2019_pos']
 ```
 
-We begin by calculating some features of our graph using the NetworkX and the quantecon_book_networks packages.
+We begin by calculating some features of our graph using the `NetworkX` and the `quantecon_book_networks` packages.
 
 ```{code-cell}
 centrality = nx.eigenvector_centrality(DG)
@@ -183,7 +183,7 @@ M = np.array([[1,2],[2,1]])
 spec_rad(M)
 ```
 
-This function, along with functions for other important calculations from the text, are available in the quantecon_book_networks package. Source code for these functions can be seen [here](pkg_funcs).
+This function, along with functions for other important calculations from the text, are available in the `quantecon_book_networks` package. Source code for these functions can be seen [here](pkg_funcs).
 
 ```{code-cell}
 qbn_io.spec_rad(M)
@@ -192,7 +192,7 @@ qbn_io.spec_rad(M)
 
 ## Probability
 
-### The unit simplex in $\mathbb{R}^3$.
+### The unit simplex in $\mathbb{R}^3$
 
 Here we define a function for plotting the unit simplex.
 
@@ -319,7 +319,7 @@ plt.show()
 
 ### Empirical CCDF plots for largest firms (Forbes)
 
-Here we show that the distribution of firm sizes has a Pareto tail. We start by loading the forbes_global_2000 dataset.
+Here we show that the distribution of firm sizes has a Pareto tail. We start by loading the `forbes_global_2000` dataset.
 
 ```{code-cell} 
 dfff = ch1_data['forbes_global_2000']
@@ -385,7 +385,7 @@ def p(x, c=2.0):
 x_grid = np.linspace(1, 10, 200)
 ```
 
-Then we can produce our plot.
+Then we can produce our plot
 
 ```{code-cell} 
 fig, ax = plt.subplots()
@@ -395,7 +395,6 @@ ax.legend(fontsize=12)
 ax.set_yticks((0, 1, 2))
 plt.show()
 ```
-
 
 ### NetworkX digraph plot
 
@@ -436,7 +435,7 @@ G_p.in_degree('p')
 G_p.out_degree('p')
 ```
 
-Additionally the NetworkX package supplies functions for testing communication and strong connectedness, as well as to
+Additionally the `NetworkX` package supplies functions for testing communication and strong connectedness, as well as to
 compute strongly conneted components.
 
 ```{code-cell} 
@@ -448,7 +447,7 @@ G.add_edge(3, 2)
 list(nx.strongly_connected_components(G))
 ```
 
-Like NetworkX, the QuantEcon Python library 'quantecon' supplies a graph object that implements certain graph-theoretic algorithms. The set of available algorithms is more limited but each one is faster, accelerated by just-in-time compilation. In the case of QuantEcon’s DiGraph object, an instance is created via the adjacency matrix.
+Like `NetworkX`, the QuantEcon Python library `quantecon` supplies a graph object that implements certain graph-theoretic algorithms. The set of available algorithms is more limited but each one is faster, accelerated by just-in-time compilation. In the case of QuantEcon’s DiGraph object, an instance is created via the adjacency matrix.
 
 ```{code-cell} 
 A = ((1, 0, 0),
@@ -470,7 +469,7 @@ Z_visual= ch1_data["adjacency_matrix_2019"]["Z_visual"]
 countries = ch1_data["adjacency_matrix_2019"]["countries"]
 ```
 
-Here we will use the quantecon_book_networks package to convert the adjacency matrix into a NetworkX graph object. 
+Here we will use the `quantecon_book_networks` package to convert the adjacency matrix into a NetworkX graph object. 
 
 ```{code-cell} 
 G = qbn_io.adjacency_matrix_to_graph(Z_visual, countries, tol=0.03)
@@ -639,7 +638,7 @@ plt.show()
 
 ### Computing in and out degree distributions
 
-The in-degree distribution evaluated at 𝑘 is the fraction of nodes in a network that have in-degree 𝑘. The in-degree distribution of a NetworkX DiGraph can be calculated using the below.
+The in-degree distribution evaluated at $k$ is the fraction of nodes in a network that have in-degree $k$. The in-degree distribution of a NetworkX DiGraph can be calculated using the below.
 
 ```{code-cell} 
 def in_degree_dist(G):
@@ -662,11 +661,9 @@ def out_degree_dist(G):
 
 ### Degree distribution for international aircraft trade
 
-Here we illustrate that the commercial aircraft international trade network is approximately scale-free by plotting the degree distribution alongside 𝑓(𝑥) = 𝑐𝑥−𝛾 with 𝑐 = 0.2 and
-𝛾 = 1.1. 
+Here we illustrate that the commercial aircraft international trade network is approximately scale-free by plotting the degree distribution alongside $f(x)=cx-\gamma$ with $c=0.2$ and $\gamma=1.1$. 
 
-In this calculation of the degree distribution, performed by the NetworkX function degree_histogram, directions are ignored and the network is treated as an undirected
-graph.
+In this calculation of the degree distribution, performed by the NetworkX function `degree_histogram`, directions are ignored and the network is treated as an undirected graph.
 
 ```{code-cell} 
 def plot_degree_dist(G, ax, loglog=True, label=None):
@@ -694,7 +691,7 @@ plt.show()
 
 ### Random graphs
 
-The code to produce the Erdos–Renyi random graph, used below, applies the combinations function from the itertools library. The function `combinations(A, k)` returns a list of all subsets of $A$ of size $k$. For example:
+The code to produce the Erdos–Renyi random graph, used below, applies the combinations function from the `itertools` library. The function `combinations(A, k)` returns a list of all subsets of $A$ of size $k$. For example:
 
 ```{code-cell} 
 import itertools

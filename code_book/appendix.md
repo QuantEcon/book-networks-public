@@ -18,15 +18,15 @@ kernelspec:
 We begin with some imports
 
 ```{code-cell}
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.axes3d import Axes3D, proj3d
-from matplotlib import cm
+import numpy as np                                            
+import matplotlib.pyplot as plt                         
+from mpl_toolkits.mplot3d.axes3d import Axes3D, proj3d  
+from matplotlib import cm                               
 ```
 
 ## Functions
 
-### One-to-one and onto functions on $(0,1)$.
+### One-to-one and onto functions on $(0,1)$
 
 We start by defining the domain and our one-to-one and onto function examples.
 
@@ -79,7 +79,7 @@ plt.show()
 
 ## Fixed Points
 
-### Graph and fixed points of $G \colon x \mapsto 2.125/(1 + x^{-4})$.
+### Graph and fixed points of $G \colon x \mapsto 2.125/(1 + x^{-4})$
 
 We begin by defining the domain and the function.
 
@@ -89,7 +89,7 @@ xgrid = np.linspace(xmin, xmax, 200)
 g = lambda x: 2.125 / (1 + x**(-4))
 ```
 
-Next we define our fixed points
+Next we define our fixed points.
 
 ```{code-cell}
 fps_labels = ('$x_\ell$', '$x_m$', '$x_h$' )
@@ -126,9 +126,9 @@ plt.show()
 
 ## Complex Numbers
 
-### The complex number $(a, b) = r e^{i \phi}$. 
+### The complex number $(a, b) = r e^{i \phi}$
 
-We start by abbreviating some useful values and functions
+We start by abbreviating some useful values and functions.
 
 ```{code-cell}
 π = np.pi
@@ -188,7 +188,7 @@ plt.show()
 
 ## Convergence
 
-### Convergence of a sequence to the origin in $\mathbb{R}^3$. 
+### Convergence of a sequence to the origin in $\mathbb{R}^3$
 
 We define our transformation matrix, initial point, and number of iterations. 
 
@@ -225,7 +225,7 @@ plt.show()
 
 ## Linear Algebra
 
-### The span of vectors $u$, $v$, $w$ in $\mathbb{R}$.
+### The span of vectors $u$, $v$, $w$ in $\mathbb{R}$
 
 We begin by importing the FancyArrowPatch class and extending it.
 
@@ -368,7 +368,7 @@ plt.show()
 
 ## Convexity and Polyhedra
 
-### A polyhedron $P$ represented as intersecting halfspaces.
+### A polyhedron $P$ represented as intersecting halfspaces
 
 Inequalities are of the form
 
