@@ -73,7 +73,7 @@ Theory and Computation
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
@@ -215,7 +215,10 @@ Theory and Computation
 <h1>Chapter 3 - Optimal Flows (Julia Code)<a class="headerlink" href="#chapter-3-optimal-flows-julia-code" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="bellmans-method">
 <h2>Bellman’s Method<a class="headerlink" href="#bellmans-method" title="Permalink to this headline">¶</a></h2>
-<p>Here we demonstrate solving a shortest path problem using Belmman’s method. Our first step is to set up the cost function, which we store as an array called <span class="math notranslate nohighlight">\(c\)</span>. Note that we set <span class="math notranslate nohighlight">\(c[i, j] = Inf\)</span> when no edge exists from <span class="math notranslate nohighlight">\(i\)</span> to <span class="math notranslate nohighlight">\(j\)</span>.</p>
+<p>Here we demonstrate solving a shortest path problem using Bellman’s method.</p>
+<p>Our first step is to set up the cost function, which we store as an array
+called <code class="docutils literal notranslate"><span class="pre">c</span></code>. Note that we set <code class="docutils literal notranslate"><span class="pre">c[i,</span> <span class="pre">j]</span> <span class="pre">=</span> <span class="pre">Inf</span></code> when no edge exists from <code class="docutils literal notranslate"><span class="pre">i</span></code> to
+<code class="docutils literal notranslate"><span class="pre">j</span></code>.</p>
 <div class="cell tag_remove-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">fill</span><span class="p">(</span><span class="nb">Inf</span><span class="p">,</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
@@ -245,7 +248,8 @@ Theory and Computation
 </div>
 </div>
 </div>
-<p>Now we arbitraryly set <span class="math notranslate nohighlight">\(𝑞 ≡ 0\)</span>, generate the sequence of iterates <span class="math notranslate nohighlight">\(𝑇𝑞\)</span>, <span class="math notranslate nohighlight">\(𝑇^2𝑞\)</span>, <span class="math notranslate nohighlight">\(𝑇^3𝑞\)</span> and plot them. By <span class="math notranslate nohighlight">\(𝑇^3 \)</span>𝑞<span class="math notranslate nohighlight">\( has already converged on \)</span>𝑞^∗$.</p>
+<p>Now we arbitrarily set <span class="math notranslate nohighlight">\(q \equiv 0\)</span>, generate the sequence of iterates <span class="math notranslate nohighlight">\(T_q\)</span>,
+<span class="math notranslate nohighlight">\(T^2_q\)</span>, <span class="math notranslate nohighlight">\(T^3_q\)</span> and plot them. By <span class="math notranslate nohighlight">\(T^3_q\)</span> has already converged on <span class="math notranslate nohighlight">\(q^∗\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">PyPlot</span>
@@ -267,7 +271,7 @@ Theory and Computation
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/ch_opt_julia_5_0.png" src="_images/ch_opt_julia_5_0.png" />
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PyObject &lt;matplotlib.legend.Legend object at 0x7fdd181319d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PyObject &lt;matplotlib.legend.Legend object at 0x7f9438e649d0&gt;
 </pre></div>
 </div>
 </div>
@@ -275,7 +279,9 @@ Theory and Computation
 </div>
 <div class="section" id="linear-programming">
 <h2>Linear programming<a class="headerlink" href="#linear-programming" title="Permalink to this headline">¶</a></h2>
-<p>When solving linear programs, one option is to use a domain specific modeling language to set out the objective and constraints in the optimization problem. Here we demonstrate the Julia package JuMP.</p>
+<p>When solving linear programs, one option is to use a domain specific modeling
+language to set out the objective and constraints in the optimization problem.
+Here we demonstrate the Julia package <code class="docutils literal notranslate"><span class="pre">JuMP</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">JuMP</span>

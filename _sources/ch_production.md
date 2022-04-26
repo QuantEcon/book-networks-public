@@ -15,7 +15,7 @@ kernelspec:
 
 # Chapter 2 - Production (Python Code)
 
-We begin with some imports
+We begin with some imports.
 
 ```{code-cell}
 import quantecon as qe
@@ -37,8 +37,13 @@ from matplotlib import cm
 
 ## Multisector Models
 
-We start by loading a graph of linkages between 15 US sectors in 2019. Our graph comes as a list of sector codes, an adjacency matrix of sales between the sectors, and a list the total sales of each sector. 
-That is $Z[i,j]$ is the sales from industry $i$ to industry $j$, and $X[i]$ is the the total sales of each sector $i$.
+We start by loading a graph of linkages between 15 US sectors in 2019. 
+
+Our graph comes as a list of sector codes, an adjacency matrix of sales between
+the sectors, and a list the total sales of each sector.  
+
+In particular, `Z[i,j]` is the sales from industry `i` to industry `j`, and `X[i]` is the the total sales
+of each sector `i`.
 
 ```{code-cell}
 codes = ch2_data["us_sectors_15"]["codes"]
@@ -46,7 +51,12 @@ Z = ch2_data["us_sectors_15"]["adjacency_matrix"]
 X = ch2_data["us_sectors_15"]["total_industry_sales"]
 ```
 
-Now we define a function to build coefficient matrices. Two coefficient matrices are returned. The backward linkage case, where sales between sector i and j are given as a fraction of total sales of sector j. The forward linkage case, where sales between sector i and j are given as a fraction of total sales of sector i. 
+Now we define a function to build coefficient matrices. 
+
+Two coefficient matrices are returned. The backward linkage case, where sales
+between sector `i` and `j` are given as a fraction of total sales of sector
+`j`. The forward linkage case, where sales between sector `i` and `j` are
+given as a fraction of total sales of sector `i`. 
 
 ```{code-cell}
 def build_coefficient_matrices(Z, X):
@@ -78,7 +88,7 @@ Here we calculate the hub-based eigenvector centrality of our backward linkage c
 centrality = qbn_io.eigenvector_centrality(A)
 ```
 
-Now we use the quantecon_book_networks package to produce our plot. 
+Now we use the `quantecon_book_networks` package to produce our plot. 
 
 ```{code-cell}
 fig, ax = plt.subplots(figsize=(8, 10))
@@ -107,7 +117,11 @@ plt.show()
 
 ### Output multipliers across 15 US industrial sectors
 
-Output multipliers are equal to the authority-based Katz centrality measure of the backward linkage coefficient matrix. Here we calculate authority-based Katz centrality using the quantecon_book_networks package. 
+Output multipliers are equal to the authority-based Katz centrality measure of
+the backward linkage coefficient matrix. 
+
+Here we calculate authority-based
+Katz centrality using the `quantecon_book_networks` package. 
 
 ```{code-cell}
 omult = qbn_io.katz_centrality(A, authority=True)
@@ -123,7 +137,10 @@ plt.show()
 
 ### Forward linkages and upstreamness over US industrial sectors
 
-Upstreamness is the hub-based Katz centrality of the forward linkage coefficient matrix. Here we calculate hub-based Katz centrality using the quantecon_book_networks package.
+Upstreamness is the hub-based Katz centrality of the forward linkage
+coefficient matrix. 
+
+Here we calculate hub-based Katz centrality.
 
 ```{code-cell}
 upstreamness = qbn_io.katz_centrality(F)
@@ -158,7 +175,7 @@ plt.show()
 
 ### Hub-based Katz centrality of across 15 US industrial sectors
 
-Here we plot the hub-based Katz centrality of the backward linkage coefficient matrix. 
+Next we plot the hub-based Katz centrality of the backward linkage coefficient matrix. 
 
 ```{code-cell}
 kcentral = qbn_io.katz_centrality(A)
@@ -210,7 +227,7 @@ plt.show()
 
 ### Propagation of demand shocks via backward linkages
 
-We begin by generating a demand shock vector d. 
+We begin by generating a demand shock vector $d$. 
 
 ```{code-cell}
 N = len(A)
@@ -219,7 +236,7 @@ d = np.random.rand(N)
 d[6] = 1  # positive shock to agriculture
 ```
 
-Now we simulate the demand shock propergating through the economy.
+Now we simulate the demand shock propagating through the economy.
 
 ```{code-cell}
 sim_length = 6
@@ -230,7 +247,7 @@ for i in range(sim_length):
     x = A @ x
 ```
 
-Finally, we plot the shock propergating through the economy.
+Finally, we plot the shock propagating through the economy.
 
 ```{code-cell}
 fig, axes = plt.subplots(3, 2, figsize=(8, 10))
@@ -261,7 +278,9 @@ A_71 = ch2_data['us_sectors_71']['adjacency_matrix']
 X_71 = ch2_data['us_sectors_71']['total_industry_sales']
 ```
 
-Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.
+Next we calculate our graph's properties. 
+
+We use hub-based eigenvector centrality as our centrality measure for this plot.
 
 ```{code-cell}
 centrality_71 = qbn_io.eigenvector_centrality(A_71)
@@ -286,7 +305,8 @@ plt.show()
 ```
 
 ###  Network for 114 Australian industry sectors in 2018
-We start by loading a graph of linkages between 75 US sectors in 2019.
+
+Next we load a graph of linkages between 114 Australian sectors in 2018.
 
 ```{code-cell}
 codes_114 = ch2_data['au_sectors_114']['codes']
@@ -294,7 +314,10 @@ A_114 = ch2_data['au_sectors_114']['adjacency_matrix']
 X_114 = ch2_data['au_sectors_114']['total_industry_sales']
 ```
 
-Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.
+Next we calculate our graph's properties. 
+
+We use hub-based eigenvector centrality as our centrality measure for this plot.
+
 
 ```{code-cell}
 centrality_114 = qbn_io.eigenvector_centrality(A_114)
@@ -320,14 +343,14 @@ plt.show()
 
 ### GDP growth rates and std. deviations (in parentheses) for 8 countries
 
-Here we load a pandas dataframe of GDP growth rates.
+Here we load a `pandas` DataFrame of GDP growth rates.
 
 ```{code-cell}
 gdp_df = ch2_data['gdp_df']
 gdp_df.head()
 ```
 
-Now we plot the growth rates and calculate their std. deviations.
+Now we plot the growth rates and calculate their standard deviations.
 
 ```{code-cell}
 fig, axes = plt.subplots(5, 2, figsize=(8, 9))

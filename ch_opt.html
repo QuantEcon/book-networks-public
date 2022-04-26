@@ -73,7 +73,7 @@ Theory and Computation
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
@@ -181,15 +181,8 @@ Theory and Computation
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#transforming-distribution-phi-into-distribution-psi">
-     Transforming distribution
-     <span class="math notranslate nohighlight">
-      \(\phi\)
-     </span>
-     into distribution
-     <span class="math notranslate nohighlight">
-      \(\psi\)
-     </span>
+    <a class="reference internal nav-link" href="#transforming-one-distribution-into-another">
+     Transforming one distribution into another
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -302,7 +295,7 @@ Theory and Computation
 </div>
 </div>
 </div>
-<p>Caclulate betweenness centrality.</p>
+<p>Next we calculate betweenness centrality.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bc_dict</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">betweenness_centrality</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
@@ -348,7 +341,7 @@ Theory and Computation
 </div>
 </div>
 </div>
-<p>And now we use Scipy’s linear programing module to solve our linear program.</p>
+<p>And now we use SciPy’s linear programing module to solve our linear program.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">linprog</span>
@@ -363,7 +356,7 @@ Theory and Computation
 </div>
 </div>
 </div>
-<p>Here we produce a visualisation of what is being done.</p>
+<p>Here we produce a visualization of what is being done.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
@@ -419,9 +412,10 @@ Theory and Computation
 </div>
 <div class="section" id="optimal-transport">
 <h2>Optimal Transport<a class="headerlink" href="#optimal-transport" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="transforming-distribution-phi-into-distribution-psi">
-<h3>Transforming distribution <span class="math notranslate nohighlight">\(\phi\)</span> into distribution <span class="math notranslate nohighlight">\(\psi\)</span><a class="headerlink" href="#transforming-distribution-phi-into-distribution-psi" title="Permalink to this headline">¶</a></h3>
-<p>Below we provide code to produce a visualisation of transforming one distribution into another in one dimension.</p>
+<div class="section" id="transforming-one-distribution-into-another">
+<h3>Transforming one distribution into another<a class="headerlink" href="#transforming-one-distribution-into-another" title="Permalink to this headline">¶</a></h3>
+<p>Below we provide code to produce a visualization of transforming one
+distribution into another in one dimension.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">σ</span> <span class="o">=</span> <span class="mf">0.1</span>
@@ -490,7 +484,7 @@ Theory and Computation
 </div>
 </div>
 </div>
-<p>Now, we can set up a simple optimal transport problem.</p>
+<p>Now we can set up a simple optimal transport problem.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
@@ -500,7 +494,7 @@ Theory and Computation
 </div>
 </div>
 </div>
-<p>And solve using the above function.</p>
+<p>Next we solve using the above function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ot_solver</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
@@ -514,7 +508,8 @@ Theory and Computation
 </div>
 </div>
 </div>
-<p>We see we get the same result as when using the python optimal transport package.</p>
+<p>We see we get the same result as when using the Python optimal transport
+package.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ot</span><span class="o">.</span><span class="n">emd</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">psi</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> 
@@ -602,7 +597,7 @@ Theory and Computation
 </div>
 </div>
 </div>
-<p>We solve our optimal transport problem using the python optimal transport package.</p>
+<p>We solve our optimal transport problem using the Python optimal transport package.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pi</span> <span class="o">=</span> <span class="n">ot</span><span class="o">.</span><span class="n">emd</span><span class="p">(</span><span class="n">phi_probs</span><span class="p">,</span> <span class="n">psi_probs</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
@@ -703,11 +698,14 @@ Theory and Computation
 </div>
 <div class="section" id="python-spatial-analysis-library">
 <h3>Python Spatial Analysis library<a class="headerlink" href="#python-spatial-analysis-library" title="Permalink to this headline">¶</a></h3>
-<p>Readers interested in computational optimal transport should also consider PySAL, the <a class="reference external" href="https://pysal.org/">Python Spatial Analysis library</a>. See, for example, <a class="reference external" href="https://pysal.org/spaghetti/notebooks/transportation-problem.html">https://pysal.org/spaghetti/notebooks/transportation-problem.html</a>.</p>
+<p>Readers interested in computational optimal transport should also consider
+PySAL, the <a class="reference external" href="https://pysal.org/">Python Spatial Analysis library</a>. See, for
+example, <a class="reference external" href="https://pysal.org/spaghetti/notebooks/transportation-problem.html">https://pysal.org/spaghetti/notebooks/transportation-problem.html</a>.</p>
 </div>
 <div class="section" id="the-general-flow-problem">
 <h3>The General Flow Problem<a class="headerlink" href="#the-general-flow-problem" title="Permalink to this headline">¶</a></h3>
-<p>Here we solve a simple network flow problem as a linear program. We begin by defining the node-edge incidence matrix.</p>
+<p>Here we solve a simple network flow problem as a linear program. We begin by
+defining the node-edge incidence matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">(</span>
@@ -720,7 +718,7 @@ Theory and Computation
 </div>
 </div>
 </div>
-<p>Now we define exogonous supply and transport costs.</p>
+<p>Now we define exogenous supply and transport costs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">)</span>

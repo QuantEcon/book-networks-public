@@ -73,7 +73,7 @@ Theory and Computation
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
@@ -265,7 +265,7 @@ Theory and Computation
                         
   <div class="tex2jax_ignore mathjax_ignore section" id="chapter-2-production-python-code">
 <h1>Chapter 2 - Production (Python Code)<a class="headerlink" href="#chapter-2-production-python-code" title="Permalink to this headline">¶</a></h1>
-<p>We begin with some imports</p>
+<p>We begin with some imports.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quantecon</span> <span class="k">as</span> <span class="nn">qe</span>
@@ -292,8 +292,11 @@ Theory and Computation
 </div>
 <div class="section" id="multisector-models">
 <h2>Multisector Models<a class="headerlink" href="#multisector-models" title="Permalink to this headline">¶</a></h2>
-<p>We start by loading a graph of linkages between 15 US sectors in 2019. Our graph comes as a list of sector codes, an adjacency matrix of sales between the sectors, and a list the total sales of each sector.
-That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sales from industry <span class="math notranslate nohighlight">\(i\)</span> to industry <span class="math notranslate nohighlight">\(j\)</span>, and <span class="math notranslate nohighlight">\(X[i]\)</span> is the the total sales of each sector <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p>We start by loading a graph of linkages between 15 US sectors in 2019.</p>
+<p>Our graph comes as a list of sector codes, an adjacency matrix of sales between
+the sectors, and a list the total sales of each sector.</p>
+<p>In particular, <code class="docutils literal notranslate"><span class="pre">Z[i,j]</span></code> is the sales from industry <code class="docutils literal notranslate"><span class="pre">i</span></code> to industry <code class="docutils literal notranslate"><span class="pre">j</span></code>, and <code class="docutils literal notranslate"><span class="pre">X[i]</span></code> is the the total sales
+of each sector <code class="docutils literal notranslate"><span class="pre">i</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">codes</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s2">&quot;us_sectors_15&quot;</span><span class="p">][</span><span class="s2">&quot;codes&quot;</span><span class="p">]</span>
@@ -303,7 +306,11 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 </div>
 </div>
-<p>Now we define a function to build coefficient matrices. Two coefficient matrices are returned. The backward linkage case, where sales between sector i and j are given as a fraction of total sales of sector j. The forward linkage case, where sales between sector i and j are given as a fraction of total sales of sector i.</p>
+<p>Now we define a function to build coefficient matrices.</p>
+<p>Two coefficient matrices are returned. The backward linkage case, where sales
+between sector <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code> are given as a fraction of total sales of sector
+<code class="docutils literal notranslate"><span class="pre">j</span></code>. The forward linkage case, where sales between sector <code class="docutils literal notranslate"><span class="pre">i</span></code> and <code class="docutils literal notranslate"><span class="pre">j</span></code> are
+given as a fraction of total sales of sector <code class="docutils literal notranslate"><span class="pre">i</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_coefficient_matrices</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
@@ -338,7 +345,7 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 </div>
 </div>
-<p>Now we use the quantecon_book_networks package to produce our plot.</p>
+<p>Now we use the <code class="docutils literal notranslate"><span class="pre">quantecon_book_networks</span></code> package to produce our plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
@@ -379,7 +386,10 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 <div class="section" id="output-multipliers-across-15-us-industrial-sectors">
 <h3>Output multipliers across 15 US industrial sectors<a class="headerlink" href="#output-multipliers-across-15-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
-<p>Output multipliers are equal to the authority-based Katz centrality measure of the backward linkage coefficient matrix. Here we calculate authority-based Katz centrality using the quantecon_book_networks package.</p>
+<p>Output multipliers are equal to the authority-based Katz centrality measure of
+the backward linkage coefficient matrix.</p>
+<p>Here we calculate authority-based
+Katz centrality using the <code class="docutils literal notranslate"><span class="pre">quantecon_book_networks</span></code> package.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">omult</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">katz_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">authority</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -404,7 +414,9 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 <div class="section" id="forward-linkages-and-upstreamness-over-us-industrial-sectors">
 <h3>Forward linkages and upstreamness over US industrial sectors<a class="headerlink" href="#forward-linkages-and-upstreamness-over-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
-<p>Upstreamness is the hub-based Katz centrality of the forward linkage coefficient matrix. Here we calculate hub-based Katz centrality using the quantecon_book_networks package.</p>
+<p>Upstreamness is the hub-based Katz centrality of the forward linkage
+coefficient matrix.</p>
+<p>Here we calculate hub-based Katz centrality.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">upstreamness</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">katz_centrality</span><span class="p">(</span><span class="n">F</span><span class="p">)</span>
@@ -452,7 +464,7 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 <div class="section" id="hub-based-katz-centrality-of-across-15-us-industrial-sectors">
 <h3>Hub-based Katz centrality of across 15 US industrial sectors<a class="headerlink" href="#hub-based-katz-centrality-of-across-15-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
-<p>Here we plot the hub-based Katz centrality of the backward linkage coefficient matrix.</p>
+<p>Next we plot the hub-based Katz centrality of the backward linkage coefficient matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kcentral</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">katz_centrality</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -519,7 +531,7 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 <div class="section" id="propagation-of-demand-shocks-via-backward-linkages">
 <h3>Propagation of demand shocks via backward linkages<a class="headerlink" href="#propagation-of-demand-shocks-via-backward-linkages" title="Permalink to this headline">¶</a></h3>
-<p>We begin by generating a demand shock vector d.</p>
+<p>We begin by generating a demand shock vector <span class="math notranslate nohighlight">\(d\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -530,7 +542,7 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 </div>
 </div>
-<p>Now we simulate the demand shock propergating through the economy.</p>
+<p>Now we simulate the demand shock propagating through the economy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_length</span> <span class="o">=</span> <span class="mi">6</span>
@@ -543,7 +555,7 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 </div>
 </div>
-<p>Finally, we plot the shock propergating through the economy.</p>
+<p>Finally, we plot the shock propagating through the economy.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
@@ -581,7 +593,8 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 </div>
 </div>
-<p>Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.</p>
+<p>Next we calculate our graph’s properties.</p>
+<p>We use hub-based eigenvector centrality as our centrality measure for this plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality_71</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A_71</span><span class="p">)</span>
@@ -615,7 +628,7 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 <div class="section" id="network-for-114-australian-industry-sectors-in-2018">
 <h3>Network for 114 Australian industry sectors in 2018<a class="headerlink" href="#network-for-114-australian-industry-sectors-in-2018" title="Permalink to this headline">¶</a></h3>
-<p>We start by loading a graph of linkages between 75 US sectors in 2019.</p>
+<p>Next we load a graph of linkages between 114 Australian sectors in 2018.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">codes_114</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s1">&#39;au_sectors_114&#39;</span><span class="p">][</span><span class="s1">&#39;codes&#39;</span><span class="p">]</span>
@@ -625,7 +638,8 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 </div>
 </div>
-<p>Next we calculate our graph’s properties. We use hub-based eigenvector centrality as our centrality measure for this plot.</p>
+<p>Next we calculate our graph’s properties.</p>
+<p>We use hub-based eigenvector centrality as our centrality measure for this plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centrality_114</span> <span class="o">=</span> <span class="n">qbn_io</span><span class="o">.</span><span class="n">eigenvector_centrality</span><span class="p">(</span><span class="n">A_114</span><span class="p">)</span>
@@ -659,7 +673,7 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </div>
 <div class="section" id="gdp-growth-rates-and-std-deviations-in-parentheses-for-8-countries">
 <h3>GDP growth rates and std. deviations (in parentheses) for 8 countries<a class="headerlink" href="#gdp-growth-rates-and-std-deviations-in-parentheses-for-8-countries" title="Permalink to this headline">¶</a></h3>
-<p>Here we load a pandas dataframe of GDP growth rates.</p>
+<p>Here we load a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrame of GDP growth rates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdp_df</span> <span class="o">=</span> <span class="n">ch2_data</span><span class="p">[</span><span class="s1">&#39;gdp_df&#39;</span><span class="p">]</span>
@@ -781,7 +795,7 @@ That is <span class="math notranslate nohighlight">\(Z[i,j]\)</span> is the sale
 </table>
 </div></div></div>
 </div>
-<p>Now we plot the growth rates and calculate their std. deviations.</p>
+<p>Now we plot the growth rates and calculate their standard deviations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>

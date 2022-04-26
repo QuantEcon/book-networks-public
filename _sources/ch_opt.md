@@ -45,12 +45,14 @@ We load the Florentine Families data from the NetworkX package.
 G = nx.florentine_families_graph()
 ```
 
-Caclulate betweenness centrality.
+Next we calculate betweenness centrality.
+
 ```{code-cell}
 bc_dict = nx.betweenness_centrality(G)
 ```
 
 And we produce the plot.
+
 ```{code-cell}
 fig, ax = plt.subplots(figsize=(10, 10))
 
@@ -79,7 +81,7 @@ b = (30, 20)
 c = (-3, -4) # minus in order to minimize
 ```
 
-And now we use Scipy's linear programing module to solve our linear program.
+And now we use SciPy's linear programing module to solve our linear program.
 
 ```{code-cell}
 from scipy.optimize import linprog
@@ -87,7 +89,7 @@ result = linprog(c, A_ub=A, b_ub=b)
 print(result.x)
 ```
 
-Here we produce a visualisation of what is being done.
+Here we produce a visualization of what is being done.
 
 ```{code-cell}
 fig, ax = plt.subplots(figsize=(8, 4.5))
@@ -137,9 +139,10 @@ plt.show()
 ## Optimal Transport
  
 
-### Transforming distribution $\phi$ into distribution $\psi$
+### Transforming one distribution into another
 
-Below we provide code to produce a visualisation of transforming one distribution into another in one dimension.
+Below we provide code to produce a visualization of transforming one
+distribution into another in one dimension.
 
 ```{code-cell}
 σ = 0.1
@@ -200,7 +203,7 @@ def ot_solver(phi, psi, c, method='highs-ipm'):
     return pi
 ```
 
-Now, we can set up a simple optimal transport problem.
+Now we can set up a simple optimal transport problem.
 
 ```{code-cell}
 phi = np.array((0.5, 0.5))
@@ -208,13 +211,14 @@ psi = np.array((1, 0))
 c = np.ones((2, 2))
 ```
 
-And solve using the above function.
+Next we solve using the above function.
 
 ```{code-cell}
 ot_solver(phi, psi, c)
 ```
 
-We see we get the same result as when using the python optimal transport package. 
+We see we get the same result as when using the Python optimal transport
+package. 
 
 ```{code-cell}
 ot.emd(phi, psi, c) 
@@ -223,6 +227,7 @@ ot.emd(phi, psi, c)
 ### An optimal transport problem solved by linear programming
 
 Here we demonstrate a more detailed optimal transport problem. We begin by defining a node class.
+
 ```{code-cell}
 class Node:
 
@@ -234,6 +239,7 @@ class Node:
 ```
 
 Now we define a function for randomly generating nodes.
+
 ```{code-cell}
 from scipy.stats import betabinom
 
@@ -281,7 +287,7 @@ for i in range(n_phi):
         c[i, j] = np.sqrt((x0-x1)**2 + (y0-y1)**2)
 ```
 
-We solve our optimal transport problem using the python optimal transport package.
+We solve our optimal transport problem using the Python optimal transport package.
 
 ```{code-cell}
 pi = ot.emd(phi_probs, psi_probs, c)
@@ -338,6 +344,7 @@ plt.show()
 ### Solving linear assignment as an optimal transport problem
 
 Here we set up a linear assignment problem (matching $n$ workers to $n$ jobs).
+
 ```{code-cell}
 n = 4
 phi = np.ones(n)
@@ -345,22 +352,27 @@ psi = np.ones(n)
 ```
 
 We generate our cost matrix (the cost of training the $i$th worker for the $j$th job)
+
 ```{code-cell}
 c = np.random.uniform(size=(n, n))
 ```
 
 Finally, we solve our linear assignment problem as a special case of optimal transport.
+
 ```{code-cell}
 ot.emd(phi, psi, c)
 ```
 
 ### Python Spatial Analysis library
 
-Readers interested in computational optimal transport should also consider PySAL, the [Python Spatial Analysis library](https://pysal.org/). See, for example, https://pysal.org/spaghetti/notebooks/transportation-problem.html.
+Readers interested in computational optimal transport should also consider
+PySAL, the [Python Spatial Analysis library](https://pysal.org/). See, for
+example, https://pysal.org/spaghetti/notebooks/transportation-problem.html.
 
 ### The General Flow Problem
 
-Here we solve a simple network flow problem as a linear program. We begin by defining the node-edge incidence matrix.
+Here we solve a simple network flow problem as a linear program. We begin by
+defining the node-edge incidence matrix.
 
 ```{code-cell}
 A = (
@@ -371,7 +383,7 @@ A = (
 )
 ```
 
-Now we define exogonous supply and transport costs.
+Now we define exogenous supply and transport costs.
 
 ```{code-cell}
 b = (10, 0, 0, -10)

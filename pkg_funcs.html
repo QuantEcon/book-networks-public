@@ -73,7 +73,7 @@ Theory and Computation
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.59c74d8c95b765a7fd995ac71d459ebe.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
@@ -608,6 +608,10 @@ Theory and Computation
                 <span class="n">width</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">edge_size_multiple</span>
                 <span class="n">edge_widths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
     
+    <span class="c1"># Get rid of self-loops</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">remove_edges_from</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">selfloop_edges</span><span class="p">(</span><span class="n">G</span><span class="p">))</span>         
+
+    <span class="c1"># Plot the networks</span>
     <span class="n">nx</span><span class="o">.</span><span class="n">draw_networkx_nodes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> 
                            <span class="n">node_pos_dict</span><span class="p">,</span> 
                            <span class="n">node_color</span><span class="o">=</span><span class="n">node_color_list</span><span class="p">,</span> 

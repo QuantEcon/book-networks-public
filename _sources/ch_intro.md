@@ -22,7 +22,7 @@ tags: [hide-output]
 pip install --upgrade kaleido
 ```
 
-We begin by importing the quantecon package as well as some functions and data that have been packaged for release with this text.
+We begin by importing the `quantecon` package as well as some functions and data that have been packaged for release with this text.
 
 ```{code-cell}
 import quantecon as qe
@@ -54,13 +54,13 @@ import plotly.graph_objects as go
 
 ### International trade in crude oil 2019
 
-We begin by loading a NetworkX directed graph object the represents the international trade in crude oil.
+We begin by loading a `NetworkX` directed graph object that represents international trade in crude oil.
 
 ```{code-cell}
 DG = ch1_data["crude_oil"]
 ```
 
-Next we transform the data to prepare it for display as a sankey diagram.
+Next we transform the data to prepare it for display as a Sankey diagram.
 
 ```{code-cell}
 nodeid = {}
@@ -77,7 +77,7 @@ for src,tgt in DG.edges():
     value.append(DG[src][tgt]['weight'])
 ```
 
-Finaly we produce our plot.
+Finally we produce our plot.
 
 ```{code-cell}
 fig = go.Figure(data=[go.Sankey(
@@ -99,16 +99,18 @@ fig.update_layout(title_text="Crude Oil", font_size=10, width=600, height=800)
 fig.show(renderer='svg')
 ```
 
-### International trade in commercial aircraft during 2019.
+### International trade in commercial aircraft during 2019
 
-For this plot we will use a cleaned dataset from [Harvard, CID Dataverse](https://dataverse.harvard.edu/dataverse/atlas).
+For this plot we will use a cleaned dataset from 
+[Harvard, CID Dataverse](https://dataverse.harvard.edu/dataverse/atlas).
 
 ```{code-cell}
 DG = ch1_data['aircraft_network_2019']
 pos = ch1_data['aircraft_network_2019_pos']
 ```
 
-We begin by calculating some features of our graph using the NetworkX and the quantecon_book_networks packages.
+We begin by calculating some features of our graph using the `NetworkX` and
+the `quantecon_book_networks` packages.
 
 ```{code-cell}
 centrality = nx.eigenvector_centrality(DG)
@@ -183,7 +185,9 @@ M = np.array([[1,2],[2,1]])
 spec_rad(M)
 ```
 
-This function, along with functions for other important calculations from the text, are available in the quantecon_book_networks package. Source code for these functions can be seen [here](pkg_funcs).
+This function is available in the `quantecon_book_networks` package, along with 
+several other functions for used repeatedly in the text.  Source code for
+these functions can be seen [here](pkg_funcs).
 
 ```{code-cell}
 qbn_io.spec_rad(M)
@@ -192,7 +196,7 @@ qbn_io.spec_rad(M)
 
 ## Probability
 
-### The unit simplex in $\mathbb{R}^3$.
+### The unit simplex in $\mathbb{R}^3$
 
 Here we define a function for plotting the unit simplex.
 
@@ -243,7 +247,8 @@ plt.show()
 
 ### Independent draws from Student’s t and Normal distributions
 
-Here we illustrate the occurence of "extreme" events in heavy tailed distributions. We start by generating 1000 samples from a normal distribution and a student's t distribution.
+Here we illustrate the occurrence of "extreme" events in heavy tailed distributions. 
+We start by generating 1,000 samples from a normal distribution and a Student's t distribution.
 
 ```{code-cell}
 from scipy.stats import t
@@ -257,7 +262,8 @@ t_dist = t(df=1.5)
 t_data = t_dist.rvs(n)
 ```
 
-When we plot our samples, we see the student's t distribution frequently generates samples many standard deviations from the mean.
+When we plot our samples, we see the Student's t distribution frequently
+generates samples many standard deviations from the mean.
 
 ```{code-cell}
 
@@ -284,7 +290,10 @@ plt.show()
 
 ### CCDF plots for the Pareto and Exponential distributions
 
-When the Pareto tail property holds, the CCDF is eventually log linear. Here we illustrates this using a Pareto distribution. For comparison an exponential distribution is also shown. First we define our domain and the Pareto and Exponential distributions.
+When the Pareto tail property holds, the CCDF is eventually log linear. Here
+we illustrates this using a Pareto distribution. For comparison, an exponential
+distribution is also shown. First we define our domain and the Pareto and
+Exponential distributions.
 
 ```{code-cell} 
 x = np.linspace(1, 10, 500)
@@ -302,7 +311,7 @@ def Ge(x):
     return np.exp(-λ * x)
 ```
 
-We then plot our distribution on a log log scale.
+We then plot our distribution on a log-log scale.
 
 ```{code-cell} 
 fig, ax = plt.subplots()
@@ -319,13 +328,14 @@ plt.show()
 
 ### Empirical CCDF plots for largest firms (Forbes)
 
-Here we show that the distribution of firm sizes has a Pareto tail. We start by loading the forbes_global_2000 dataset.
+Here we show that the distribution of firm sizes has a Pareto tail. We start
+by loading the `forbes_global_2000` dataset.
 
 ```{code-cell} 
 dfff = ch1_data['forbes_global_2000']
 ```
 
-We calculate values of the empirical_ccdf.
+We calculate values of the empirical CCDF.
 
 ```{code-cell} 
 data = np.asarray(dfff['Market Value'])[0:500]
@@ -336,7 +346,7 @@ for i, d in enumerate(data):
     y_vals[i] = np.sum(data >= d) / n
 ```
 
-Now we fit a linear trend line (on the log log scale).
+Now we fit a linear trend line (on the log-log scale).
 
 ```{code-cell} 
 x, y = np.log(data), np.log(y_vals)
@@ -366,6 +376,7 @@ plt.show()
 ### Zeta and Pareto distributions
 
 We begin by defining the Zeta and Pareto distributions.
+
 ```{code-cell} 
 γ = 2.0
 α = γ - 1
@@ -385,17 +396,16 @@ def p(x, c=2.0):
 x_grid = np.linspace(1, 10, 200)
 ```
 
-Then we can produce our plot.
+Then we can produce our plot
 
 ```{code-cell} 
 fig, ax = plt.subplots()
-ax.plot(k_grid, z(k_grid), '-o', label='density of Pareto with tail index $\\alpha$')
-ax.plot(x_grid, p(x_grid), label='zeta distribution with $\gamma=2$')
+ax.plot(k_grid, z(k_grid), '-o', label='zeta distribution with $\gamma=2$')
+ax.plot(x_grid, p(x_grid), label='density of Pareto with tail index $\\alpha$')
 ax.legend(fontsize=12)
 ax.set_yticks((0, 1, 2))
 plt.show()
 ```
-
 
 ### NetworkX digraph plot
 
@@ -426,7 +436,7 @@ nx.draw_spring(G_p, ax=ax, node_size=500, with_labels=True,
 plt.show()
 ```
 
-The DiGraph object has methods that calculate in-degree and out-degree of vertices.
+The `DiGraph` object has methods that calculate in-degree and out-degree of vertices.
 
 ```{code-cell}
 G_p.in_degree('p')
@@ -436,8 +446,9 @@ G_p.in_degree('p')
 G_p.out_degree('p')
 ```
 
-Additionally the NetworkX package supplies functions for testing communication and strong connectedness, as well as to
-compute strongly conneted components.
+Additionally, the `NetworkX` package supplies functions for testing
+communication and strong connectedness, as well as to compute strongly
+connected components.
 
 ```{code-cell} 
 G = nx.DiGraph()
@@ -448,7 +459,13 @@ G.add_edge(3, 2)
 list(nx.strongly_connected_components(G))
 ```
 
-Like NetworkX, the QuantEcon Python library 'quantecon' supplies a graph object that implements certain graph-theoretic algorithms. The set of available algorithms is more limited but each one is faster, accelerated by just-in-time compilation. In the case of QuantEcon’s DiGraph object, an instance is created via the adjacency matrix.
+Like `NetworkX`, the QuantEcon Python library `quantecon` supplies a graph
+object that implements certain graph-theoretic algorithms. 
+
+The set of available algorithms is more limited but each one is faster, accelerated by
+just-in-time compilation. 
+
+In the case of QuantEcon's `DiGraph` object, an instance is created via the adjacency matrix.
 
 ```{code-cell} 
 A = ((1, 0, 0),
@@ -462,7 +479,8 @@ G.strongly_connected_components
 
 ### International private credit flows by country
 
-We begin by loading an adjacency matrix of international private credit flows (in the form of a numpy array and a list of country labels).
+We begin by loading an adjacency matrix of international private credit flows
+(in the form of a NumPy array and a list of country labels).
 
 ```{code-cell} 
 Z = ch1_data["adjacency_matrix_2019"]["Z"]
@@ -470,13 +488,15 @@ Z_visual= ch1_data["adjacency_matrix_2019"]["Z_visual"]
 countries = ch1_data["adjacency_matrix_2019"]["countries"]
 ```
 
-Here we will use the quantecon_book_networks package to convert the adjacency matrix into a NetworkX graph object. 
+Here we use the `quantecon_book_networks` package to convert the
+adjacency matrix into a `NetworkX` graph object. 
 
 ```{code-cell} 
 G = qbn_io.adjacency_matrix_to_graph(Z_visual, countries, tol=0.03)
 ```
 
-Next we calculate our graph's properties. We use hub-based eigenvector centrality as our centrality measure for this plot.  
+Next we calculate our graph's properties. We use hub-based eigenvector
+centrality as our centrality measure for this plot.  
 
 ```{code-cell}
 centrality = qbn_io.eigenvector_centrality(Z_visual, authority=False)
@@ -539,7 +559,10 @@ plt.show()
 
 This figure looks at six different centrality measures.
 
-We begin by defining a function for calculating eigenvector centrality. By default hub-based centrality is calculated but authority-based centrality can be calculated by setting `authority=True`.
+We begin by defining a function for calculating eigenvector centrality.
+
+Hub-based centrality is calculated by default, although authority-based centrality
+can be calculated by setting `authority=True`.
 
 ```{code-cell}
 def eigenvector_centrality(A, k=40, authority=False):
@@ -592,7 +615,8 @@ ecentral_authority = eigenvector_centrality(Z, authority=True)
 kcentral_authority = katz_centrality(Z, b=1/1_400_000, authority=True)
 ```
 
-Here we provide a helper function that returns a dataframe for each measure. The dataframe is ordered by that measure and contains color information.
+Here we provide a helper function that returns a DataFrame for each measure.
+The DataFrame is ordered by that measure and contains color information.
 
 ```{code-cell}
 def centrality_plot_data(countries, centrality_measures):
@@ -639,7 +663,9 @@ plt.show()
 
 ### Computing in and out degree distributions
 
-The in-degree distribution evaluated at 𝑘 is the fraction of nodes in a network that have in-degree 𝑘. The in-degree distribution of a NetworkX DiGraph can be calculated using the below.
+The in-degree distribution evaluated at $k$ is the fraction of nodes in a
+network that have in-degree $k$. The in-degree distribution of a `NetworkX`
+DiGraph can be calculated using the code below.
 
 ```{code-cell} 
 def in_degree_dist(G):
@@ -662,11 +688,13 @@ def out_degree_dist(G):
 
 ### Degree distribution for international aircraft trade
 
-Here we illustrate that the commercial aircraft international trade network is approximately scale-free by plotting the degree distribution alongside 𝑓(𝑥) = 𝑐𝑥−𝛾 with 𝑐 = 0.2 and
-𝛾 = 1.1. 
+Here we illustrate that the commercial aircraft international trade network is
+approximately scale-free by plotting the degree distribution alongside
+$f(x)=cx-\gamma$ with $c=0.2$ and $\gamma=1.1$. 
 
-In this calculation of the degree distribution, performed by the NetworkX function degree_histogram, directions are ignored and the network is treated as an undirected
-graph.
+In this calculation of the degree distribution, performed by the NetworkX
+function `degree_histogram`, directions are ignored and the network is treated
+as an undirected graph.
 
 ```{code-cell} 
 def plot_degree_dist(G, ax, loglog=True, label=None):
@@ -694,7 +722,10 @@ plt.show()
 
 ### Random graphs
 
-The code to produce the Erdos–Renyi random graph, used below, applies the combinations function from the itertools library. The function `combinations(A, k)` returns a list of all subsets of $A$ of size $k$. For example:
+The code to produce the Erdos-Renyi random graph, used below, applies the
+combinations function from the `itertools` library. The function
+`combinations(A, k)` returns a list of all subsets of $A$ of size $k$. For
+example:
 
 ```{code-cell} 
 import itertools
@@ -702,7 +733,9 @@ letters = 'a', 'b', 'c'
 list(itertools.combinations(letters, 2))
 ```
 
-Below we generate random graphs using the Erdos–Renyi and Barabasi-Albert algorithms. Here, for convenience, we will define a function to plot these graphs.
+Below we generate random graphs using the Erdos-Renyi and Barabasi-Albert
+algorithms. Here, for convenience, we will define a function to plot these
+graphs.
 
 ```{code-cell} 
 def plot_random_graph(RG,ax):
