@@ -17,7 +17,11 @@ kernelspec:
 
 ## Bellman’s Method
 
-Here we demonstrate solving a shortest path problem using Bellman's method. Our first step is to set up the cost function, which we store as an array called $c$. Note that we set $c[i, j] = Inf$ when no edge exists from $i$ to $j$.
+Here we demonstrate solving a shortest path problem using Bellman's method.
+
+Our first step is to set up the cost function, which we store as an array
+called `c`. Note that we set `c[i, j] = Inf` when no edge exists from `i` to
+`j`.
 
 ```{code-cell}
 :tags: ["remove-output"]
@@ -47,7 +51,8 @@ function T(q)
 end
 ```
 
-Now we arbitrarily set $q \equiv 0$, generate the sequence of iterates $T_q$, $T^2_q$, $T^3_q$ and plot them. By $T^3_q$ has already converged on $q^∗$.
+Now we arbitrarily set $q \equiv 0$, generate the sequence of iterates $T_q$,
+$T^2_q$, $T^3_q$ and plot them. By $T^3_q$ has already converged on $q^∗$.
 
 ```{code-cell}
 using PyPlot
@@ -67,7 +72,10 @@ ax.legend()
 ```
 
 ## Linear programming
-When solving linear programs, one option is to use a domain specific modeling language to set out the objective and constraints in the optimization problem. Here we demonstrate the Julia package `JuMP`.
+
+When solving linear programs, one option is to use a domain specific modeling
+language to set out the objective and constraints in the optimization problem.
+Here we demonstrate the Julia package `JuMP`.
 
 ```{code-cell}
 using JuMP
@@ -75,12 +83,14 @@ using GLPK
 ```
 
 We create our model object and select our solver.
+
 ```{code-cell}
 m = Model()
 set_optimizer(m, GLPK.Optimizer)
 ```
 
 Now we add variables, constraints and an objective to our model.
+
 ```{code-cell}
 :tags: ["remove-output"]
 
@@ -92,6 +102,7 @@ Now we add variables, constraints and an objective to our model.
 ```
 
 Finally we solve our linear program.
+
 ```{code-cell}
 optimize!(m)
 

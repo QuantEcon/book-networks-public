@@ -39,7 +39,15 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 In this chapter two transition matrices are used.
 
-First, a Markov model is estimated in the international growth dynamics study of [Quah (1993)](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.142.5504&rep=rep1&type=pdf). The state is real GDP per capita in a given country relative to the world average. Quah discretizes the possible values to 0–1/4, 1/4–1/2, 1/2–1, 1–2 and 2–inf, calling these states 1 to 5 respectively. The transitions are over a one year period. 
+First, a Markov model is estimated in the international growth dynamics study
+of [Quah (1993)](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.142.5504&rep=rep1&type=pdf).
+
+The state is real GDP per capita in a given country relative to the world
+average. 
+
+Quah discretizes the possible values to 0–1/4, 1/4–1/2, 1/2–1, 1–2
+and 2–inf, calling these states 1 to 5 respectively. The transitions are over
+a one year period. 
 
 ```{code-cell}
 P_Q = [
@@ -53,7 +61,11 @@ P_Q = np.array(P_Q)
 codes_Q =  ( '1','2','3','4','5')
 ```
 
-Second, [Benhabib et al. (2015)](https://www.economicdynamics.org/meetpapers/2015/paper_364.pdf) estimate the following transition matrix for intergenerational social mobility. The states are percentiles of the wealth distribution, in particular, the codes 1, 2,… , 8, correspond to the percentiles 0–20%, 20–40%, 40–60%, 60–80%, 80–90%, 90–95%, 95–99%, 99–100%. 
+Second, [Benhabib et al. (2015)](https://www.economicdynamics.org/meetpapers/2015/paper_364.pdf) estimate the following transition matrix for intergenerational social mobility.
+
+The states are percentiles of the wealth distribution. 
+
+In particular, states 1, 2,..., 8, correspond to the percentiles 0-20%, 20-40%, 40-60%, 60-80%, 80-90%, 90-95%, 95-99%, 99-100%. 
 
 ```{code-cell}
 P_B = [
@@ -74,7 +86,7 @@ codes_B =  ( '1','2','3','4','5','6','7','8')
 
 ## Markov Chains as Digraphs
 
-### Contour plot of transition matrix $P_B$
+### Contour plot of a transition matrix 
 
 Here we define a function for producing contour plots of matrices.
 
@@ -116,7 +128,8 @@ def plot_matrices(matrix,
 
 ```
 
-Now we use our function to produce a plot of the transition matrix for intergenerational social mobility, $P_B$.
+Now we use our function to produce a plot of the transition matrix for
+intergenerational social mobility, $P_B$.
 
 ```{code-cell}
 fig, ax = plt.subplots(figsize=(6,6))
@@ -130,16 +143,22 @@ plt.show()
 
 ### Wealth percentile over time
 
-Here, we compare the mixing of the transition matrix for intergenerational social mobility $P_B$ and the transition matrix for international growth dynamics $P_Q$. 
+Here we compare the mixing of the transition matrix for intergenerational
+social mobility $P_B$ and the transition matrix for international growth
+dynamics $P_Q$. 
 
-We begin by creating quantecon MarkovChain objects with each of our transition matrices. 
+We begin by creating `quantecon` `MarkovChain` objects with each of our transition
+matrices. 
 
 ```{code-cell}
 mc_B = qe.MarkovChain(P_B, state_values=range(1, 9))
 mc_Q = qe.MarkovChain(P_Q, state_values=range(1, 6))
 ```
 
-Next we define a function to plot simultations of Markov processes. Two simulations will be run for each MarkovChain, one starting at the minimum initial value and one at the maximum. 
+Next we define a function to plot simulations of Markov chains. 
+
+Two simulations will be run for each `MarkovChain`, one starting at the
+minimum initial value and one at the maximum. 
 
 ```{code-cell}
 def sim_fig(ax, mc, T=100, seed=14, title=None):
@@ -164,14 +183,14 @@ plt.show()
 
 ### Predicted vs realized cross-country income distributions for 2019
 
-Here we load a pandas dataframe of GDP per capita data for countries compared to the global average.
+Here we load a `pandas` `DataFrame` of GDP per capita data for countries compared to the global average.
 
 ```{code-cell}
 gdppc_df = ch4_data['gdppc_df']
 gdppc_df.head()
 ```
 
-Now we assign countries bins as per Quah (1993).
+Now we assign countries bins, as per Quah (1993).
 
 ```{code-cell}
 q = [0, 0.25, 0.5, 1.0, 2.0, np.inf]
@@ -185,7 +204,8 @@ gdppc_df['interval'] = gdppc_df['interval'].astype(float)
 gdppc_df['year'] = gdppc_df['year'].astype(float)
 ```
 
-Here we define a function for calculating the cross-country income distributions for a given date range.
+Here we define a function for calculating the cross-country income
+distributions for a given date range.
 
 ```{code-cell}
 def gdp_dist_estimate(df, l, yr=(1960, 2019)):
@@ -206,13 +226,15 @@ We calculate the true distribution for 1985.
 ψ_1985 = gdp_dist_estimate(gdppc_df,l,yr=(1985, 1985))
 ```
 
-Now, we use the transition matrix to update the 1985 distribution 𝑡 = 2019 − 1985 = 34 times to get our predicted 2019 distribution. 
+Now we use the transition matrix to update the 1985 distribution $t = 2019 - 1985 = 34$
+times to get our predicted 2019 distribution. 
 
 ```{code-cell}
 ψ_2019_predicted = ψ_1985 @ np.linalg.matrix_power(P_Q, 2019-1985)
 ```
 
 Now, calculate the true 2019 distribution.
+
 ```{code-cell}
 ψ_2019 = gdp_dist_estimate(gdppc_df,l,yr=(2019, 2019))
 ```
@@ -234,7 +256,8 @@ plt.show()
 
 ### Distribution dynamics
 
-Here we define a function for plotting the convergence of marginal distributions $ψ$ under a transition matrix $P$ on the unit simplex.
+Here we define a function for plotting the convergence of marginal
+distributions $\psi$ under a transition matrix $P$ on the unit simplex.
 
 ```{code-cell}
 def convergence_plot(ψ, P, n=14, angle=50):
@@ -265,6 +288,7 @@ def convergence_plot(ψ, P, n=14, angle=50):
 ```
 
 Now we define P.
+
 ```{code-cell}
 P = (
     (0.9, 0.1, 0.0),
@@ -285,7 +309,8 @@ plt.show()
 
 #### A trajectory from $\psi_0 = (0, 1/2, 1/2)$
 
-Here we see again that the sequence of marginals appears to converge, and the limit appears not to depend on the initial distribution.
+Here we see again that the sequence of marginals appears to converge, and the
+limit appears not to depend on the initial distribution.
 
 ```{code-cell}
 ψ_0 = (0, 1/2, 1/2)
@@ -296,7 +321,10 @@ plt.show()
 
 ### Distribution projections from $P_B$
 
-Here we define a function for plotting $\psi$ after $n$ iterations of the transition matrix $P$. $\psi_0$ is taken as the unifrom distribution over the state space.
+Here we define a function for plotting $\psi$ after $n$ iterations of the
+transition matrix $P$. The distribution $\psi_0$ is taken as the uniform 
+distribution over the
+state space.
 
 ```{code-cell}
 def transition(P, n, ax=None):
@@ -341,20 +369,20 @@ plt.show()
 
 ### Convergence of the empirical distribution to $\psi^*$
 
-We begin by creating a Markov Chain object, taking $P_B$ as the transition matrix. 
+We begin by creating a `MarkovChain` object, taking $P_B$ as the transition matrix. 
 
 ```{code-cell}
 mc = qe.MarkovChain(P_B)
 ```
 
-Next we use the quantecon package to calculate the true stationary distribution.
+Next we use the `quantecon` package to calculate the true stationary distribution.
 
 ```{code-cell}
 stationary = mc.stationary_distributions[0]
 n = len(mc.P)
 ```
 
-Now we define a function simulate the Markov chain.
+Now we define a function to simulate the Markov chain.
 
 ```{code-cell}
 def simulate_distribution(mc, T=100):
@@ -378,7 +406,9 @@ for t in lengths:
     dists.append(simulate_distribution(mc, t))
 ```
 
-Now we produce the plots. We see that the simulated distribution starts to aproach the true stationary distribution. 
+Now we produce the plots. 
+
+We see that the simulated distribution starts to approach the true stationary distribution. 
 
 ```{code-cell}
 fig, axes = plt.subplots(2, 2, figsize=(9, 6), sharex='all')#, sharey='all')

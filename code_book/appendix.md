@@ -227,7 +227,7 @@ plt.show()
 
 ### The span of vectors $u$, $v$, $w$ in $\mathbb{R}$
 
-We begin by importing the FancyArrowPatch class and extending it.
+We begin by importing the `FancyArrowPatch` class and extending it.
 
 ```{code-cell}
 from matplotlib.patches import FancyArrowPatch
@@ -251,7 +251,7 @@ class Arrow3D(FancyArrowPatch):
         FancyArrowPatch.draw(self, renderer)
 ```
 
-Next we generate our vectors $u$, $v$, $w$ ensuring linear dependence. 
+Next we generate our vectors $u$, $v$, $w$, ensuring linear dependence. 
 
 ```{code-cell}
 α, β = 0.2, 0.1
@@ -336,7 +336,7 @@ plt.show()
 
 ### Equivalence of the onto and one-to-one properties (for linear maps)
 
-This plot is produced similarly to figures 6.1 and 6.2.
+This plot is produced similarly to Figures 6.1 and 6.2.
 
 ```{code-cell}
 fig, axes = plt.subplots(1, 2, figsize=(10, 4))
@@ -378,7 +378,8 @@ To plot the halfspace we plot the line
 
 $$ y = c/b - a/b x $$
 
-and then fill in the halfspace using `fill_between` on points $x, y, \hat y$, where $\hat y$ is either `y_min` or `y_max`.
+and then fill in the halfspace using `fill_between` on points $x, y, \hat y$,
+where $\hat y$ is either `y_min` or `y_max`.
 
 ```{code-cell}
 fig, ax = plt.subplots()
