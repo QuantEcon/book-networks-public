@@ -22,6 +22,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.axes3d import Axes3D, proj3d
 from matplotlib import cm
+export_figures = False
 ```
 
 ## Functions
@@ -51,6 +52,8 @@ for f, ax, lb, ti in zip(funcs, axes, labels, titles):
     ax.set_xticks((0, 1))
     ax.set_yticks((0, 1))
 
+if export_figures == True:
+    plt.savefig("figures/func_types_1.pdf")
 plt.show()
 ```
 
@@ -73,7 +76,9 @@ for f, ax, lb, ti in zip(funcs, axes, labels, titles):
     ax.legend(loc='lower center', fontsize=12, frameon=False)
     ax.set_xticks((0, 1))
     ax.set_yticks((0, 1))
-    
+
+if export_figures == True:
+    plt.savefig("figures/func_types_2.pdf")
 plt.show()
 ```
 
@@ -121,6 +126,8 @@ for (fp, lb, coord) in zip(fps, fps_labels, coords):
              fontsize=16,
              arrowprops=dict(arrowstyle="->"))
 
+if export_figures == True:
+    plt.savefig("figures/three_fixed_points.pdf")
 plt.show()
 ```
 
@@ -183,6 +190,8 @@ xL=['0',
 plt.xticks(xT, xL, fontsize=fs+2)
 ax.grid(True)
 
+if export_figures == True:
+    plt.savefig("figures/complex_number.pdf")
 plt.show()
 ```
 
@@ -219,7 +228,9 @@ for i in range(n):
     x, y, z = p
     ax.plot([x], [y], [z], 'o', ms=4, color=cm.jet_r(i / n))
     p = A @ p
-    
+
+if export_figures == True:
+    plt.savefig("figures/euclidean_convergence_1.pdf")
 plt.show()
 ```
 
@@ -328,7 +339,8 @@ z2 = f(x2, y2)
 ax.plot_surface(x2, y2, z2, rstride=1, cstride=1, cmap=cm.jet,
                 linewidth=0, antialiased=True, alpha=0.2)
 
-
+if export_figures == True:
+    plt.savefig("figures/span1.pdf")
 plt.show()
 ```
 
@@ -362,7 +374,9 @@ for ax, f, lb, ti in zip(axes, funcs, labels, titles):
     ax.plot(x, y, '-', linewidth=4, label=lb, alpha=0.6)
     ax.text(-0.8, 0.5, ti, fontsize=14)
     ax.legend(loc='lower right', fontsize=12)
-    
+
+if export_figures == True:
+    plt.savefig("figures/func_types_3.pdf")
 plt.show()
 ```
 
@@ -412,16 +426,20 @@ ax.plot((4.8,), (-1.2,), 'ko')
 ax.annotate('$P$', xy=(0, 0), fontsize=12)
 
 ax.set_ylim(y_min, y_max)
+if export_figures == True:
+    plt.savefig("figures/polyhedron1.pdf")
 plt.show()
 ```
 
 ## Saddle Points and Duality
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$ (top left)
 
 ```{code-cell}
-fig = plt.figure(figsize=(12, 7))
-ax = plt.axes(projection ='3d')
+fig = plt.figure(figsize=(8.5, 6))
+
+## Top left Plot
+
+ax = fig.add_subplot(221, projection='3d')
 
 plot_args = {'rstride': 1, 'cstride': 1, 'cmap':"viridis",
              'linewidth': 0.4, 'antialiased': True, "alpha":0.75,
@@ -453,13 +471,10 @@ ax.w_zaxis.set_pane_color((1.0, 1.0, 1.0, 0.0))
 
 ax.set_zlabel("$L(x,\\theta)$", fontsize=14)
 
-plt.show()
-```
+## Top Right Plot
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$  (top right)
+ax = fig.add_subplot(222)
 
-```{code-cell}
-fig, ax = plt.subplots()
 
 plot_args = {'cmap':"viridis", 'antialiased': True, "alpha":0.6,
              'vmin': -1, 'vmax': 1}
@@ -501,13 +516,9 @@ ax.annotate(r'$L(x^*, \theta)$',
              fontsize=12,
              arrowprops={"arrowstyle" : "->"})
 
-plt.show()
-```
+## Bottom Left Plot
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom left)
-
-```{code-cell}
-fig, ax = plt.subplots()
+ax = fig.add_subplot(223)
 
 x = np.linspace(-1, 1, 100)
 ax.plot(x, -x**2, label='$\\theta \mapsto L(x^*, \\theta)$')
@@ -516,13 +527,9 @@ ax.legend(fontsize=14)
 ax.set_xticks([])
 ax.set_yticks([])
 
-plt.show()
-```
+## Bottom Right Plot
 
-### A saddle point $(x^*, \theta^*)$ of the function $L$ (bottom right)
-
-```{code-cell}
-fig, ax = plt.subplots()
+ax = fig.add_subplot(224)
 
 x = np.linspace(-1, 1, 100)
 ax.plot(x, x**2, label='$x \mapsto L(x, \\theta^*)$')
@@ -531,5 +538,7 @@ ax.legend(fontsize=14, loc='lower right')
 ax.set_xticks([])
 ax.set_yticks([])
 
+if export_figures == True:
+	plt.savefig("figures/saddle_1.pdf")
 plt.show()
 ```

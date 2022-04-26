@@ -22,6 +22,7 @@ import quantecon as qe
 import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
+export_figures = False
 ```
 
 ```{code-cell}
@@ -161,6 +162,8 @@ for i in range(k):
 
         plot_fin_graph(G, ax, fn.map_values_to_colors(v, i))
     v = fn.T(v)
-plt.show()
 
+if export_figures == True:
+    plt.savefig("figures/fin_network_sims_1.pdf")
+plt.show()
 ```

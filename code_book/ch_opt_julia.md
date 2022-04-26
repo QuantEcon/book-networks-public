@@ -51,6 +51,7 @@ Now we arbitraryly set $𝑞 ≡ 0$, generate the sequence of iterates $𝑇𝑞
 
 ```{code-cell}
 using PyPlot
+export_figures = false
 fig, ax = plt.subplots()
 
 n = 7
@@ -64,6 +65,9 @@ for i in 1:3
 end
 
 ax.legend()
+if export_figures == true
+    plt.savefig("figures/shortest_path_iter_1.pdf")
+end
 ```
 
 ## Linear programming
