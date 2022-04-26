@@ -17,3 +17,4 @@ dependencies:
     - plotly
     - interpolation
     - sphinx-design
+    - quantecon_book_networks

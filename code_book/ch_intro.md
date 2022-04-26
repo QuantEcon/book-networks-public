@@ -19,7 +19,7 @@ kernelspec:
 ---
 tags: [hide-output]
 ---
-pip install --upgrade kaleido
+pip install --upgrade quantecon_book_networks kaleido
 ```
 
 We begin by importing the `quantecon` package as well as some functions and data that have been packaged for release with this text.

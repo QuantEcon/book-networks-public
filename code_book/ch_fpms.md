@@ -15,6 +15,13 @@ kernelspec:
 
 # Chapter 5 - Nonlinear Interactions (Python Code)
 
+```{code-cell}
+---
+tags: [hide-output]
+---
+pip install --upgrade quantecon_book_networks
+```
+
 We begin with some imports
 
 ```{code-cell}

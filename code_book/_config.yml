@@ -5,6 +5,9 @@ title: |
 author: John Stachurski and Thomas J. Sargent
 only_build_toc_files: true
 
+execute:
+  timeout: 100
+
 sphinx:
     extra_extensions: ["sphinx_design"]
     config:
@@ -22,9 +25,9 @@ sphinx:
                 This website is the companion site for Economic Networks: Theory and Computation written by John Stachurski and Thomas J. Sargent
             keywords: Python, QuantEcon, Quantitative Economics, Economics, Networks, Tom J. Sargent, John Stachurski
             # google_analytics_id: UA-54984338-10
-        mathjax_config:
-            TeX:
-                Macros:
+        mathjax3_config:
+            tex:
+                macros:
                     "Exp" : ["\\operatorname{Exp}"]
                     "Binomial" : ["\\operatorname{Binomial}"]
                     "Poisson" : ["\\operatorname{Poisson}"]
