@@ -3,6 +3,7 @@
 .DS_Store
 __pycache__
 code_book/_build/
+dist/
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
