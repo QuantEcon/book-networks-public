@@ -26,6 +26,7 @@ We begin with some imports
 
 ```{code-cell}
 import quantecon as qe
+import quantecon_book_networks
 import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
@@ -40,7 +41,8 @@ import ot
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.patches import Polygon
-from matplotlib.artist import Artist  
+from matplotlib.artist import Artist
+quantecon_book_networks.config("matplotlib")
 ```
 
 ## Linear Programming and Duality
