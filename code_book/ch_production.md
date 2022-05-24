@@ -26,10 +26,12 @@ We begin with some imports.
 
 ```{code-cell}
 import quantecon as qe
+import quantecon_book_networks
 import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
 ch2_data = qbn_data.production()
+export_figures = False
 ```
 
 ```{code-cell}
@@ -40,6 +42,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import matplotlib.colors as plc
 from matplotlib import cm
+quantecon_book_networks.config("matplotlib")
 ```
 
 ## Multisector Models
@@ -108,6 +111,8 @@ qbn_plt.plot_graph(A, X, ax, codes,
               tol=0.0,
               node_color_list=color_list) 
 
+if export_figures:
+    plt.savefig("figures/input_output_analysis_15.pdf")
 plt.show()
 ```
 
@@ -119,6 +124,8 @@ Now we plot a bar chart of hub-based eigenvector centrality by sector.
 fig, ax = plt.subplots()
 ax.bar(codes, centrality, color=color_list, alpha=0.6)
 ax.set_ylabel("eigenvector centrality", fontsize=12)
+if export_figures:
+    plt.savefig("figures/input_output_analysis_15_ec.pdf")
 plt.show()
 ```
 
@@ -139,6 +146,8 @@ fig, ax = plt.subplots()
 omult_color_list = qbn_io.colorise_weights(omult,beta=False)
 ax.bar(codes, omult, color=omult_color_list, alpha=0.6)
 ax.set_ylabel("Output multipliers", fontsize=12)
+if export_figures:
+    plt.savefig("figures/input_output_analysis_15_omult.pdf")
 plt.show()
 ```
 
@@ -165,6 +174,8 @@ qbn_plt.plot_graph(F, X, ax, codes,
               tol=0.0,
               node_color_list=upstreamness_color_list) 
 
+if export_figures:
+    plt.savefig("figures/input_output_analysis_15_fwd.pdf")
 plt.show()
 ```
 
@@ -176,6 +187,8 @@ Here we produce a barplot of upstreamness.
 fig, ax = plt.subplots()
 ax.bar(codes, upstreamness, color=upstreamness_color_list, alpha=0.6)
 ax.set_ylabel("upstreamness", fontsize=12)
+if export_figures:
+    plt.savefig("figures/input_output_analysis_15_up.pdf")
 plt.show()
 ```
 
@@ -193,6 +206,8 @@ fig, ax = plt.subplots()
 kcentral_color_list = qbn_io.colorise_weights(kcentral,beta=False)
 ax.bar(codes, kcentral, color=kcentral_color_list, alpha=0.6)
 ax.set_ylabel("Katz hub centrality", fontsize=12)
+if export_figures:
+    plt.savefig("figures/input_output_analysis_15_katz.pdf")
 plt.show()
 ```
 
@@ -228,6 +243,8 @@ ax.set_yticklabels(codes)
 ax.set_xticks(ticks)
 ax.set_xticklabels(codes)
 
+if export_figures:
+    plt.savefig("figures/input_output_analysis_15_leo.pdf")
 plt.show()
 ```
 
@@ -271,6 +288,8 @@ for ax, x_vec, i in zip(axes, x_vecs, range(sim_length)):
                   edge_size_multiple=0.8)
 
 plt.tight_layout()
+if export_figures:
+    plt.savefig("figures/input_output_analysis_15_shocks.pdf")
 plt.show()
 ```
 
@@ -308,6 +327,8 @@ qbn_plt.plot_graph(A_71, X_71, ax, codes_71,
               tol=0.01,
               node_color_list=color_list_71)
 
+if export_figures:
+    plt.savefig("figures/input_output_analysis_71.pdf")
 plt.show()
 ```
 
@@ -345,6 +366,8 @@ qbn_plt.plot_graph(A_114, X_114, ax, codes_114,
               tol=0.03,
               node_color_list=color_list_114)
 
+if export_figures:
+    plt.savefig("figures/input_output_analysis_aus_114.pdf")
 plt.show()
 ```
 
@@ -376,6 +399,8 @@ for ax, country, gdp_data in zip(axes, countries, series):
     ax.set_ylim((-12, 14))
 
 plt.tight_layout()
+if export_figures:
+    plt.savefig("figures/gdp_growth.pdf")
 plt.show()
 
 ```

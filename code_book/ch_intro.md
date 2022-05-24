@@ -26,9 +26,11 @@ We begin by importing the `quantecon` package as well as some functions and data
 
 ```{code-cell}
 import quantecon as qe
+import quantecon_book_networks
 import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.data as qbn_data
 ch1_data = qbn_data.introduction()
+export_figures = False
 ```
 
 Next we import some common python libraries.
@@ -47,6 +49,7 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import matplotlib.colors as plc
 import matplotlib.patches as mpatches
 import plotly.graph_objects as go
+quantecon_book_networks.config("matplotlib")
 ```
 
 
@@ -96,6 +99,8 @@ fig = go.Figure(data=[go.Sankey(
 
 
 fig.update_layout(title_text="Crude Oil", font_size=10, width=600, height=800)
+if export_figures:
+    fig.write_image("figures/crude_oil_2019.pdf")
 fig.show(renderer='svg')
 ```
 
@@ -162,6 +167,8 @@ nx.draw_networkx_edges(DG,
                         node_size=node_sizes, 
                         connectionstyle='arc3,rad=0.15')
 
+if export_figures:
+    plt.savefig("figures/commercial_aircraft_2019_1.pdf")
 plt.show()
 ```
 
@@ -241,6 +248,8 @@ We can now produce the plot.
 
 ```{code-cell}
 unit_simplex(50)
+if export_figures:
+    plt.savefig("figures/simplex_1.pdf")
 plt.show()
 ```
 
@@ -284,6 +293,8 @@ ax.vlines(list(range(n)), 0, n_data, lw=0.2)
 ax.set_title(f"$N(0, \sigma)$ with $\sigma = {s}$", fontsize=11)
 
 plt.tight_layout()
+if export_figures:
+    plt.savefig("figures/heavy_tailed_draws.pdf")
 plt.show()
 
 ```
@@ -323,6 +334,8 @@ ax.legend(fontsize=12, frameon=False, loc="lower left")
 ax.set_xlabel("$\ln x$", fontsize=12)
 ax.set_ylabel("$\ln G(x)$", fontsize=12)
 
+if export_figures:
+    plt.savefig("figures/ccdf_comparison_1.pdf")
 plt.show()
 ```
 
@@ -366,6 +379,8 @@ ax.set_xlabel('log value', fontsize=12)
 ax.set_ylabel("log prob.", fontsize=12)
 ax.legend(loc='lower left', fontsize=12)
     
+if export_figures:
+    plt.savefig("figures/empirical_powerlaw_plots_firms_forbes.pdf")
 plt.show()
 ```
 
@@ -404,6 +419,8 @@ ax.plot(k_grid, z(k_grid), '-o', label='zeta distribution with $\gamma=2$')
 ax.plot(x_grid, p(x_grid), label='density of Pareto with tail index $\\alpha$')
 ax.legend(fontsize=12)
 ax.set_yticks((0, 1, 2))
+if export_figures:
+    plt.savefig("figures/zeta_1.pdf")
 plt.show()
 ```
 
@@ -433,6 +450,8 @@ fig, ax = plt.subplots()
 nx.draw_spring(G_p, ax=ax, node_size=500, with_labels=True, 
                  font_weight='bold', arrows=True, alpha=0.8,
                  connectionstyle='arc3,rad=0.25', arrowsize=20)
+if export_figures:
+    plt.savefig("figures/networkx_basics_1.pdf")
 plt.show()
 ```
 
@@ -523,7 +542,7 @@ for src,_ in G.edges:
 Finally we produce the plot.
 
 ```{code-cell} 
-fig, ax = plt.subplots(figsize=(10, 10))
+fig, ax = plt.subplots(figsize=(8, 10))
 ax.axis('off')
 
 nx.draw_networkx_nodes(G, 
@@ -552,6 +571,8 @@ nx.draw_networkx_edges(G,
                         node_size=node_sizes, 
                         connectionstyle='arc3,rad=0.15')
 
+if export_figures:
+    plt.savefig("figures/financial_network_analysis_visualization.pdf")
 plt.show()
 ```
 
@@ -658,6 +679,8 @@ for i, ax in enumerate(axes):
     if ylims[i] is not None:
         ax.set_ylim(ylims[i])
 
+if export_figures:
+    plt.savefig("figures/financial_network_analysis_centrality.pdf")
 plt.show()
 ```
 
@@ -717,6 +740,8 @@ ax.plot(xg, 0.2 * xg**(-1.1), label='power law')
 ax.set_xlim(0.9, 22)
 ax.set_ylim(0, 0.25)
 ax.legend()
+if export_figures:
+    plt.savefig("figures/commercial_aircraft_2019_2.pdf")
 plt.show()
 ```
 
@@ -783,6 +808,8 @@ plot_random_graph(G_er,axes[0])
 axes[1].set_title("Degree distribution")
 plot_degree_dist(G_er, axes[1], loglog=False)
 
+if export_figures:
+    plt.savefig("figures/rand_graph_experiments_1.pdf")
 plt.show()
 ```
 
@@ -803,5 +830,7 @@ plot_random_graph(G_ba, axes[0])
 axes[1].set_title("Degree distribution")
 plot_degree_dist(G_ba, axes[1], loglog=False)
 
+if export_figures:
+    plt.savefig("figures/rand_graph_experiments_2.pdf")
 plt.show()
 ```
