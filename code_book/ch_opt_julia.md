@@ -56,6 +56,7 @@ $T^2_q$, $T^3_q$ and plot them. By $T^3_q$ has already converged on $q^∗$.
 
 ```{code-cell}
 using PyPlot
+export_figures = false
 fig, ax = plt.subplots()
 
 n = 7
@@ -69,6 +70,9 @@ for i in 1:3
 end
 
 ax.legend()
+if export_figures == true
+    plt.savefig("figures/shortest_path_iter_1.pdf")
+end
 ```
 
 ## Linear programming
