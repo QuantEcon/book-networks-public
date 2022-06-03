@@ -282,60 +282,6 @@ Theory and Computation
   <a class="reference internal nav-link" href="#saddle-points-and-duality">
    Saddle Points and Duality
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-saddle-point-x-theta-of-the-function-l-top-left">
-     A saddle point
-     <span class="math notranslate nohighlight">
-      \((x^*, \theta^*)\)
-     </span>
-     of the function
-     <span class="math notranslate nohighlight">
-      \(L\)
-     </span>
-     (top left)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-saddle-point-x-theta-of-the-function-l-top-right">
-     A saddle point
-     <span class="math notranslate nohighlight">
-      \((x^*, \theta^*)\)
-     </span>
-     of the function
-     <span class="math notranslate nohighlight">
-      \(L\)
-     </span>
-     (top right)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-saddle-point-x-theta-of-the-function-l-bottom-left">
-     A saddle point
-     <span class="math notranslate nohighlight">
-      \((x^*, \theta^*)\)
-     </span>
-     of the function
-     <span class="math notranslate nohighlight">
-      \(L\)
-     </span>
-     (bottom left)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-saddle-point-x-theta-of-the-function-l-bottom-right">
-     A saddle point
-     <span class="math notranslate nohighlight">
-      \((x^*, \theta^*)\)
-     </span>
-     of the function
-     <span class="math notranslate nohighlight">
-      \(L\)
-     </span>
-     (bottom right)
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -386,9 +332,12 @@ Theory and Computation
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>                                            
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>                         
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>       
+<span class="kn">import</span> <span class="nn">quantecon_book_networks</span>                  
 <span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d.axes3d</span> <span class="kn">import</span> <span class="n">Axes3D</span><span class="p">,</span> <span class="n">proj3d</span>  
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>                               
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>          
+<span class="n">export_figures</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">quantecon_book_networks</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;matplotlib&quot;</span><span class="p">)</span>                     
 </pre></div>
 </div>
 </div>
@@ -421,6 +370,8 @@ Theory and Computation
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/func_types_1.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -450,6 +401,8 @@ Theory and Computation
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
     
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/func_types_2.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -508,6 +461,8 @@ Theory and Computation
              <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
              <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">))</span>
 
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/three_fixed_points.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -581,6 +536,8 @@ Theory and Computation
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">xT</span><span class="p">,</span> <span class="n">xL</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fs</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/complex_number.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -627,6 +584,8 @@ Theory and Computation
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="p">],</span> <span class="p">[</span><span class="n">y</span><span class="p">],</span> <span class="p">[</span><span class="n">z</span><span class="p">],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">ms</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">jet_r</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="n">n</span><span class="p">))</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">p</span>
     
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/euclidean_convergence_1.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -749,6 +708,8 @@ Theory and Computation
                 <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 
 
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/span1.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -790,6 +751,8 @@ Theory and Computation
     <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
     
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/func_types_3.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -845,6 +808,8 @@ where <span class="math notranslate nohighlight">\(\hat y\)</span> is either <co
 <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;$P$&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span> <span class="n">y_max</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/polyhedron1.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -857,12 +822,13 @@ where <span class="math notranslate nohighlight">\(\hat y\)</span> is either <co
 </div>
 <div class="section" id="saddle-points-and-duality">
 <h2>Saddle Points and Duality<a class="headerlink" href="#saddle-points-and-duality" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="a-saddle-point-x-theta-of-the-function-l-top-left">
-<h3>A saddle point <span class="math notranslate nohighlight">\((x^*, \theta^*)\)</span> of the function <span class="math notranslate nohighlight">\(L\)</span> (top left)<a class="headerlink" href="#a-saddle-point-x-theta-of-the-function-l-top-left" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">projection</span> <span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1">## Top left Plot</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
 
 <span class="n">plot_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;rstride&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;cstride&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;cmap&#39;</span><span class="p">:</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span>
              <span class="s1">&#39;linewidth&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;antialiased&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span><span class="mf">0.75</span><span class="p">,</span>
@@ -894,20 +860,10 @@ where <span class="math notranslate nohighlight">\(\hat y\)</span> is either <co
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;$L(x,</span><span class="se">\\</span><span class="s2">theta)$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/appendix_37_0.png" src="_images/appendix_37_0.png" />
-</div>
-</div>
-</div>
-<div class="section" id="a-saddle-point-x-theta-of-the-function-l-top-right">
-<h3>A saddle point <span class="math notranslate nohighlight">\((x^*, \theta^*)\)</span> of the function <span class="math notranslate nohighlight">\(L\)</span>  (top right)<a class="headerlink" href="#a-saddle-point-x-theta-of-the-function-l-top-right" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">## Top Right Plot</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+
 
 <span class="n">plot_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cmap&#39;</span><span class="p">:</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span> <span class="s1">&#39;antialiased&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span><span class="mf">0.6</span><span class="p">,</span>
              <span class="s1">&#39;vmin&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;vmax&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
@@ -949,20 +905,9 @@ where <span class="math notranslate nohighlight">\(\hat y\)</span> is either <co
              <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
              <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;arrowstyle&quot;</span> <span class="p">:</span> <span class="s2">&quot;-&gt;&quot;</span><span class="p">})</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/appendix_39_0.png" src="_images/appendix_39_0.png" />
-</div>
-</div>
-</div>
-<div class="section" id="a-saddle-point-x-theta-of-the-function-l-bottom-left">
-<h3>A saddle point <span class="math notranslate nohighlight">\((x^*, \theta^*)\)</span> of the function <span class="math notranslate nohighlight">\(L\)</span> (bottom left)<a class="headerlink" href="#a-saddle-point-x-theta-of-the-function-l-bottom-left" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">## Bottom Left Plot</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$</span><span class="se">\\</span><span class="s1">theta \mapsto L(x^*, </span><span class="se">\\</span><span class="s1">theta)$&#39;</span><span class="p">)</span>
@@ -971,20 +916,9 @@ where <span class="math notranslate nohighlight">\(\hat y\)</span> is either <co
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/appendix_41_0.png" src="_images/appendix_41_0.png" />
-</div>
-</div>
-</div>
-<div class="section" id="a-saddle-point-x-theta-of-the-function-l-bottom-right">
-<h3>A saddle point <span class="math notranslate nohighlight">\((x^*, \theta^*)\)</span> of the function <span class="math notranslate nohighlight">\(L\)</span> (bottom right)<a class="headerlink" href="#a-saddle-point-x-theta-of-the-function-l-bottom-right" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="c1">## Bottom Right Plot</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x \mapsto L(x, </span><span class="se">\\</span><span class="s1">theta^*)$&#39;</span><span class="p">)</span>
@@ -993,13 +927,14 @@ where <span class="math notranslate nohighlight">\(\hat y\)</span> is either <co
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
 
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+	<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/saddle_1.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/appendix_43_0.png" src="_images/appendix_43_0.png" />
-</div>
+<img alt="_images/appendix_37_0.png" src="_images/appendix_37_0.png" />
 </div>
 </div>
 </div>

@@ -26,10 +26,12 @@ We begin with some imports
 
 ```{code-cell}
 import quantecon as qe
+import quantecon_book_networks
 import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
 ch3_data = qbn_data.optimal_flows()
+export_figures = False
 ```
 
 ```{code-cell}
@@ -41,6 +43,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.patches import Polygon
 from matplotlib.artist import Artist  
+quantecon_book_networks.config("matplotlib")
 ```
 
 ## Linear Programming and Duality
@@ -75,6 +78,8 @@ nx.draw_networkx(
     node_size=[10_000*(size+0.1) for size in bc_dict.values()], 
     node_color=[cm.plasma(bc+0.4) for bc in bc_dict.values()],
 )
+if export_figures:
+    plt.savefig("figures/betweenness_centrality_1.pdf")
 ```
 
 ### Revenue maximizing quantities and a Python implementation of linear programming
@@ -140,6 +145,8 @@ for spine in ['left', 'bottom']:
     
 ax.set_ylim(-1, 8)
 
+if export_figures:
+    plt.savefig("figures/linear_programming_1.pdf")
 plt.show()
 ```
 
@@ -170,6 +177,8 @@ ax.legend(loc='upper left', fontsize=12, frameon=False)
 
 ax.arrow(1.8, 1.6, 0.8, 0.0, width=0.01, head_width=0.08)
 ax.annotate('transform', xy=(1.9, 1.9), fontsize=12)
+if export_figures:
+    plt.savefig("figures/ot_figs_1.pdf")
 plt.show()
 ```
 
@@ -345,6 +354,8 @@ nx.draw_networkx_edges(g,
                        arrows=True,
                        connectionstyle='arc3,rad=0.1',
                        alpha=0.6)
+if export_figures:
+    plt.savefig("figures/ot_large_scale_1.pdf")
 plt.show()
 ```
 

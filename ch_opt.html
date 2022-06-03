@@ -276,10 +276,12 @@ Theory and Computation
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">quantecon</span> <span class="k">as</span> <span class="nn">qe</span>
+<span class="kn">import</span> <span class="nn">quantecon_book_networks</span>
 <span class="kn">import</span> <span class="nn">quantecon_book_networks.input_output</span> <span class="k">as</span> <span class="nn">qbn_io</span>
 <span class="kn">import</span> <span class="nn">quantecon_book_networks.plotting</span> <span class="k">as</span> <span class="nn">qbn_plt</span>
 <span class="kn">import</span> <span class="nn">quantecon_book_networks.data</span> <span class="k">as</span> <span class="nn">qbn_data</span>
 <span class="n">ch3_data</span> <span class="o">=</span> <span class="n">qbn_data</span><span class="o">.</span><span class="n">optimal_flows</span><span class="p">()</span>
+<span class="n">export_figures</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
 </div>
 </div>
@@ -294,6 +296,7 @@ Theory and Computation
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
 <span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Polygon</span>
 <span class="kn">from</span> <span class="nn">matplotlib.artist</span> <span class="kn">import</span> <span class="n">Artist</span>  
+<span class="n">quantecon_book_networks</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s2">&quot;matplotlib&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -335,6 +338,8 @@ Theory and Computation
     <span class="n">node_size</span><span class="o">=</span><span class="p">[</span><span class="mi">10_000</span><span class="o">*</span><span class="p">(</span><span class="n">size</span><span class="o">+</span><span class="mf">0.1</span><span class="p">)</span> <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">bc_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span> 
     <span class="n">node_color</span><span class="o">=</span><span class="p">[</span><span class="n">cm</span><span class="o">.</span><span class="n">plasma</span><span class="p">(</span><span class="n">bc</span><span class="o">+</span><span class="mf">0.4</span><span class="p">)</span> <span class="k">for</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bc_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span>
 <span class="p">)</span>
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/betweenness_centrality_1.pdf&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -415,6 +420,8 @@ Theory and Computation
     
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/linear_programming_1.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -451,6 +458,8 @@ distribution into another in one dimension.</p>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.08</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/ot_figs_1.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -665,6 +674,8 @@ package.</p>
                        <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                        <span class="n">connectionstyle</span><span class="o">=</span><span class="s1">&#39;arc3,rad=0.1&#39;</span><span class="p">,</span>
                        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;figures/ot_large_scale_1.pdf&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
