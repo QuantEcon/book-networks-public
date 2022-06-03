@@ -15,6 +15,20 @@ jobs:
           python-version: 3.8
           environment-file: environment.yml
           activate-environment: networks
+      - name: Install latex dependencies
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get install -y     \
+            texlive-latex-recommended \
+            texlive-latex-extra       \
+            texlive-fonts-recommended \
+            texlive-fonts-extra       \
+            texlive-xetex             \
+            latexmk                   \
+            xindy                     \
+            dvipng                    \
+            cm-super                  \
+            msttcorefonts
       - name: Set up Julia
         uses: julia-actions/setup-julia@v1
         with:

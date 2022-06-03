@@ -26,10 +26,12 @@ We begin with some imports.
 
 ```{code-cell}
 import quantecon as qe
+import quantecon_book_networks
 import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
 ch4_data = qbn_data.markov_chains_and_networks()
+export_figures = False
 ```
 
 ```{code-cell} ipython3
@@ -40,6 +42,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+quantecon_book_networks.config("matplotlib")
 ```
 
 ## Example transition matrices
@@ -144,6 +147,8 @@ plot_matrices(P_B.transpose(), codes_B, ax, alpha=0.75,
                  colormap=cm.viridis, color45d='black',
                  xlabel='state at time $t$', ylabel='state at time $t+1$')
 
+if export_figures:
+    plt.savefig("figures/markov_matrix_visualization.pdf")
 plt.show()
 ```
 
@@ -184,6 +189,8 @@ sim_fig(axes[0], mc_B, title="$P_B$")
 sim_fig(axes[1], mc_Q, title="$P_Q$")
 
 plt.tight_layout()
+if export_figures:
+    plt.savefig("figures/benhabib_mobility_mixing.pdf")
 plt.show()
 ```
 
@@ -257,6 +264,8 @@ ax.plot(states, ψ_2019_predicted, '-o', alpha=0.7, label='predicted')
 ax.plot(states, ψ_2019, '-o', alpha=0.7, label='realized')
 
 ax.legend(loc='upper center', fontsize=12)
+if export_figures:
+    plt.savefig("figures/quah_gdppc_prediction.pdf")
 plt.show()
 
 ```
@@ -311,6 +320,8 @@ Here we see the sequence of marginals appears to converge.
 ```{code-cell}
 ψ_0 = (0, 0, 1)
 ψ = convergence_plot(ψ_0, P)
+if export_figures:
+    plt.savefig("figures/simplex_2.pdf")
 plt.show()
 ```
 
@@ -322,6 +333,8 @@ limit appears not to depend on the initial distribution.
 ```{code-cell}
 ψ_0 = (0, 1/2, 1/2)
 ψ = convergence_plot(ψ_0, P, n=12)
+if export_figures:
+    plt.savefig("figures/simplex_3.pdf")
 plt.show()
 ```
 
@@ -367,6 +380,8 @@ for n, ax in zip(ns, axes):
 axes[-1].set_xlabel("Quantile")
 
 plt.tight_layout()
+if export_figures:
+    plt.savefig("figures/benhabib_mobility_dists.pdf")
 plt.show()
 ```
 
@@ -445,5 +460,7 @@ for dist, ax, t in zip(dists, axes, lengths):
     ax.legend(loc='upper right', fontsize=12, frameon=False)
     ax.set_ylim(0, 0.5)
     
+if export_figures:
+    plt.savefig("figures/benhabib_ergodicity_1.pdf")
 plt.show()
 ```
