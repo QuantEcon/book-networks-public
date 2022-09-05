@@ -116,7 +116,7 @@ Now we create a financial network.
 fn = FinNet(n=100, c=0.72, d=1, θ=0.3, β=1.0)
 ```
 
-And compute its equilibirum.
+And compute its equilibrium.
 
 ```{code-cell}
 fn.compute_equilibrium()
@@ -126,7 +126,7 @@ fn.compute_equilibrium()
 
 Now we visualise the network after different numbers of iterations. 
 
-For convenience we will first define a function to plot the graphs of the finiancial network.
+For convenience we will first define a function to plot the graphs of the financial network.
 
 ```{code-cell}
 def plot_fin_graph(G, ax, node_color_list):
