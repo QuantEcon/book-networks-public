@@ -479,18 +479,17 @@ list(nx.strongly_connected_components(G))
 ```
 
 Like `NetworkX`, the QuantEcon Python library `quantecon` supplies a graph
-object that implements certain graph-theoretic algorithms. 
+object that provides interface to graph-theoretic algorithm routines in `scipy.sparse.csgraph`.
 
-The set of available algorithms is more limited but each one is faster, accelerated by
-just-in-time compilation. 
+The set of available algorithms is more limited but each one is faster,
+implemented with `Cython`.
 
 In the case of QuantEcon's `DiGraph` object, an instance is created via the adjacency matrix.
 
 ```{code-cell} 
-A = ((1, 0, 0),
-     (1, 1, 1),
-     (1, 1, 1))
-A = np.array(A) # Convert to NumPy array
+A = [[1, 0, 0],
+     [1, 1, 1],
+     [1, 1, 1]]
 G = qe.DiGraph(A)
 
 G.strongly_connected_components
