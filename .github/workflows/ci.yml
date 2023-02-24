@@ -99,6 +99,7 @@ jobs:
         run: |
           mkdir -p _build/html/_downloads
           cp pdf/networks.pdf _build/html/_downloads/
+          cp pdf/networks_chinese.pdf _build/html/_downloads/
       - name: Save Build as Artifact
         uses: actions/upload-artifact@v1
         with:
