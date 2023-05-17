@@ -6,7 +6,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.10.3
+    jupytext_version: 1.11.5
 kernelspec:
   display_name: Python 3
   language: python
@@ -15,7 +15,7 @@ kernelspec:
 
 # Chapter 1 - Introduction (Python Code)
 
-```{code-cell}
+```{code-cell} ipython3
 ---
 tags: [hide-output]
 ---
@@ -24,48 +24,44 @@ pip install --upgrade quantecon_book_networks kaleido
 
 We begin by importing the `quantecon` package as well as some functions and data that have been packaged for release with this text.
 
-```{code-cell}
+```{code-cell} ipython3
 import quantecon as qe
 import quantecon_book_networks
 import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.data as qbn_data
+import quantecon_book_networks.plotting as qbn_plot
 ch1_data = qbn_data.introduction()
 export_figures = False
 ```
 
 Next we import some common python libraries.
 
-```{code-cell}
+```{code-cell} ipython3
 import numpy as np
 import pandas as pd
 import networkx as nx
-import itertools
 import statsmodels.api as sm
-from interpolation import interp
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-import matplotlib.colors as plc
 import matplotlib.patches as mpatches
 import plotly.graph_objects as go
 quantecon_book_networks.config("matplotlib")
 ```
 
-
 ## Motivation
 
-### International trade in crude oil 2019
+### International trade in crude oil 2021
 
 We begin by loading a `NetworkX` directed graph object that represents international trade in crude oil.
 
-```{code-cell}
+```{code-cell} ipython3
 DG = ch1_data["crude_oil"]
 ```
 
 Next we transform the data to prepare it for display as a Sankey diagram.
 
-```{code-cell}
+```{code-cell} ipython3
 nodeid = {}
 for ix,nd in enumerate(DG.nodes()):
     nodeid[nd] = ix
@@ -82,7 +78,7 @@ for src,tgt in DG.edges():
 
 Finally we produce our plot.
 
-```{code-cell}
+```{code-cell} ipython3
 fig = go.Figure(data=[go.Sankey(
     node = dict(
       pad = 15,
@@ -100,7 +96,7 @@ fig = go.Figure(data=[go.Sankey(
 
 fig.update_layout(title_text="Crude Oil", font_size=10, width=600, height=800)
 if export_figures:
-    fig.write_image("figures/crude_oil_2019.pdf")
+    fig.write_image("figures/crude_oil_2021.pdf")
 fig.show(renderer='svg')
 ```
 
@@ -109,7 +105,7 @@ fig.show(renderer='svg')
 For this plot we will use a cleaned dataset from 
 [Harvard, CID Dataverse](https://dataverse.harvard.edu/dataverse/atlas).
 
-```{code-cell}
+```{code-cell} ipython3
 DG = ch1_data['aircraft_network_2019']
 pos = ch1_data['aircraft_network_2019_pos']
 ```
@@ -117,15 +113,15 @@ pos = ch1_data['aircraft_network_2019_pos']
 We begin by calculating some features of our graph using the `NetworkX` and
 the `quantecon_book_networks` packages.
 
-```{code-cell}
+```{code-cell} ipython3
 centrality = nx.eigenvector_centrality(DG)
 node_total_exports = qbn_io.node_total_exports(DG)
 edge_weights = qbn_io.edge_weights(DG)
 ```
 
-Now we convert our graph features to plot features. 
+Now we convert our graph features to plot features.
 
-```{code-cell}
+```{code-cell} ipython3
 node_pos_dict = pos
 
 node_sizes = qbn_io.normalise_weights(node_total_exports,10000)
@@ -140,7 +136,7 @@ for src,_ in DG.edges:
 
 Finally we produce the plot.
 
-```{code-cell}
+```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(10, 10))
 ax.axis('off')
 
@@ -162,8 +158,7 @@ nx.draw_networkx_edges(DG,
                         width=edge_widths, 
                         arrows=True, 
                         arrowsize=20,  
-                        ax=ax, 
-                        arrowstyle='->', 
+                        ax=ax,
                         node_size=node_sizes, 
                         connectionstyle='arc3,rad=0.15')
 
@@ -172,14 +167,13 @@ if export_figures:
 plt.show()
 ```
 
-
 ## Spectral Theory
 
 ### Spectral Radii
 
 Here we provide code for computing the spectral radius of a matrix.
 
-```{code-cell}
+```{code-cell} ipython3
 def spec_rad(M):
     """
     Compute the spectral radius of M.
@@ -187,7 +181,7 @@ def spec_rad(M):
     return np.max(np.abs(np.linalg.eigvals(M)))
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 M = np.array([[1,2],[2,1]])
 spec_rad(M)
 ```
@@ -196,10 +190,9 @@ This function is available in the `quantecon_book_networks` package, along with
 several other functions for used repeatedly in the text.  Source code for
 these functions can be seen [here](pkg_funcs).
 
-```{code-cell}
+```{code-cell} ipython3
 qbn_io.spec_rad(M)
 ```
-
 
 ## Probability
 
@@ -207,7 +200,7 @@ qbn_io.spec_rad(M)
 
 Here we define a function for plotting the unit simplex.
 
-```{code-cell}
+```{code-cell} ipython3
 def unit_simplex(angle):
     
     fig = plt.figure(figsize=(10, 8))
@@ -246,20 +239,19 @@ def unit_simplex(angle):
 
 We can now produce the plot.
 
-```{code-cell}
+```{code-cell} ipython3
 unit_simplex(50)
 if export_figures:
     plt.savefig("figures/simplex_1.pdf")
 plt.show()
 ```
 
-
 ### Independent draws from Student’s t and Normal distributions
 
 Here we illustrate the occurrence of "extreme" events in heavy tailed distributions. 
 We start by generating 1,000 samples from a normal distribution and a Student's t distribution.
 
-```{code-cell}
+```{code-cell} ipython3
 from scipy.stats import t
 n = 1000
 np.random.seed(123)
@@ -274,8 +266,7 @@ t_data = t_dist.rvs(n)
 When we plot our samples, we see the Student's t distribution frequently
 generates samples many standard deviations from the mean.
 
-```{code-cell}
-
+```{code-cell} ipython3
 fig, axes = plt.subplots(1, 2, figsize=(8, 3.4))
 
 for ax in axes:
@@ -296,7 +287,6 @@ plt.tight_layout()
 if export_figures:
     plt.savefig("figures/heavy_tailed_draws.pdf")
 plt.show()
-
 ```
 
 ### CCDF plots for the Pareto and Exponential distributions
@@ -306,17 +296,17 @@ we illustrates this using a Pareto distribution. For comparison, an exponential
 distribution is also shown. First we define our domain and the Pareto and
 Exponential distributions.
 
-```{code-cell} 
+```{code-cell} ipython3
 x = np.linspace(1, 10, 500)
 ```
 
-```{code-cell} 
+```{code-cell} ipython3
 α = 1.5
 def Gp(x):
     return x**(-α)
 ```
 
-```{code-cell} 
+```{code-cell} ipython3
 λ = 1.0
 def Ge(x):
     return np.exp(-λ * x)
@@ -324,7 +314,7 @@ def Ge(x):
 
 We then plot our distribution on a log-log scale.
 
-```{code-cell} 
+```{code-cell} ipython3
 fig, ax = plt.subplots()
 
 ax.plot(np.log(x), np.log(Gp(x)), label="Pareto")
@@ -344,13 +334,13 @@ plt.show()
 Here we show that the distribution of firm sizes has a Pareto tail. We start
 by loading the `forbes_global_2000` dataset.
 
-```{code-cell} 
+```{code-cell} ipython3
 dfff = ch1_data['forbes_global_2000']
 ```
 
 We calculate values of the empirical CCDF.
 
-```{code-cell} 
+```{code-cell} ipython3
 data = np.asarray(dfff['Market Value'])[0:500]
 y_vals = np.empty_like(data, dtype='float64')
 n = len(data)
@@ -361,7 +351,7 @@ for i, d in enumerate(data):
 
 Now we fit a linear trend line (on the log-log scale).
 
-```{code-cell} 
+```{code-cell} ipython3
 x, y = np.log(data), np.log(y_vals)
 results = sm.OLS(y, sm.add_constant(x)).fit()
 b, a = results.params
@@ -369,7 +359,7 @@ b, a = results.params
 
 Finally we produce our plot.
 
-```{code-cell} 
+```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(6.4, 3.5))
 
 ax.scatter(x, y, alpha=0.3, label="firm size (market value)")
@@ -384,27 +374,25 @@ if export_figures:
 plt.show()
 ```
 
-
-
 ## Graph Theory
 
 ### Zeta and Pareto distributions
 
 We begin by defining the Zeta and Pareto distributions.
 
-```{code-cell} 
+```{code-cell} ipython3
 γ = 2.0
 α = γ - 1
 ```
 
-```{code-cell} 
+```{code-cell} ipython3
 def z(k, c=2.0):
     return c * k**(-γ)
 
 k_grid = np.arange(1, 10+1)
 ```
 
-```{code-cell} 
+```{code-cell} ipython3
 def p(x, c=2.0):
     return c * x**(-γ)
 
@@ -413,7 +401,7 @@ x_grid = np.linspace(1, 10, 200)
 
 Then we can produce our plot
 
-```{code-cell} 
+```{code-cell} ipython3
 fig, ax = plt.subplots()
 ax.plot(k_grid, z(k_grid), '-o', label='zeta distribution with $\gamma=2$')
 ax.plot(x_grid, p(x_grid), label='density of Pareto with tail index $\\alpha$')
@@ -426,9 +414,9 @@ plt.show()
 
 ### NetworkX digraph plot
 
-We start by creating a graph object and populating it with edges. 
+We start by creating a graph object and populating it with edges.
 
-```{code-cell} 
+```{code-cell} ipython3
 G_p = nx.DiGraph()
 
 edge_list = [
@@ -440,13 +428,13 @@ edge_list = [
 for e in edge_list:
     u, v = e
     G_p.add_edge(u, v)
-
 ```
 
 Now we can plot our graph.
 
-```{code-cell} 
+```{code-cell} ipython3
 fig, ax = plt.subplots()
+nx.spring_layout(G_p, seed=4)
 nx.draw_spring(G_p, ax=ax, node_size=500, with_labels=True, 
                  font_weight='bold', arrows=True, alpha=0.8,
                  connectionstyle='arc3,rad=0.25', arrowsize=20)
@@ -457,11 +445,11 @@ plt.show()
 
 The `DiGraph` object has methods that calculate in-degree and out-degree of vertices.
 
-```{code-cell}
+```{code-cell} ipython3
 G_p.in_degree('p')
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 G_p.out_degree('p')
 ```
 
@@ -469,7 +457,7 @@ Additionally, the `NetworkX` package supplies functions for testing
 communication and strong connectedness, as well as to compute strongly
 connected components.
 
-```{code-cell} 
+```{code-cell} ipython3
 G = nx.DiGraph()
 G.add_edge(1, 1)
 G.add_edge(2, 1)
@@ -486,7 +474,7 @@ just-in-time compilation.
 
 In the case of QuantEcon's `DiGraph` object, an instance is created via the adjacency matrix.
 
-```{code-cell} 
+```{code-cell} ipython3
 A = ((1, 0, 0),
      (1, 1, 1),
      (1, 1, 1))
@@ -501,75 +489,40 @@ G.strongly_connected_components
 We begin by loading an adjacency matrix of international private credit flows
 (in the form of a NumPy array and a list of country labels).
 
-```{code-cell} 
-Z = ch1_data["adjacency_matrix_2019"]["Z"]
-Z_visual= ch1_data["adjacency_matrix_2019"]["Z_visual"]
-countries = ch1_data["adjacency_matrix_2019"]["countries"]
+```{code-cell} ipython3
+Z = ch1_data["adjacency_matrix_2022"]["Z"]
+Z_visual= ch1_data["adjacency_matrix_2022"]["Z_visual"]
+countries = ch1_data["adjacency_matrix_2022"]["countries"]
 ```
 
-Here we use the `quantecon_book_networks` package to convert the
-adjacency matrix into a `NetworkX` graph object. 
+To calculate our graph's properties, we use hub-based eigenvector
+centrality as our centrality measure for this plot.
 
-```{code-cell} 
-G = qbn_io.adjacency_matrix_to_graph(Z_visual, countries, tol=0.03)
-```
-
-Next we calculate our graph's properties. We use hub-based eigenvector
-centrality as our centrality measure for this plot.  
-
-```{code-cell}
+```{code-cell} ipython3
 centrality = qbn_io.eigenvector_centrality(Z_visual, authority=False)
-node_total_exports = qbn_io.node_total_exports(G)
-edge_weights = qbn_io.edge_weights(G)
 ```
 
 Now we convert our graph features to plot features.
 
-```{code-cell}
-node_pos_dict = nx.circular_layout(G)
-
-node_sizes = qbn_io.normalise_weights(node_total_exports,3000)
-edge_widths = qbn_io.normalise_weights(edge_weights,10)
-
-
-node_colors = qbn_io.colorise_weights(centrality)
-node_to_color = dict(zip(G.nodes,node_colors))
-edge_colors = []
-for src,_ in G.edges:
-    edge_colors.append(node_to_color[src])
+```{code-cell} ipython3
+node_colors = cm.plasma(qbn_io.to_zero_one_beta(centrality))
 ```
 
 Finally we produce the plot.
 
-```{code-cell} 
+```{code-cell} ipython3
+X = qbn_io.to_zero_one_beta(Z.sum(axis=1))
+
 fig, ax = plt.subplots(figsize=(8, 10))
-ax.axis('off')
+plt.axis("off")
 
-nx.draw_networkx_nodes(G, 
-                        node_pos_dict, 
-                        node_color=node_colors, 
-                        node_size=node_sizes,  
-                        edgecolors='grey', 
-                        linewidths=2, 
-                        alpha=0.4, 
-                        ax=ax)
-
-nx.draw_networkx_labels(G, 
-                        node_pos_dict,  
-                        font_size=12,
-                        ax=ax)
-
-nx.draw_networkx_edges(G, 
-                        node_pos_dict, 
-                        edge_color=edge_colors, 
-                        width=edge_widths, 
-                        arrows=True, 
-                        arrowsize=20,  
-                        alpha=0.8,
-                        ax=ax, 
-                        arrowstyle='->', 
-                        node_size=node_sizes, 
-                        connectionstyle='arc3,rad=0.15')
+qbn_plot.plot_graph(Z_visual, X, ax, countries,
+           layout_type='spring',
+           layout_seed=1234,
+           node_size_multiple=3000,
+           edge_size_multiple=0.000006,
+           tol=0.0,
+           node_color_list=node_colors) 
 
 if export_figures:
     plt.savefig("figures/financial_network_analysis_visualization.pdf")
@@ -585,7 +538,7 @@ We begin by defining a function for calculating eigenvector centrality.
 Hub-based centrality is calculated by default, although authority-based centrality
 can be calculated by setting `authority=True`.
 
-```{code-cell}
+```{code-cell} ipython3
 def eigenvector_centrality(A, k=40, authority=False):
     """
     Computes the dominant eigenvector of A. Assumes A is 
@@ -601,7 +554,7 @@ def eigenvector_centrality(A, k=40, authority=False):
 
 Here a similar function is defined for calculating Katz centrality.
 
-```{code-cell}
+```{code-cell} ipython3
 def katz_centrality(A, b=1, authority=False):
     """
     Computes the Katz centrality of A, defined as the x solving
@@ -618,15 +571,15 @@ def katz_centrality(A, b=1, authority=False):
     return np.linalg.solve(C, np.ones(n))
 ```
 
-Now we generate an unweighted version of our matrix to help calculate in-degree and out-degree.  
+Now we generate an unweighted version of our matrix to help calculate in-degree and out-degree.
 
-```{code-cell}
+```{code-cell} ipython3
 D = qbn_io.build_unweighted_matrix(Z)
 ```
 
 We now use the above to calculate the six centrality measures.
 
-```{code-cell}
+```{code-cell} ipython3
 outdegree = D.sum(axis=1)
 ecentral_hub = eigenvector_centrality(Z, authority=False)
 kcentral_hub = katz_centrality(Z, b=1/1_400_000)
@@ -639,7 +592,7 @@ kcentral_authority = katz_centrality(Z, b=1/1_400_000, authority=True)
 Here we provide a helper function that returns a DataFrame for each measure.
 The DataFrame is ordered by that measure and contains color information.
 
-```{code-cell}
+```{code-cell} ipython3
 def centrality_plot_data(countries, centrality_measures):
     df = pd.DataFrame({'code': countries,
                        'centrality':centrality_measures, 
@@ -648,9 +601,9 @@ def centrality_plot_data(countries, centrality_measures):
     return df.sort_values('centrality')
 ```
 
-Finally, we plot the various centrality measures. 
+Finally, we plot the various centrality measures.
 
-```{code-cell} 
+```{code-cell} ipython3
 centrality_measures = [outdegree, indegree, 
                        ecentral_hub, ecentral_authority, 
                        kcentral_hub, kcentral_authority]
@@ -690,7 +643,7 @@ The in-degree distribution evaluated at $k$ is the fraction of nodes in a
 network that have in-degree $k$. The in-degree distribution of a `NetworkX`
 DiGraph can be calculated using the code below.
 
-```{code-cell} 
+```{code-cell} ipython3
 def in_degree_dist(G):
     n = G.number_of_nodes()
     iG = np.array([G.in_degree(v) for v in G.nodes()])
@@ -700,14 +653,13 @@ def in_degree_dist(G):
 
 The out-degree distribution is defined analogously.
 
-```{code-cell} 
+```{code-cell} ipython3
 def out_degree_dist(G):
     n = G.number_of_nodes()
     oG = np.array([G.out_degree(v) for v in G.nodes()])
     d = [np.mean(oG == k) for k in range(n+1)]
     return d
 ```
-
 
 ### Degree distribution for international aircraft trade
 
@@ -719,7 +671,7 @@ In this calculation of the degree distribution, performed by the NetworkX
 function `degree_histogram`, directions are ignored and the network is treated
 as an undirected graph.
 
-```{code-cell} 
+```{code-cell} ipython3
 def plot_degree_dist(G, ax, loglog=True, label=None):
     "Plot the degree distribution of a graph G on axis ax."
     dd = [x for x in nx.degree_histogram(G) if x > 0]
@@ -730,7 +682,7 @@ def plot_degree_dist(G, ax, loglog=True, label=None):
         ax.plot(dd, '-o', lw=0.5, label=label)
 ```
 
-```{code-cell} 
+```{code-cell} ipython3
 fig, ax = plt.subplots()
 
 plot_degree_dist(DG, ax, loglog=False, label='degree distribution')
@@ -752,7 +704,7 @@ combinations function from the `itertools` library. The function
 `combinations(A, k)` returns a list of all subsets of $A$ of size $k$. For
 example:
 
-```{code-cell} 
+```{code-cell} ipython3
 import itertools
 letters = 'a', 'b', 'c'
 list(itertools.combinations(letters, 2))
@@ -762,7 +714,7 @@ Below we generate random graphs using the Erdos-Renyi and Barabasi-Albert
 algorithms. Here, for convenience, we will define a function to plot these
 graphs.
 
-```{code-cell} 
+```{code-cell} ipython3
 def plot_random_graph(RG,ax):
     node_pos_dict = nx.spring_layout(RG, k=1.1)
 
@@ -792,14 +744,13 @@ def plot_random_graph(RG,ax):
 
 ### An instance of an Erdos–Renyi random graph
 
-```{code-cell} 
+```{code-cell} ipython3
 n = 100
 p = 0.05
 G_er = qbn_io.erdos_renyi_graph(n, p, seed=1234)
 ```
 
-
-```{code-cell} 
+```{code-cell} ipython3
 fig, axes = plt.subplots(1, 2, figsize=(10, 3.2))
 
 axes[0].set_title("Graph visualization")
@@ -815,13 +766,13 @@ plt.show()
 
 ### An instance of a preferential attachment random graph
 
-```{code-cell} 
+```{code-cell} ipython3
 n = 100
 m = 5
 G_ba = nx.generators.random_graphs.barabasi_albert_graph(n, m, seed=123)
 ```
 
-```{code-cell} 
+```{code-cell} ipython3
 fig, axes = plt.subplots(1, 2, figsize=(10, 3.2))
 
 axes[0].set_title("Graph visualization")
