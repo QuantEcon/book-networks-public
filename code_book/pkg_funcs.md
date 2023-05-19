@@ -250,9 +250,7 @@ def plot_graph(A,
                 edge_colors.append(node_color_list[i])
                 width = a * edge_size_multiple
                 edge_widths.append(width)
-    
-    # Get rid of self-loops
-    G.remove_edges_from(nx.selfloop_edges(G))         
+        
 
     # Plot the networks
     nx.draw_networkx_nodes(G, 
