@@ -251,7 +251,6 @@ def plot_graph(A,
                 width = a * edge_size_multiple
                 edge_widths.append(width)
         
-
     # Plot the networks
     nx.draw_networkx_nodes(G, 
                            node_pos_dict, 
