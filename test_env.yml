@@ -1,0 +1,21 @@
+name: test_networks
+channels:
+  - default
+dependencies:
+  - python=3.8
+  - anaconda=2021.11
+  - pip
+  - pip:
+    - jupyter-book==0.12.1
+    - quantecon-book-theme==0.3.0
+    - sphinx-tojupyter==0.2.0
+    - sphinxext-rediraffe==0.2.7
+    - sphinx-exercise==0.2.1
+    - quantecon
+    - pandas-datareader
+    - POT==0.8.1
+    - plotly
+    - interpolation
+    - sphinx-design
+    - flit
+    # - quantecon_book_networks
