@@ -102,7 +102,7 @@ Now we use the `quantecon_book_networks` package to produce our plot.
 ```{code-cell} ipython3
 fig, ax = plt.subplots(figsize=(8, 10))
 plt.axis("off")
-color_list = qbn_io.colorise_weights(centrality,beta=False) 
+color_list = qbn_io.colorise_weights(centrality, beta=False)
 # Remove self-loops
 for i in range(A.shape[0]):
     A[i][i] = 0
@@ -397,8 +397,8 @@ series = [np.asarray(gdp_df[country].astype(float)) for country in countries]
 for ax, country, gdp_data in zip(axes, countries, series):
     
     ax.plot(t, gdp_data)
-    ax.set_title(f'{country} (${gdp_data.std():1.2f}$%)' )
-    ax.set_ylabel('%')
+    ax.set_title(f'{country} (${gdp_data.std():1.2f}$\%)' )
+    ax.set_ylabel('\%')
     ax.set_ylim((-12, 14))
 
 plt.tight_layout()

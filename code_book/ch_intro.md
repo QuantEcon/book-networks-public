@@ -281,7 +281,7 @@ ax.set_title(f"Student t draws", fontsize=11)
 ax = axes[1]
 ax.plot(list(range(n)), n_data, linestyle='', marker='o', alpha=0.5, ms=4)
 ax.vlines(list(range(n)), 0, n_data, lw=0.2)
-ax.set_title(f"$N(0, \sigma)$ with $\sigma = {s}$", fontsize=11)
+ax.set_title(f"$N(0, \sigma^2)$ with $\sigma = {s}$", fontsize=11)
 
 plt.tight_layout()
 if export_figures:
@@ -582,11 +582,11 @@ We now use the above to calculate the six centrality measures.
 ```{code-cell} ipython3
 outdegree = D.sum(axis=1)
 ecentral_hub = eigenvector_centrality(Z, authority=False)
-kcentral_hub = katz_centrality(Z, b=1/1_400_000)
+kcentral_hub = katz_centrality(Z, b=1/1_700_000)
 
 indegree = D.sum(axis=0)
 ecentral_authority = eigenvector_centrality(Z, authority=True)
-kcentral_authority = katz_centrality(Z, b=1/1_400_000, authority=True)
+kcentral_authority = katz_centrality(Z, b=1/1_700_000, authority=True)
 ```
 
 Here we provide a helper function that returns a DataFrame for each measure.
@@ -610,7 +610,7 @@ centrality_measures = [outdegree, indegree,
 
 ylabels = ['out degree', 'in degree',
            'eigenvector hub','eigenvector authority', 
-           'katz hub', 'katz authority']
+           'Katz hub', 'Katz authority']
 
 ylims = [(0, 20), (0, 20), 
          None, None,   
