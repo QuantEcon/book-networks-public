@@ -106,8 +106,8 @@ For this plot we will use a cleaned dataset from
 [Harvard, CID Dataverse](https://dataverse.harvard.edu/dataverse/atlas).
 
 ```{code-cell} ipython3
-DG = ch1_data['aircraft_network_2019']
-pos = ch1_data['aircraft_network_2019_pos']
+DG = ch1_data['aircraft_network']
+pos = ch1_data['aircraft_network_pos']
 ```
 
 We begin by calculating some features of our graph using the `NetworkX` and
@@ -490,9 +490,9 @@ We begin by loading an adjacency matrix of international private credit flows
 (in the form of a NumPy array and a list of country labels).
 
 ```{code-cell} ipython3
-Z = ch1_data["adjacency_matrix_2022"]["Z"]
-Z_visual= ch1_data["adjacency_matrix_2022"]["Z_visual"]
-countries = ch1_data["adjacency_matrix_2022"]["countries"]
+Z = ch1_data["adjacency_matrix"]["Z"]
+Z_visual= ch1_data["adjacency_matrix"]["Z_visual"]
+countries = ch1_data["adjacency_matrix"]["countries"]
 ```
 
 To calculate our graph's properties, we use hub-based eigenvector

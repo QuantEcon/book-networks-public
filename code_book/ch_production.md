@@ -334,9 +334,9 @@ if export_figures:
 plt.show()
 ```
 
-###  Network for 114 Australian industry sectors in 2018
+###  Network for 114 Australian industry sectors in 2020
 
-Next we load a graph of linkages between 114 Australian sectors in 2018.
+Next we load a graph of linkages between 114 Australian sectors in 2020.
 
 ```{code-cell} ipython3
 codes_114 = ch2_data['au_sectors_114']['codes']
