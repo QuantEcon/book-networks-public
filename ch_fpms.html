@@ -73,7 +73,7 @@ Theory and Computation
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
@@ -227,7 +227,30 @@ Theory and Computation
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: quantecon_book_networks in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (0.4)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: quantecon_book_networks in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (0.5.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.22.4)
+Requirement already satisfied: scipy in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.7.1)
+Requirement already satisfied: networkx in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (2.6.3)
+Requirement already satisfied: matplotlib in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (3.4.3)
+Requirement already satisfied: pandas-datareader in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (0.10.0)
+Requirement already satisfied: pandas in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.3.4)
+Requirement already satisfied: pillow&gt;=6.2.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (8.4.0)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (2.8.2)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (3.0.4)
+Requirement already satisfied: cycler&gt;=0.10 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (0.10.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (1.3.1)
+Requirement already satisfied: six in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from cycler&gt;=0.10-&gt;matplotlib-&gt;quantecon_book_networks) (1.16.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2017.3 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-&gt;quantecon_book_networks) (2021.3)
+Requirement already satisfied: lxml in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (4.6.3)
+Requirement already satisfied: requests&gt;=2.19.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (2.26.0)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2021.10.8)
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (1.26.7)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2.0.4)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (3.2)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
@@ -244,6 +267,12 @@ Theory and Computation
 <span class="kn">import</span> <span class="nn">quantecon_book_networks.plotting</span> <span class="k">as</span> <span class="nn">qbn_plt</span>
 <span class="kn">import</span> <span class="nn">quantecon_book_networks.data</span> <span class="k">as</span> <span class="nn">qbn_data</span>
 <span class="n">export_figures</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/numba/np/ufunc/parallel.py:371: NumbaWarning: <span class=" -Color -Color-Bold">The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION &gt;= 12060. Found TBB_INTERFACE_VERSION = 12040. The TBB threading layer is disabled.</span>
+  warnings.warn(problem)
 </pre></div>
 </div>
 </div>
