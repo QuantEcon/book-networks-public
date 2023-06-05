@@ -24,8 +24,12 @@ pip install --upgrade quantecon_book_networks kaleido
 
 We begin by importing the `quantecon` package as well as some functions and data that have been packaged for release with this text.
 
+<!-- ```{code-cell} ipython3
+# import quantecon as qe
+``` -->
+
 ```{code-cell} ipython3
-import quantecon as qe
+# import quantecon as qe
 import quantecon_book_networks
 import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.data as qbn_data
