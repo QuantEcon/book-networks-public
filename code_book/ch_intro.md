@@ -466,11 +466,8 @@ G.add_edge(3, 2)
 list(nx.strongly_connected_components(G))
 ```
 
-Like `NetworkX`, the QuantEcon Python library `quantecon` supplies a graph
-object that implements certain graph-theoretic algorithms. 
-
-The set of available algorithms is more limited but each one is faster, accelerated by
-just-in-time compilation. 
+Like `NetworkX`, the Python library `quantecon` 
+provides access to some graph-theoretic algorithms. 
 
 In the case of QuantEcon's `DiGraph` object, an instance is created via the adjacency matrix.
 
