@@ -19,7 +19,7 @@ kernelspec:
 ---
 tags: [hide-output]
 ---
-pip install --upgrade quantecon_book_networks kaleido
+! pip install --upgrade quantecon_book_networks kaleido
 ```
 
 We begin by importing the `quantecon` package as well as some functions and data that have been packaged for release with this text.
@@ -31,7 +31,8 @@ import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.data as qbn_data
 import quantecon_book_networks.plotting as qbn_plot
 ch1_data = qbn_data.introduction()
-export_figures = False
+default_figsize = [6, 4]
+export_figures = True
 ```
 
 Next we import some common python libraries.
@@ -315,7 +316,7 @@ def Ge(x):
 We then plot our distribution on a log-log scale.
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=default_figsize)
 
 ax.plot(np.log(x), np.log(Gp(x)), label="Pareto")
 ax.plot(np.log(x), np.log(Ge(x)), label="Exponential")
@@ -360,7 +361,7 @@ b, a = results.params
 Finally we produce our plot.
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots(figsize=(6.4, 3.5))
+fig, ax = plt.subplots(figsize=[7.3,4])
 
 ax.scatter(x, y, alpha=0.3, label="firm size (market value)")
 ax.plot(x, x * a + b, 'k-', alpha=0.6, label=f"slope = ${a: 1.2f}$")
@@ -402,7 +403,7 @@ x_grid = np.linspace(1, 10, 200)
 Then we can produce our plot
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=default_figsize)
 ax.plot(k_grid, z(k_grid), '-o', label='zeta distribution with $\gamma=2$')
 ax.plot(x_grid, p(x_grid), label='density of Pareto with tail index $\\alpha$')
 ax.legend(fontsize=12)
