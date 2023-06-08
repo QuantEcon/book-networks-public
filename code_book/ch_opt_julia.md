@@ -56,8 +56,8 @@ $T^2_q$, $T^3_q$ and plot them. By $T^3_q$ has already converged on $q^∗$.
 
 ```{code-cell}
 using PyPlot
-export_figures = false
-fig, ax = plt.subplots()
+export_figures = true
+fig, ax = plt.subplots(figsize=[6, 4])
 
 n = 7
 q = zeros(n)

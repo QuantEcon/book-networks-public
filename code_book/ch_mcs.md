@@ -19,7 +19,7 @@ kernelspec:
 ---
 tags: [hide-output]
 ---
-pip install --upgrade quantecon_book_networks
+! pip install --upgrade quantecon_book_networks
 ```
 
 We begin with some imports.
@@ -31,7 +31,7 @@ import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
 ch4_data = qbn_data.markov_chains_and_networks()
-export_figures = False
+export_figures = True
 ```
 
 ```{code-cell} ipython3
@@ -68,7 +68,7 @@ P_Q = [
     [0,    0,    0,    0.01, 0.99]
 ]
 P_Q = np.array(P_Q)
-codes_Q =  ( '1','2','3','4','5')
+codes_Q =  ('1', '2', '3', '4', '5')
 ```
 
 Second, [Benhabib et al. (2015)](https://www.economicdynamics.org/meetpapers/2015/paper_364.pdf) estimate the following transition matrix for intergenerational social mobility.
@@ -90,7 +90,7 @@ P_B = [
     ]
 
 P_B = np.array(P_B)
-codes_B =  ( '1','2','3','4','5','6','7','8')
+codes_B =  ('1', '2', '3', '4', '5', '6', '7', '8')
 ```
 
 
@@ -256,12 +256,18 @@ Now, calculate the true 2019 distribution.
 Finally we produce the plot. 
 
 ```{code-cell}
-states = np.arange(1, 6)
+states = np.arange(0, 5)
+ticks = range(5)
+codes_S = ('1', '2', '3', '4', '5')
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=[6.5, 4.4])
 width = 0.4
 ax.plot(states, ψ_2019_predicted, '-o', alpha=0.7, label='predicted')
 ax.plot(states, ψ_2019, '-o', alpha=0.7, label='realized')
+ax.set_xlabel("state")
+ax.set_ylabel("probability")
+ax.set_xticks(ticks)
+ax.set_xticklabels(codes_S)
 
 ax.legend(loc='upper center', fontsize=12)
 if export_figures:

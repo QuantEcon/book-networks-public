@@ -19,7 +19,7 @@ kernelspec:
 ---
 tags: [hide-output]
 ---
-pip install --upgrade quantecon_book_networks
+! pip install --upgrade quantecon_book_networks
 ```
 
 We begin with some imports
@@ -31,7 +31,7 @@ import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
 ch3_data = qbn_data.optimal_flows()
-export_figures = False
+export_figures = True
 ```
 
 ```{code-cell}
@@ -111,8 +111,8 @@ plt.rcParams['font.size'] = '14'
 
 ax.plot(np.linspace(-1, 17.5, 100), 6-0.4*np.linspace(-1, 17.5, 100))
 ax.plot(np.linspace(-1, 5.5, 100), 10-2*np.linspace(-1, 5.5, 100))
-ax.text(1.5, 8, "$2q_1 + 5q_2 \leq 30$")
-ax.text(10, 2.5, "$4q_1 + 2q_2 \leq 20$")
+ax.text(10, 2.5, "$2q_1 + 5q_2 \leq 30$")
+ax.text(1.5, 8, "$4q_1 + 2q_2 \leq 20$")
 ax.text(-2, 2, "$q_2 \geq 0$")
 ax.text(2.5, -0.7, "$q_1 \geq 0$")
 
