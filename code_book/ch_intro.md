@@ -681,7 +681,7 @@ def plot_degree_dist(G, ax, loglog=True, label=None):
 ```
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=default_figsize)
 
 plot_degree_dist(DG, ax, loglog=False, label='degree distribution')
 
