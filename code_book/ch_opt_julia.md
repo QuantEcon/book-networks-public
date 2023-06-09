@@ -62,6 +62,8 @@ fig, ax = plt.subplots(figsize=[6, 4])
 n = 7
 q = zeros(n)
 ax.plot(1:n, q)
+ax.set_xlabel("cost-to-go")
+ax.set_ylabel("nodes")
 
 for i in 1:3
     new_q = T(q)

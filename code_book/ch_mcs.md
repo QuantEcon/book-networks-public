@@ -176,6 +176,8 @@ minimum initial value and one at the maximum.
 def sim_fig(ax, mc, T=100, seed=14, title=None):
     X1 = mc.simulate(T, init=1, random_state=seed)
     X2 = mc.simulate(T, init=max(mc.state_values), random_state=seed+1)
+    ax.set_xlabel("time")
+    ax.set_ylabel("state")
     ax.plot(X1, label="low initial state")
     ax.plot(X2, label="high initial state")
     ax.set_title(title, fontsize=12)
@@ -185,8 +187,10 @@ Finally, we produce the figure.
 
 ```{code-cell}
 fig, axes = plt.subplots(2, 1, figsize=[6, 4])
+ax = axes[0]
 sim_fig(axes[0], mc_B, title="$P_B$")
 sim_fig(axes[1], mc_Q, title="$P_Q$")
+ax.
 
 plt.tight_layout()
 if export_figures:
