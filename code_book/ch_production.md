@@ -105,9 +105,10 @@ fig, ax = plt.subplots(figsize=(8, 10))
 plt.axis("off")
 color_list = qbn_io.colorise_weights(centrality, beta=False)
 # Remove self-loops
-for i in range(A.shape[0]):
-    A[i][i] = 0
-qbn_plt.plot_graph(A, X, ax, codes, 
+A1 = A.copy()
+for i in range(A1.shape[0]):
+    A1[i][i] = 0
+qbn_plt.plot_graph(A1, X, ax, codes, 
               layout_type='spring',
               layout_seed=5432167,
               tol=0.0,
@@ -285,6 +286,9 @@ for ax, x_vec, i in zip(axes, x_vecs, range(sim_length)):
         pass
     ax.set_title(f"round {i*2}")
     x_vec_cols = qbn_io.colorise_weights(x_vec,beta=False)
+    # remove self-loops
+    for i in range(len(A)):
+        A[i][i] = 0
     qbn_plt.plot_graph(A, X, ax, codes,
                   layout_type='spring',
                   layout_seed=342156,
