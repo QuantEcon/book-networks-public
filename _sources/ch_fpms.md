@@ -19,7 +19,7 @@ kernelspec:
 ---
 tags: [hide-output]
 ---
-pip install --upgrade quantecon_book_networks
+! pip install --upgrade quantecon_book_networks
 ```
 
 We begin with some imports

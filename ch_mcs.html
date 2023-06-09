@@ -278,7 +278,7 @@ Theory and Computation
 <h1>Chapter 4 - Markov Chains and Networks (Python Code)<a class="headerlink" href="#chapter-4-markov-chains-and-networks-python-code" title="Permalink to this headline">¶</a></h1>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">quantecon_book_networks</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> pip install --upgrade quantecon_book_networks
 </pre></div>
 </div>
 </div>
@@ -286,32 +286,27 @@ Theory and Computation
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: quantecon_book_networks in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (0.5.1)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: networkx in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (2.6.3)
-Requirement already satisfied: matplotlib in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (3.4.3)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: matplotlib in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (3.4.3)
+Requirement already satisfied: networkx in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (2.6.3)
+Requirement already satisfied: pandas-datareader in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (0.10.0)
 Requirement already satisfied: numpy in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.22.4)
 Requirement already satisfied: scipy in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.7.1)
-Requirement already satisfied: pandas-datareader in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (0.10.0)
 Requirement already satisfied: pandas in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.3.4)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (2.8.2)
-Requirement already satisfied: cycler&gt;=0.10 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (0.10.0)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (3.0.4)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (1.3.1)
 Requirement already satisfied: pillow&gt;=6.2.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (8.4.0)
+Requirement already satisfied: cycler&gt;=0.10 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (0.10.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (1.3.1)
+Requirement already satisfied: pyparsing&gt;=2.2.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (3.0.4)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (2.8.2)
 Requirement already satisfied: six in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from cycler&gt;=0.10-&gt;matplotlib-&gt;quantecon_book_networks) (1.16.0)
-Requirement already satisfied: pytz&gt;=2017.3 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-&gt;quantecon_book_networks) (2021.3)
-Requirement already satisfied: requests&gt;=2.19.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (2.26.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2017.3 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-&gt;quantecon_book_networks) (2021.3)
 Requirement already satisfied: lxml in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (4.6.3)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: charset-normalizer~=2.0.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2.0.4)
+Requirement already satisfied: requests&gt;=2.19.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (2.26.0)
 Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (3.2)
-Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (1.26.7)
+Requirement already satisfied: charset-normalizer~=2.0.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2.0.4)
 Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2021.10.8)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (1.26.7)
 </pre></div>
 </div>
 </div>
@@ -325,7 +320,7 @@ Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/share/miniconda3/en
 <span class="kn">import</span> <span class="nn">quantecon_book_networks.plotting</span> <span class="k">as</span> <span class="nn">qbn_plt</span>
 <span class="kn">import</span> <span class="nn">quantecon_book_networks.data</span> <span class="k">as</span> <span class="nn">qbn_data</span>
 <span class="n">ch4_data</span> <span class="o">=</span> <span class="n">qbn_data</span><span class="o">.</span><span class="n">markov_chains_and_networks</span><span class="p">()</span>
-<span class="n">export_figures</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">export_figures</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 </div>
@@ -370,7 +365,7 @@ a one year period.</p>
     <span class="p">[</span><span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>    <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">]</span>
 <span class="p">]</span>
 <span class="n">P_Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">P_Q</span><span class="p">)</span>
-<span class="n">codes_Q</span> <span class="o">=</span>  <span class="p">(</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;5&#39;</span><span class="p">)</span>
+<span class="n">codes_Q</span> <span class="o">=</span>  <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -392,7 +387,7 @@ a one year period.</p>
     <span class="p">]</span>
 
 <span class="n">P_B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">P_B</span><span class="p">)</span>
-<span class="n">codes_B</span> <span class="o">=</span>  <span class="p">(</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">,</span><span class="s1">&#39;3&#39;</span><span class="p">,</span><span class="s1">&#39;4&#39;</span><span class="p">,</span><span class="s1">&#39;5&#39;</span><span class="p">,</span><span class="s1">&#39;6&#39;</span><span class="p">,</span><span class="s1">&#39;7&#39;</span><span class="p">,</span><span class="s1">&#39;8&#39;</span><span class="p">)</span>
+<span class="n">codes_B</span> <span class="o">=</span>  <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="s1">&#39;8&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -486,8 +481,10 @@ minimum initial value and one at the maximum.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sim_fig</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">mc</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">X1</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
     <span class="n">X2</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">mc</span><span class="o">.</span><span class="n">state_values</span><span class="p">),</span> <span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;low initial state&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;high initial state&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -496,9 +493,11 @@ minimum initial value and one at the maximum.</p>
 <p>Finally, we produce the figure.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">sim_fig</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mc_B</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;$P_B$&quot;</span><span class="p">)</span>
 <span class="n">sim_fig</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mc_Q</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;$P_Q$&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
@@ -656,12 +655,19 @@ times to get our predicted 2019 distribution.</p>
 <p>Finally we produce the plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">ticks</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">codes_S</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">)</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">width</span> <span class="o">=</span> <span class="mf">0.4</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">ψ_2019_predicted</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;predicted&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">ψ_2019</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;realized&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">((</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">codes_S</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
@@ -784,6 +790,7 @@ state space.</p>
     <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span> 
            <span class="n">xticks</span><span class="o">=</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">nstates</span><span class="p">)))</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;t = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Quantile&quot;</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">ax</span>
 </pre></div>
@@ -794,12 +801,11 @@ state space.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ns</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ns</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ns</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">transition</span><span class="p">(</span><span class="n">P_B</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
     
-<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Quantile&quot;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>

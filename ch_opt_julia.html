@@ -253,12 +253,14 @@ called <code class="docutils literal notranslate"><span class="pre">c</span></co
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span> <span class="n">PyPlot</span>
-<span class="n">export_figures</span> <span class="o">=</span> <span class="nb">false</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">export_figures</span> <span class="o">=</span> <span class="nb">true</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 
 <span class="n">n</span> <span class="o">=</span> <span class="mi">7</span>
 <span class="n">q</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">1</span><span class="o">:</span><span class="n">n</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&quot;cost-to-go&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&quot;nodes&quot;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">1</span><span class="o">:</span><span class="mi">3</span>
     <span class="n">new_q</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
