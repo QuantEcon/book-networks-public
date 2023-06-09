@@ -64,7 +64,7 @@ bc_dict = nx.betweenness_centrality(G)
 And we produce the plot.
 
 ```{code-cell}
-fig, ax = plt.subplots(figsize=9.4, 9.4)
+fig, ax = plt.subplots(figsize=(9.4, 9.4))
 
 plt.axis("off")
 nx.draw_networkx(
