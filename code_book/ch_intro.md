@@ -31,8 +31,8 @@ import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.data as qbn_data
 import quantecon_book_networks.plotting as qbn_plot
 ch1_data = qbn_data.introduction()
-default_figsize = [6, 4]
-export_figures = True
+default_figsize = (6, 4)
+export_figures = False
 ```
 
 Next we import some common python libraries.
@@ -361,7 +361,7 @@ b, a = results.params
 Finally we produce our plot.
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots(figsize=[7.3,4])
+fig, ax = plt.subplots(figsize=(7.3, 4))
 
 ax.scatter(x, y, alpha=0.3, label="firm size (market value)")
 ax.plot(x, x * a + b, 'k-', alpha=0.6, label=f"slope = ${a: 1.2f}$")

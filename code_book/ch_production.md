@@ -31,8 +31,8 @@ import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
 ch2_data = qbn_data.production()
-default_figsize = [6, 4]
-export_figures = True
+default_figsize = (6, 4)
+export_figures = False
 ```
 
 ```{code-cell} ipython3
