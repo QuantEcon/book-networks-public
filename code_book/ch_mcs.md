@@ -190,7 +190,6 @@ fig, axes = plt.subplots(2, 1, figsize=[6, 4])
 ax = axes[0]
 sim_fig(axes[0], mc_B, title="$P_B$")
 sim_fig(axes[1], mc_Q, title="$P_Q$")
-ax.
 
 plt.tight_layout()
 if export_figures:
