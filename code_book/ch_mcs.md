@@ -176,20 +176,21 @@ minimum initial value and one at the maximum.
 def sim_fig(ax, mc, T=100, seed=14, title=None):
     X1 = mc.simulate(T, init=1, random_state=seed)
     X2 = mc.simulate(T, init=max(mc.state_values), random_state=seed+1)
+    ax.plot(X1)
+    ax.plot(X2)
     ax.set_xlabel("time")
     ax.set_ylabel("state")
-    ax.plot(X1, label="low initial state")
-    ax.plot(X2, label="high initial state")
     ax.set_title(title, fontsize=12)
 ```
 
 Finally, we produce the figure.
 
 ```{code-cell}
-fig, axes = plt.subplots(2, 1, figsize=[6, 4])
+fig, axes = plt.subplots(2, 1, figsize=(6, 4))
 ax = axes[0]
 sim_fig(axes[0], mc_B, title="$P_B$")
 sim_fig(axes[1], mc_Q, title="$P_Q$")
+axes[1].set_yticks((1, 2, 3, 4, 5))
 
 plt.tight_layout()
 if export_figures:
@@ -263,12 +264,13 @@ states = np.arange(0, 5)
 ticks = range(5)
 codes_S = ('1', '2', '3', '4', '5')
 
-fig, ax = plt.subplots(figsize=[6.5, 4.4])
+fig, ax = plt.subplots(figsize=(6, 4))
 width = 0.4
 ax.plot(states, ψ_2019_predicted, '-o', alpha=0.7, label='predicted')
 ax.plot(states, ψ_2019, '-o', alpha=0.7, label='realized')
 ax.set_xlabel("state")
 ax.set_ylabel("probability")
+ax.set_yticks((0.15, 0.2, 0.25, 0.3))
 ax.set_xticks(ticks)
 ax.set_xticklabels(codes_S)
 
@@ -373,6 +375,7 @@ def transition(P, n, ax=None):
     ax.set(ylim=(0, 0.25), 
            xticks=((1, nstates)))
     ax.set_title(f"t = {n}")
+    ax.set_xlabel("Quantile")
     
     return ax
 ```
@@ -381,12 +384,11 @@ We now generate the marginal distributions after 0, 1, 2, and 100 iterations for
 
 ```{code-cell}
 ns = (0, 1, 2, 100)
-fig, axes = plt.subplots(1, len(ns))
+fig, axes = plt.subplots(1, len(ns), figsize=(6, 4))
 
 for n, ax in zip(ns, axes):
     ax = transition(P_B, n, ax=ax)
     
-axes[-1].set_xlabel("Quantile")
 
 plt.tight_layout()
 if export_figures:
