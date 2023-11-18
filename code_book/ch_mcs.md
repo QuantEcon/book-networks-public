@@ -31,7 +31,7 @@ import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
 ch4_data = qbn_data.markov_chains_and_networks()
-export_figures = False
+export_figures = True
 ```
 
 ```{code-cell} ipython3
@@ -363,7 +363,7 @@ def transition(P, n, ax=None):
     ax.plot(range(1, nstates+1), s, '-o', alpha=0.6)
     ax.set(ylim=(0, 0.25), 
            xticks=((1, nstates)))
-    ax.set_title(f"t = {n}")
+    ax.set_title(f"$t = {n}$")
     
     return ax
 ```
@@ -376,8 +376,7 @@ fig, axes = plt.subplots(1, len(ns))
 
 for n, ax in zip(ns, axes):
     ax = transition(P_B, n, ax=ax)
-    
-axes[-1].set_xlabel("Quantile")
+    ax.set_xlabel("Quantile")
 
 plt.tight_layout()
 if export_figures:

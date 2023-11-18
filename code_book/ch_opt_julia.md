@@ -10,8 +10,9 @@ jupytext:
 kernelspec:
   display_name: Julia
   language: Julia
-  name: julia-1.7
+  name: julia-1.9
 ---
+
 
 # Chapter 3 - Optimal Flows (Julia Code)
 
