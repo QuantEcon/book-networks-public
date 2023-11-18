@@ -31,7 +31,7 @@ import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
 ch4_data = qbn_data.markov_chains_and_networks()
-export_figures = True
+export_figures = False
 ```
 
 ```{code-cell} ipython3
