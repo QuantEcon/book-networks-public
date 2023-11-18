@@ -19,7 +19,7 @@ kernelspec:
 ---
 tags: [hide-output]
 ---
-pip install --upgrade quantecon_book_networks
+! pip install --upgrade quantecon_book_networks
 ```
 
 We begin with some imports.
@@ -31,6 +31,7 @@ import quantecon_book_networks.input_output as qbn_io
 import quantecon_book_networks.plotting as qbn_plt
 import quantecon_book_networks.data as qbn_data
 ch2_data = qbn_data.production()
+default_figsize = (6, 4)
 export_figures = False
 ```
 
@@ -104,9 +105,10 @@ fig, ax = plt.subplots(figsize=(8, 10))
 plt.axis("off")
 color_list = qbn_io.colorise_weights(centrality, beta=False)
 # Remove self-loops
-for i in range(A.shape[0]):
-    A[i][i] = 0
-qbn_plt.plot_graph(A, X, ax, codes, 
+A1 = A.copy()
+for i in range(A1.shape[0]):
+    A1[i][i] = 0
+qbn_plt.plot_graph(A1, X, ax, codes, 
               layout_type='spring',
               layout_seed=5432167,
               tol=0.0,
@@ -122,7 +124,7 @@ plt.show()
 Now we plot a bar chart of hub-based eigenvector centrality by sector.
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=default_figsize)
 ax.bar(codes, centrality, color=color_list, alpha=0.6)
 ax.set_ylabel("eigenvector centrality", fontsize=12)
 if export_figures:
@@ -143,7 +145,7 @@ omult = qbn_io.katz_centrality(A, authority=True)
 ```
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=default_figsize)
 omult_color_list = qbn_io.colorise_weights(omult,beta=False)
 ax.bar(codes, omult, color=omult_color_list, alpha=0.6)
 ax.set_ylabel("Output multipliers", fontsize=12)
@@ -188,7 +190,7 @@ plt.show()
 Here we produce a barplot of upstreamness.
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=default_figsize)
 ax.bar(codes, upstreamness, color=upstreamness_color_list, alpha=0.6)
 ax.set_ylabel("upstreamness", fontsize=12)
 if export_figures:
@@ -205,7 +207,7 @@ kcentral = qbn_io.katz_centrality(A)
 ```
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=default_figsize)
 kcentral_color_list = qbn_io.colorise_weights(kcentral,beta=False)
 ax.bar(codes, kcentral, color=kcentral_color_list, alpha=0.6)
 ax.set_ylabel("Katz hub centrality", fontsize=12)
@@ -264,11 +266,12 @@ d[6] = 1  # positive shock to agriculture
 Now we simulate the demand shock propagating through the economy.
 
 ```{code-cell} ipython3
-sim_length = 6
+sim_length = 11
 x = d
 x_vecs = []
 for i in range(sim_length):
-    x_vecs.append(x)
+    if i % 2 ==0:
+        x_vecs.append(x)
     x = A @ x
 ```
 
@@ -279,8 +282,13 @@ fig, axes = plt.subplots(3, 2, figsize=(8, 10))
 axes = axes.flatten()
 
 for ax, x_vec, i in zip(axes, x_vecs, range(sim_length)):
-    ax.set_title(f"round {i}")
+    if i % 2 != 0:
+        pass
+    ax.set_title(f"round {i*2}")
     x_vec_cols = qbn_io.colorise_weights(x_vec,beta=False)
+    # remove self-loops
+    for i in range(len(A)):
+        A[i][i] = 0
     qbn_plt.plot_graph(A, X, ax, codes,
                   layout_type='spring',
                   layout_seed=342156,
@@ -356,7 +364,7 @@ color_list_114 = qbn_io.colorise_weights(centrality_114,beta=False)
 Finally we produce the plot.
 
 ```{code-cell} ipython3
-fig, ax = plt.subplots(figsize=(10, 12))
+fig, ax = plt.subplots(figsize=(11, 13.2))
 plt.axis("off")
 # Remove self-loops
 for i in range(A_114.shape[0]):

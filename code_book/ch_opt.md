@@ -19,7 +19,7 @@ kernelspec:
 ---
 tags: [hide-output]
 ---
-pip install --upgrade quantecon_book_networks
+! pip install --upgrade quantecon_book_networks
 ```
 
 We begin with some imports
@@ -64,7 +64,7 @@ bc_dict = nx.betweenness_centrality(G)
 And we produce the plot.
 
 ```{code-cell}
-fig, ax = plt.subplots(figsize=(10, 10))
+fig, ax = plt.subplots(figsize=(9.4, 9.4))
 
 plt.axis("off")
 nx.draw_networkx(
@@ -111,8 +111,8 @@ plt.rcParams['font.size'] = '14'
 
 ax.plot(np.linspace(-1, 17.5, 100), 6-0.4*np.linspace(-1, 17.5, 100))
 ax.plot(np.linspace(-1, 5.5, 100), 10-2*np.linspace(-1, 5.5, 100))
-ax.text(1.5, 8, "$2q_1 + 5q_2 \leq 30$")
-ax.text(10, 2.5, "$4q_1 + 2q_2 \leq 20$")
+ax.text(10, 2.5, "$2q_1 + 5q_2 \leq 30$")
+ax.text(1.5, 8, "$4q_1 + 2q_2 \leq 20$")
 ax.text(-2, 2, "$q_2 \geq 0$")
 ax.text(2.5, -0.7, "$q_1 \geq 0$")
 
