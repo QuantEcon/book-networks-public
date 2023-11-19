@@ -1,20 +1,19 @@
-name: networks
+name: quantecon
 channels:
   - default
 dependencies:
-  - python=3.8
-  - anaconda=2021.11
+  - python=3.11
+  - anaconda=2023.09
   - pip
   - pip:
-    - jupyter-book==0.12.1
-    - quantecon-book-theme==0.3.0
-    - sphinx-tojupyter==0.2.0
+    - jupyter-book==0.15.1
+    - docutils==0.17.1
+    - quantecon-book-theme==0.6.0
+    - sphinx-tojupyter==0.3.0
     - sphinxext-rediraffe==0.2.7
-    - sphinx-exercise==0.2.1
-    - quantecon
-    - pandas-datareader
-    - POT==0.8.1
-    - plotly
-    - interpolation
-    - sphinx-design
-    - quantecon_book_networks
+    - sphinx-exercise==0.4.1
+    - ghp-import==2.1.0
+    - sphinxcontrib-youtube==1.2.0
+    - sphinx-togglebutton==0.3.2
+    - arviz==0.13.0
+    - kaleido
