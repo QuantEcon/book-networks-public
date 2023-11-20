@@ -2,7 +2,7 @@ format: jb-book
 root: intro
 chapters:
 - url: https://networks.quantecon.org
-  title: Home (Landing Page)
+  title: Home
 - file: ch_intro
 - file: ch_production
 - file: ch_opt
@@ -11,3 +11,4 @@ chapters:
 - file: ch_fpms
 - file: appendix
 - file: pkg_funcs
+- file: status
