@@ -5,8 +5,6 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
-    format_version: 0.13
-    jupytext_version: 1.10.3
 kernelspec:
   display_name: Python 3
   language: python
@@ -16,9 +14,8 @@ kernelspec:
 # Chapter 5 - Nonlinear Interactions (Python Code)
 
 ```{code-cell}
----
-tags: [hide-output]
----
+:tags: [hide-output]
+
 ! pip install --upgrade quantecon_book_networks
 ```
 
@@ -160,7 +157,7 @@ def plot_fin_graph(G, ax, node_color_list):
 Now we will iterate by applying the operator $T$ to the vector of firm values $v$ and produce the plots.
 
 ```{code-cell}
-G = nx.from_numpy_matrix(np.matrix(fn.C), create_using=nx.DiGraph)
+G = nx.from_numpy_array(np.array(fn.C), create_using=nx.DiGraph)
 v = fn.v_bar
 
 k = 15
@@ -177,5 +174,5 @@ for i in range(k):
 if export_figures:
     plt.savefig("figures/fin_network_sims_1.pdf")
 plt.show()
-
 ```
+
