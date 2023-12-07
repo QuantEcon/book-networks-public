@@ -6,9 +6,9 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.5
+    jupytext_version: 1.15.1
 kernelspec:
-  display_name: Python 3
+  display_name: Python 3 (ipykernel)
   language: python
   name: python3
 ---
@@ -16,9 +16,7 @@ kernelspec:
 # Chapter 1 - Introduction (Python Code)
 
 ```{code-cell} ipython3
----
-tags: [hide-output]
----
+:tags: [hide-output]
 ! pip install --upgrade quantecon_book_networks kaleido
 ```
 
@@ -44,6 +42,7 @@ import networkx as nx
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+import matplotlib.ticker as ticker
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import matplotlib.patches as mpatches
 import plotly.graph_objects as go
@@ -277,11 +276,15 @@ for ax in axes:
 ax = axes[0]
 ax.plot(list(range(n)), t_data, linestyle='', marker='o', alpha=0.5, ms=4)
 ax.vlines(list(range(n)), 0, t_data, 'k', lw=0.2)
+ax.get_xaxis().set_major_formatter(
+    ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 ax.set_title(f"Student t draws", fontsize=11)
 
 ax = axes[1]
 ax.plot(list(range(n)), n_data, linestyle='', marker='o', alpha=0.5, ms=4)
 ax.vlines(list(range(n)), 0, n_data, lw=0.2)
+ax.get_xaxis().set_major_formatter(
+    ticker.FuncFormatter(lambda x, p: format(int(x), ',')))
 ax.set_title(f"$N(0, \sigma^2)$ with $\sigma = {s}$", fontsize=11)
 
 plt.tight_layout()
