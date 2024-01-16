@@ -1,10 +1,14 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Chapter 4 - Markov Chains and Networks (Python Code) &#8212; Economic Networks
 Theory and Computation 
 </title>
@@ -49,59 +53,64 @@ Theory and Computation
         </script>
     
     
-    
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/quantecon-book-theme.1ef59f8f4e91ec8319176e8479c6af4e.css" />
+    <link rel="stylesheet" href="_static/styles/quantecon-book-theme.css?digest=cb2d6eee9712fbd5cbf7cbc2d6baf81f7f9a9912" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="_static/design-tabs.js"></script>
-    <script src="_static/quantecon-book-theme.15b0c36fffe88f468997fa7b698991d3.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Exp": ["\\operatorname{Exp}"], "Binomial": ["\\operatorname{Binomial}"], "Poisson": ["\\operatorname{Poisson}"], "BB": ["\\mathbb{B}"], "EE": ["\\mathbb{E}"], "PP": ["\\mathbb{P}"], "RR": ["\\mathbb{R}"], "NN": ["\\mathbb{N}"], "ZZ": ["\\mathbb{Z}"], "dD": ["\\mathcal{D}"], "fF": ["\\mathcal{F}"], "lL": ["\\mathcal{L}"], "linop": ["\\mathcal{L}(\\mathbb{B})"], "linopell": ["\\mathcal{L}(\\ell_1)"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/scripts/quantecon-book-theme.js?digest=b7d60282c7125f74e59bac03c2323864e0e32e1c"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"Exp": ["\\operatorname{Exp}"], "Binomial": ["\\operatorname{Binomial}"], "Poisson": ["\\operatorname{Poisson}"], "BB": ["\\mathbb{B}"], "EE": ["\\mathbb{E}"], "PP": ["\\mathbb{P}"], "RR": ["\\mathbb{R}"], "NN": ["\\mathbb{N}"], "ZZ": ["\\mathbb{Z}"], "dD": ["\\mathcal{D}"], "fF": ["\\mathcal{F}"], "lL": ["\\mathcal{L}"], "linop": ["\\mathcal{L}(\\mathbb{B})"], "linopell": ["\\mathcal{L}(\\ell_1)"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ch_mcs';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Chapter 5 - Nonlinear Interactions (Python Code)" href="ch_fpms.html" />
@@ -158,81 +167,24 @@ Theory and Computation
 
                         <nav id="bd-toc-nav" class="qe-page__toc-nav">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#example-transition-matrices">
-   Example transition matrices
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#markov-chains-as-digraphs">
-   Markov Chains as Digraphs
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#contour-plot-of-a-transition-matrix">
-     Contour plot of a transition matrix
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#wealth-percentile-over-time">
-     Wealth percentile over time
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#predicted-vs-realized-cross-country-income-distributions-for-2019">
-     Predicted vs realized cross-country income distributions for 2019
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#distribution-dynamics">
-     Distribution dynamics
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#a-trajectory-from-psi-0-0-0-1">
-       A trajectory from
-       <span class="math notranslate nohighlight">
-        \(\psi_0 = (0, 0, 1)\)
-       </span>
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#a-trajectory-from-psi-0-0-1-2-1-2">
-       A trajectory from
-       <span class="math notranslate nohighlight">
-        \(\psi_0 = (0, 1/2, 1/2)\)
-       </span>
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#distribution-projections-from-p-b">
-     Distribution projections from
-     <span class="math notranslate nohighlight">
-      \(P_B\)
-     </span>
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#asymptotics">
-   Asymptotics
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#convergence-of-the-empirical-distribution-to-psi">
-     Convergence of the empirical distribution to
-     <span class="math notranslate nohighlight">
-      \(\psi^*\)
-     </span>
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-transition-matrices">Example transition matrices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-chains-as-digraphs">Markov Chains as Digraphs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#contour-plot-of-a-transition-matrix">Contour plot of a transition matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wealth-percentile-over-time">Wealth percentile over time</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predicted-vs-realized-cross-country-income-distributions-for-2019">Predicted vs realized cross-country income distributions for 2019</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-dynamics">Distribution dynamics</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-trajectory-from-psi-0-0-0-1">A trajectory from <span class="math notranslate nohighlight">\(\psi_0 = (0, 0, 1)\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-trajectory-from-psi-0-0-1-2-1-2">A trajectory from <span class="math notranslate nohighlight">\(\psi_0 = (0, 1/2, 1/2)\)</span></a></li>
 </ul>
-
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distribution-projections-from-p-b">Distribution projections from <span class="math notranslate nohighlight">\(P_B\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#asymptotics">Asymptotics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-of-the-empirical-distribution-to-psi">Convergence of the empirical distribution to <span class="math notranslate nohighlight">\(\psi^*\)</span></a></li>
+</ul>
+</li>
+</ul>
                             <p class="logo">
                                 
                             </p>
@@ -274,42 +226,64 @@ Theory and Computation
                     
                     <div>
                         
-  <div class="tex2jax_ignore mathjax_ignore section" id="chapter-4-markov-chains-and-networks-python-code">
-<h1>Chapter 4 - Markov Chains and Networks (Python Code)<a class="headerlink" href="#chapter-4-markov-chains-and-networks-python-code" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-4-markov-chains-and-networks-python-code">
+<h1>Chapter 4 - Markov Chains and Networks (Python Code)<a class="headerlink" href="#chapter-4-markov-chains-and-networks-python-code" title="Permalink to this heading">#</a></h1>
 <div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> pip install --upgrade quantecon_book_networks
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>quantecon_book_networks
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: quantecon_book_networks in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (0.5.1)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: quantecon_book_networks in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (1.1)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: matplotlib in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (3.4.3)
-Requirement already satisfied: networkx in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (2.6.3)
-Requirement already satisfied: pandas-datareader in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (0.10.0)
-Requirement already satisfied: numpy in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.22.4)
-Requirement already satisfied: scipy in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.7.1)
-Requirement already satisfied: pandas in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.3.4)
-Requirement already satisfied: pillow&gt;=6.2.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (8.4.0)
-Requirement already satisfied: cycler&gt;=0.10 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (0.10.0)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (1.3.1)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (3.0.4)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (2.8.2)
-Requirement already satisfied: six in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from cycler&gt;=0.10-&gt;matplotlib-&gt;quantecon_book_networks) (1.16.0)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (1.24.3)
+Requirement already satisfied: scipy in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (1.11.1)
+Requirement already satisfied: pandas in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (2.0.3)
+Requirement already satisfied: matplotlib in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (3.7.2)
+Requirement already satisfied: pandas-datareader in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (0.10.0)
+Requirement already satisfied: networkx in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (3.1)
+Requirement already satisfied: quantecon in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (0.7.1)
+Requirement already satisfied: POT in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (0.9.3)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (1.0.5)
+Requirement already satisfied: cycler&gt;=0.10 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (0.11.0)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2017.3 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-&gt;quantecon_book_networks) (2021.3)
-Requirement already satisfied: lxml in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (4.6.3)
-Requirement already satisfied: requests&gt;=2.19.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (2.26.0)
-Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (3.2)
-Requirement already satisfied: charset-normalizer~=2.0.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2.0.4)
-Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2021.10.8)
-Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (1.26.7)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: fonttools&gt;=4.22.0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (4.25.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (1.4.4)
+Requirement already satisfied: packaging&gt;=20.0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (23.1)
+Requirement already satisfied: pillow&gt;=6.2.0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (9.4.0)
+Requirement already satisfied: pyparsing&lt;3.1,&gt;=2.3.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (3.0.9)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (2.8.2)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2020.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from pandas-&gt;quantecon_book_networks) (2023.3.post1)
+Requirement already satisfied: tzdata&gt;=2022.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from pandas-&gt;quantecon_book_networks) (2023.3)
+Requirement already satisfied: lxml in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (4.9.3)
+Requirement already satisfied: requests&gt;=2.19.0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (2.31.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numba&gt;=0.49.0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon-&gt;quantecon_book_networks) (0.57.1)
+Requirement already satisfied: sympy in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon-&gt;quantecon_book_networks) (1.11.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: llvmlite&lt;0.41,&gt;=0.40.0dev0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from numba&gt;=0.49.0-&gt;quantecon-&gt;quantecon_book_networks) (0.40.0)
+Requirement already satisfied: six&gt;=1.5 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib-&gt;quantecon_book_networks) (1.16.0)
+Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2.0.4)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (3.4)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (1.26.16)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2023.7.22)
+Requirement already satisfied: mpmath&gt;=0.19 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from sympy-&gt;quantecon-&gt;quantecon_book_networks) (1.3.0)
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>We begin with some imports.</p>
 <div class="cell docutils container">
@@ -320,13 +294,7 @@ Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /usr/share/minicon
 <span class="kn">import</span> <span class="nn">quantecon_book_networks.plotting</span> <span class="k">as</span> <span class="nn">qbn_plt</span>
 <span class="kn">import</span> <span class="nn">quantecon_book_networks.data</span> <span class="k">as</span> <span class="nn">qbn_data</span>
 <span class="n">ch4_data</span> <span class="o">=</span> <span class="n">qbn_data</span><span class="o">.</span><span class="n">markov_chains_and_networks</span><span class="p">()</span>
-<span class="n">export_figures</span> <span class="o">=</span> <span class="kc">True</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/numba/np/ufunc/parallel.py:371: NumbaWarning: <span class=" -Color -Color-Bold">The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION &gt;= 12060. Found TBB_INTERFACE_VERSION = 12040. The TBB threading layer is disabled.</span>
-  warnings.warn(problem)
+<span class="n">export_figures</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
 </div>
 </div>
@@ -345,8 +313,8 @@ Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /usr/share/minicon
 </div>
 </div>
 </div>
-<div class="section" id="example-transition-matrices">
-<h2>Example transition matrices<a class="headerlink" href="#example-transition-matrices" title="Permalink to this headline">¶</a></h2>
+<section id="example-transition-matrices">
+<h2>Example transition matrices<a class="headerlink" href="#example-transition-matrices" title="Permalink to this heading">#</a></h2>
 <p>In this chapter two transition matrices are used.</p>
 <p>First, a Markov model is estimated in the international growth dynamics study
 of <a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.142.5504&amp;rep=rep1&amp;type=pdf">Quah (1993)</a>.</p>
@@ -392,11 +360,11 @@ a one year period.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="markov-chains-as-digraphs">
-<h2>Markov Chains as Digraphs<a class="headerlink" href="#markov-chains-as-digraphs" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="contour-plot-of-a-transition-matrix">
-<h3>Contour plot of a transition matrix<a class="headerlink" href="#contour-plot-of-a-transition-matrix" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="markov-chains-as-digraphs">
+<h2>Markov Chains as Digraphs<a class="headerlink" href="#markov-chains-as-digraphs" title="Permalink to this heading">#</a></h2>
+<section id="contour-plot-of-a-transition-matrix">
+<h3>Contour plot of a transition matrix<a class="headerlink" href="#contour-plot-of-a-transition-matrix" title="Permalink to this heading">#</a></h3>
 <p>Here we define a function for producing contour plots of matrices.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -454,12 +422,12 @@ intergenerational social mobility, <span class="math notranslate nohighlight">\(
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_mcs_12_0.png" src="_images/ch_mcs_12_0.png" />
+<img alt="_images/f1649743b8ac35fa8702e21b660332e15daf4cb9cf43b19388f550dce2d627b7.png" src="_images/f1649743b8ac35fa8702e21b660332e15daf4cb9cf43b19388f550dce2d627b7.png" />
 </div>
 </div>
-</div>
-<div class="section" id="wealth-percentile-over-time">
-<h3>Wealth percentile over time<a class="headerlink" href="#wealth-percentile-over-time" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="wealth-percentile-over-time">
+<h3>Wealth percentile over time<a class="headerlink" href="#wealth-percentile-over-time" title="Permalink to this heading">#</a></h3>
 <p>Here we compare the mixing of the transition matrix for intergenerational
 social mobility <span class="math notranslate nohighlight">\(P_B\)</span> and the transition matrix for international growth
 dynamics <span class="math notranslate nohighlight">\(P_Q\)</span>.</p>
@@ -507,12 +475,12 @@ minimum initial value and one at the maximum.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_mcs_18_0.png" src="_images/ch_mcs_18_0.png" />
+<img alt="_images/ff561bb9086de525ce8bb945675494cb4551e1f3932ef6cb97970c6344920c52.png" src="_images/ff561bb9086de525ce8bb945675494cb4551e1f3932ef6cb97970c6344920c52.png" />
 </div>
 </div>
-</div>
-<div class="section" id="predicted-vs-realized-cross-country-income-distributions-for-2019">
-<h3>Predicted vs realized cross-country income distributions for 2019<a class="headerlink" href="#predicted-vs-realized-cross-country-income-distributions-for-2019" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="predicted-vs-realized-cross-country-income-distributions-for-2019">
+<h3>Predicted vs realized cross-country income distributions for 2019<a class="headerlink" href="#predicted-vs-realized-cross-country-income-distributions-for-2019" title="Permalink to this heading">#</a></h3>
 <p>Here we load a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> of GDP per capita data for countries compared to the global average.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -557,37 +525,37 @@ minimum initial value and one at the maximum.</p>
     <tr>
       <th>Aruba</th>
       <th>2019</th>
-      <td>31650.760537</td>
-      <td>11320.915885</td>
-      <td>2.795777</td>
+      <td>31902.809818</td>
+      <td>11338.150319</td>
+      <td>2.813758</td>
     </tr>
     <tr>
       <th>Afghanistan</th>
       <th>2019</th>
-      <td>500.522664</td>
-      <td>11320.915885</td>
-      <td>0.044212</td>
+      <td>497.741429</td>
+      <td>11338.150319</td>
+      <td>0.043900</td>
     </tr>
     <tr>
       <th>Angola</th>
       <th>2019</th>
-      <td>2142.238757</td>
-      <td>11320.915885</td>
-      <td>0.189228</td>
+      <td>2191.347764</td>
+      <td>11338.150319</td>
+      <td>0.193272</td>
     </tr>
     <tr>
       <th>Albania</th>
       <th>2019</th>
-      <td>5396.215864</td>
-      <td>11320.915885</td>
-      <td>0.476659</td>
+      <td>5396.214243</td>
+      <td>11338.150319</td>
+      <td>0.475934</td>
     </tr>
     <tr>
       <th>Andorra</th>
       <th>2019</th>
-      <td>41327.502031</td>
-      <td>11320.915885</td>
-      <td>3.650544</td>
+      <td>41328.612393</td>
+      <td>11338.150319</td>
+      <td>3.645093</td>
     </tr>
   </tbody>
 </table>
@@ -677,12 +645,12 @@ times to get our predicted 2019 distribution.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_mcs_32_0.png" src="_images/ch_mcs_32_0.png" />
+<img alt="_images/e459937db431d1507095ec9e729b49986f704863df9a11c283ca6a57b23791ee.png" src="_images/e459937db431d1507095ec9e729b49986f704863df9a11c283ca6a57b23791ee.png" />
 </div>
 </div>
-</div>
-<div class="section" id="distribution-dynamics">
-<h3>Distribution dynamics<a class="headerlink" href="#distribution-dynamics" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="distribution-dynamics">
+<h3>Distribution dynamics<a class="headerlink" href="#distribution-dynamics" title="Permalink to this heading">#</a></h3>
 <p>Here we define a function for plotting the convergence of marginal
 distributions <span class="math notranslate nohighlight">\(\psi\)</span> under a transition matrix <span class="math notranslate nohighlight">\(P\)</span> on the unit simplex.</p>
 <div class="cell docutils container">
@@ -727,8 +695,8 @@ distributions <span class="math notranslate nohighlight">\(\psi\)</span> under a
 </div>
 </div>
 </div>
-<div class="section" id="a-trajectory-from-psi-0-0-0-1">
-<h4>A trajectory from <span class="math notranslate nohighlight">\(\psi_0 = (0, 0, 1)\)</span><a class="headerlink" href="#a-trajectory-from-psi-0-0-0-1" title="Permalink to this headline">¶</a></h4>
+<section id="a-trajectory-from-psi-0-0-0-1">
+<h4>A trajectory from <span class="math notranslate nohighlight">\(\psi_0 = (0, 0, 1)\)</span><a class="headerlink" href="#a-trajectory-from-psi-0-0-0-1" title="Permalink to this heading">#</a></h4>
 <p>Here we see the sequence of marginals appears to converge.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -741,12 +709,12 @@ distributions <span class="math notranslate nohighlight">\(\psi\)</span> under a
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_mcs_38_0.png" src="_images/ch_mcs_38_0.png" />
+<img alt="_images/57d1758c0f9ad1f1e4f10aa5a0bf9fa1f428c7139b8bf0057b77c862ccb2884a.png" src="_images/57d1758c0f9ad1f1e4f10aa5a0bf9fa1f428c7139b8bf0057b77c862ccb2884a.png" />
 </div>
 </div>
-</div>
-<div class="section" id="a-trajectory-from-psi-0-0-1-2-1-2">
-<h4>A trajectory from <span class="math notranslate nohighlight">\(\psi_0 = (0, 1/2, 1/2)\)</span><a class="headerlink" href="#a-trajectory-from-psi-0-0-1-2-1-2" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="a-trajectory-from-psi-0-0-1-2-1-2">
+<h4>A trajectory from <span class="math notranslate nohighlight">\(\psi_0 = (0, 1/2, 1/2)\)</span><a class="headerlink" href="#a-trajectory-from-psi-0-0-1-2-1-2" title="Permalink to this heading">#</a></h4>
 <p>Here we see again that the sequence of marginals appears to converge, and the
 limit appears not to depend on the initial distribution.</p>
 <div class="cell docutils container">
@@ -760,13 +728,13 @@ limit appears not to depend on the initial distribution.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_mcs_40_0.png" src="_images/ch_mcs_40_0.png" />
+<img alt="_images/8d1ee57606620de85be3464b4501a7ade0ee6c557ad4f08dc845d89a349402c9.png" src="_images/8d1ee57606620de85be3464b4501a7ade0ee6c557ad4f08dc845d89a349402c9.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="distribution-projections-from-p-b">
-<h3>Distribution projections from <span class="math notranslate nohighlight">\(P_B\)</span><a class="headerlink" href="#distribution-projections-from-p-b" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="distribution-projections-from-p-b">
+<h3>Distribution projections from <span class="math notranslate nohighlight">\(P_B\)</span><a class="headerlink" href="#distribution-projections-from-p-b" title="Permalink to this heading">#</a></h3>
 <p>Here we define a function for plotting <span class="math notranslate nohighlight">\(\psi\)</span> after <span class="math notranslate nohighlight">\(n\)</span> iterations of the
 transition matrix <span class="math notranslate nohighlight">\(P\)</span>. The distribution <span class="math notranslate nohighlight">\(\psi_0\)</span> is taken as the uniform
 distribution over the
@@ -789,8 +757,7 @@ state space.</p>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nstates</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span> 
            <span class="n">xticks</span><span class="o">=</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">nstates</span><span class="p">)))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;t = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Quantile&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;$t = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>
     
     <span class="k">return</span> <span class="n">ax</span>
 </pre></div>
@@ -805,7 +772,7 @@ state space.</p>
 
 <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ns</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">transition</span><span class="p">(</span><span class="n">P_B</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Quantile&quot;</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="k">if</span> <span class="n">export_figures</span><span class="p">:</span>
@@ -815,15 +782,15 @@ state space.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_mcs_44_0.png" src="_images/ch_mcs_44_0.png" />
+<img alt="_images/8c2abfb24572b156a4cd68f9329b2d6e4fe3d2e6ba20b3db7b931836cd8155a8.png" src="_images/8c2abfb24572b156a4cd68f9329b2d6e4fe3d2e6ba20b3db7b931836cd8155a8.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="asymptotics">
-<h2>Asymptotics<a class="headerlink" href="#asymptotics" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="convergence-of-the-empirical-distribution-to-psi">
-<h3>Convergence of the empirical distribution to <span class="math notranslate nohighlight">\(\psi^*\)</span><a class="headerlink" href="#convergence-of-the-empirical-distribution-to-psi" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="asymptotics">
+<h2>Asymptotics<a class="headerlink" href="#asymptotics" title="Permalink to this heading">#</a></h2>
+<section id="convergence-of-the-empirical-distribution-to-psi">
+<h3>Convergence of the empirical distribution to <span class="math notranslate nohighlight">\(\psi^*\)</span><a class="headerlink" href="#convergence-of-the-empirical-distribution-to-psi" title="Permalink to this heading">#</a></h3>
 <p>We begin by creating a <code class="docutils literal notranslate"><span class="pre">MarkovChain</span></code> object, taking <span class="math notranslate nohighlight">\(P_B\)</span> as the transition matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -906,12 +873,12 @@ state space.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_mcs_54_0.png" src="_images/ch_mcs_54_0.png" />
+<img alt="_images/528a903e6aaf3f945061a84d103dc92f949244b7e51625afa4c1fd1fbd54417e.png" src="_images/528a903e6aaf3f945061a84d103dc92f949244b7e51625afa4c1fd1fbd54417e.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -925,7 +892,7 @@ state space.</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -965,7 +932,7 @@ state space.</p>
                     <ul class="current nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference external" href="https://networks.quantecon.org">
-   Home (Landing Page)
+   Home
    <i class="fas fa-external-link-alt">
    </i>
   </a>
@@ -1010,6 +977,11 @@ state space.</p>
    quantecon_book_networks
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="status.html">
+   Execution Statistics
+  </a>
+ </li>
 </ul>
 
                 </nav>
@@ -1030,21 +1002,21 @@ state space.</p>
                     <li data-tippy-content="Table of Contents" class="btn__sidebar"><i data-feather="menu"></i></li>
                     <li data-tippy-content="Home"><a href="intro.html"><i data-feather="home"></i></a></li>
                     <li class="btn__qelogo"><a href="https://quantecon.org" title=""><span class="show-for-sr">QuantEcon</span></a></li>
-                    <!-- <li class="btn__search">
-                        <form action="search.html" method="get">
-                            <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off">
-                            <i data-feather="search"></i>
-                        </form>
-                    </li> -->
                 </ul>
 
                 <ul class="qe-toolbar__links">
+                    <li class="btn__search">
+                        <form action="search.html" method="get">
+                            <input type="search" class="form-control" name="q" id="search-input" placeholder="Search..." aria-label="Search..." autocomplete="off" accesskey="k">
+                            <i data-feather="search" id="search-icon"></i>
+                        </form>
+                    </li>
                     <li data-tippy-content="Fullscreen" class="btn__fullscreen"><i data-feather="maximize"></i></li>
                     <li data-tippy-content="Increase font size" class="btn__plus"><i data-feather="plus-circle"></i></li>
                     <li data-tippy-content="Decrease font size" class="btn__minus"><i data-feather="minus-circle"></i></li>
                     <li data-tippy-content="Change contrast" class="btn__contrast"><i data-feather="sunset"></i></li>
                         <li data-tippy-content="Download PDF" onClick="window.print()"><i data-feather="file"></i></li>
-                    <li data-tippy-content="View Source"><a target="_blank" href="https://github.com/quantecon/book-networks/tree/master/code_book/ch_mcs.md" download><i data-feather="github"></i></a></li>
+                    <li data-tippy-content="View Source"><a target="_blank" href="https://github.com/quantecon/book-networks/blob/main/code_book/ch_mcs.md" download><i data-feather="github"></i></a></li>
                 </ul>
 
             </div>
@@ -1168,6 +1140,5 @@ state space.</p>
         </div>
 
     </div> <!-- .wrapper-->
-    
   </body>
 </html>

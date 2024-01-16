@@ -1,10 +1,14 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Chapter 2 - Production (Python Code) &#8212; Economic Networks
 Theory and Computation 
 </title>
@@ -49,59 +53,64 @@ Theory and Computation
         </script>
     
     
-    
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/quantecon-book-theme.1ef59f8f4e91ec8319176e8479c6af4e.css" />
+    <link rel="stylesheet" href="_static/styles/quantecon-book-theme.css?digest=cb2d6eee9712fbd5cbf7cbc2d6baf81f7f9a9912" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
-    
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="_static/design-tabs.js"></script>
-    <script src="_static/quantecon-book-theme.15b0c36fffe88f468997fa7b698991d3.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Exp": ["\\operatorname{Exp}"], "Binomial": ["\\operatorname{Binomial}"], "Poisson": ["\\operatorname{Poisson}"], "BB": ["\\mathbb{B}"], "EE": ["\\mathbb{E}"], "PP": ["\\mathbb{P}"], "RR": ["\\mathbb{R}"], "NN": ["\\mathbb{N}"], "ZZ": ["\\mathbb{Z}"], "dD": ["\\mathcal{D}"], "fF": ["\\mathcal{F}"], "lL": ["\\mathcal{L}"], "linop": ["\\mathcal{L}(\\mathbb{B})"], "linopell": ["\\mathcal{L}(\\ell_1)"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/scripts/quantecon-book-theme.js?digest=b7d60282c7125f74e59bac03c2323864e0e32e1c"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"Exp": ["\\operatorname{Exp}"], "Binomial": ["\\operatorname{Binomial}"], "Poisson": ["\\operatorname{Poisson}"], "BB": ["\\mathbb{B}"], "EE": ["\\mathbb{E}"], "PP": ["\\mathbb{P}"], "RR": ["\\mathbb{R}"], "NN": ["\\mathbb{N}"], "ZZ": ["\\mathbb{Z}"], "dD": ["\\mathcal{D}"], "fF": ["\\mathcal{F}"], "lL": ["\\mathcal{L}"], "linop": ["\\mathcal{L}(\\mathbb{B})"], "linopell": ["\\mathcal{L}(\\ell_1)"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'ch_production';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Chapter 3 - Optimal Flows (Python Code)" href="ch_opt.html" />
@@ -158,70 +167,21 @@ Theory and Computation
 
                         <nav id="bd-toc-nav" class="qe-page__toc-nav">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#multisector-models">
-   Multisector Models
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#backward-linkages-for-15-us-sectors-in-2021">
-     Backward linkages for 15 US sectors in 2021
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#eigenvector-centrality-of-across-us-industrial-sectors">
-     Eigenvector centrality of across US industrial sectors
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#output-multipliers-across-15-us-industrial-sectors">
-     Output multipliers across 15 US industrial sectors
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#forward-linkages-and-upstreamness-over-us-industrial-sectors">
-     Forward linkages and upstreamness over US industrial sectors
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#relative-upstreamness-of-us-industrial-sectors">
-     Relative upstreamness of US industrial sectors
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#hub-based-katz-centrality-of-across-15-us-industrial-sectors">
-     Hub-based Katz centrality of across 15 US industrial sectors
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-leontief-inverse-hot-colors-are-larger-values">
-     The Leontief inverse 𝐿 (hot colors are larger values)
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#propagation-of-demand-shocks-via-backward-linkages">
-     Propagation of demand shocks via backward linkages
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#network-for-71-us-sectors-in-2021">
-     Network for 71 US sectors in 2021
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#network-for-114-australian-industry-sectors-in-2020">
-     Network for 114 Australian industry sectors in 2020
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gdp-growth-rates-and-std-deviations-in-parentheses-for-8-countries">
-     GDP growth rates and std. deviations (in parentheses) for 8 countries
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multisector-models">Multisector Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#backward-linkages-for-15-us-sectors-in-2021">Backward linkages for 15 US sectors in 2021</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvector-centrality-of-across-us-industrial-sectors">Eigenvector centrality of across US industrial sectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output-multipliers-across-15-us-industrial-sectors">Output multipliers across 15 US industrial sectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-linkages-and-upstreamness-over-us-industrial-sectors">Forward linkages and upstreamness over US industrial sectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relative-upstreamness-of-us-industrial-sectors">Relative upstreamness of US industrial sectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hub-based-katz-centrality-of-across-15-us-industrial-sectors">Hub-based Katz centrality of across 15 US industrial sectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-leontief-inverse-hot-colors-are-larger-values">The Leontief inverse 𝐿 (hot colors are larger values)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#propagation-of-demand-shocks-via-backward-linkages">Propagation of demand shocks via backward linkages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#network-for-71-us-sectors-in-2021">Network for 71 US sectors in 2021</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#network-for-114-australian-industry-sectors-in-2020">Network for 114 Australian industry sectors in 2020</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gdp-growth-rates-and-std-deviations-in-parentheses-for-8-countries">GDP growth rates and std. deviations (in parentheses) for 8 countries</a></li>
 </ul>
-
+</li>
+</ul>
                             <p class="logo">
                                 
                             </p>
@@ -263,42 +223,64 @@ Theory and Computation
                     
                     <div>
                         
-  <div class="tex2jax_ignore mathjax_ignore section" id="chapter-2-production-python-code">
-<h1>Chapter 2 - Production (Python Code)<a class="headerlink" href="#chapter-2-production-python-code" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="chapter-2-production-python-code">
+<h1>Chapter 2 - Production (Python Code)<a class="headerlink" href="#chapter-2-production-python-code" title="Permalink to this heading">#</a></h1>
 <div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span> pip install --upgrade quantecon_book_networks
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>quantecon_book_networks
 </pre></div>
 </div>
 </div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: quantecon_book_networks in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (0.5.1)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: quantecon_book_networks in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (1.1)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: matplotlib in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (3.4.3)
-Requirement already satisfied: pandas-datareader in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (0.10.0)
-Requirement already satisfied: networkx in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (2.6.3)
-Requirement already satisfied: numpy in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.22.4)
-Requirement already satisfied: scipy in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.7.1)
-Requirement already satisfied: pandas in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from quantecon_book_networks) (1.3.4)
-Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (2.8.2)
-Requirement already satisfied: pyparsing&gt;=2.2.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (3.0.4)
-Requirement already satisfied: pillow&gt;=6.2.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (8.4.0)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (1.3.1)
-Requirement already satisfied: cycler&gt;=0.10 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from matplotlib-&gt;quantecon_book_networks) (0.10.0)
-Requirement already satisfied: six in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from cycler&gt;=0.10-&gt;matplotlib-&gt;quantecon_book_networks) (1.16.0)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (1.24.3)
+Requirement already satisfied: scipy in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (1.11.1)
+Requirement already satisfied: pandas in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (2.0.3)
+Requirement already satisfied: matplotlib in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (3.7.2)
+Requirement already satisfied: pandas-datareader in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (0.10.0)
+Requirement already satisfied: networkx in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (3.1)
+Requirement already satisfied: quantecon in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (0.7.1)
+Requirement already satisfied: POT in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon_book_networks) (0.9.3)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (1.0.5)
+Requirement already satisfied: cycler&gt;=0.10 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (0.11.0)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (4.25.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (1.4.4)
+Requirement already satisfied: packaging&gt;=20.0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (23.1)
+Requirement already satisfied: pillow&gt;=6.2.0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (9.4.0)
+Requirement already satisfied: pyparsing&lt;3.1,&gt;=2.3.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (3.0.9)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from matplotlib-&gt;quantecon_book_networks) (2.8.2)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2017.3 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-&gt;quantecon_book_networks) (2021.3)
-Requirement already satisfied: lxml in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (4.6.3)
-Requirement already satisfied: requests&gt;=2.19.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (2.26.0)
-Requirement already satisfied: charset-normalizer~=2.0.0 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2.0.4)
-Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2021.10.8)
-Requirement already satisfied: urllib3&lt;1.27,&gt;=1.21.1 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (1.26.7)
-Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/share/miniconda3/envs/networks/lib/python3.8/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (3.2)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pytz&gt;=2020.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from pandas-&gt;quantecon_book_networks) (2023.3.post1)
+Requirement already satisfied: tzdata&gt;=2022.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from pandas-&gt;quantecon_book_networks) (2023.3)
+Requirement already satisfied: lxml in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (4.9.3)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: requests&gt;=2.19.0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from pandas-datareader-&gt;quantecon_book_networks) (2.31.0)
+Requirement already satisfied: numba&gt;=0.49.0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon-&gt;quantecon_book_networks) (0.57.1)
+Requirement already satisfied: sympy in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from quantecon-&gt;quantecon_book_networks) (1.11.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: llvmlite&lt;0.41,&gt;=0.40.0dev0 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from numba&gt;=0.49.0-&gt;quantecon-&gt;quantecon_book_networks) (0.40.0)
+Requirement already satisfied: six&gt;=1.5 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib-&gt;quantecon_book_networks) (1.16.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2.0.4)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (3.4)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (1.26.16)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from requests&gt;=2.19.0-&gt;pandas-datareader-&gt;quantecon_book_networks) (2023.7.22)
+Requirement already satisfied: mpmath&gt;=0.19 in /usr/share/miniconda3/envs/networks/lib/python3.11/site-packages (from sympy-&gt;quantecon-&gt;quantecon_book_networks) (1.3.0)
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>We begin with some imports.</p>
 <div class="cell docutils container">
@@ -309,14 +291,8 @@ Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/share/miniconda3/envs/
 <span class="kn">import</span> <span class="nn">quantecon_book_networks.plotting</span> <span class="k">as</span> <span class="nn">qbn_plt</span>
 <span class="kn">import</span> <span class="nn">quantecon_book_networks.data</span> <span class="k">as</span> <span class="nn">qbn_data</span>
 <span class="n">ch2_data</span> <span class="o">=</span> <span class="n">qbn_data</span><span class="o">.</span><span class="n">production</span><span class="p">()</span>
-<span class="n">default_figsize</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-<span class="n">export_figures</span> <span class="o">=</span> <span class="kc">True</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/share/miniconda3/envs/networks/lib/python3.8/site-packages/numba/np/ufunc/parallel.py:371: NumbaWarning: <span class=" -Color -Color-Bold">The TBB threading layer requires TBB version 2021 update 6 or later i.e., TBB_INTERFACE_VERSION &gt;= 12060. Found TBB_INTERFACE_VERSION = 12040. The TBB threading layer is disabled.</span>
-  warnings.warn(problem)
+<span class="n">default_figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">export_figures</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
 </div>
 </div>
@@ -335,8 +311,8 @@ Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/share/miniconda3/envs/
 </div>
 </div>
 </div>
-<div class="section" id="multisector-models">
-<h2>Multisector Models<a class="headerlink" href="#multisector-models" title="Permalink to this headline">¶</a></h2>
+<section id="multisector-models">
+<h2>Multisector Models<a class="headerlink" href="#multisector-models" title="Permalink to this heading">#</a></h2>
 <p>We start by loading a graph of linkages between 15 US sectors in 2021.</p>
 <p>Our graph comes as a list of sector codes, an adjacency matrix of sales between
 the sectors, and a list the total sales of each sector.</p>
@@ -359,7 +335,7 @@ given as a fraction of total sales of sector <code class="docutils literal notra
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_coefficient_matrices</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Build coefficient matrices A and F from Z and X via </span>
 <span class="sd">    </span>
 <span class="sd">        A[i, j] = Z[i, j] / X[j] </span>
@@ -380,8 +356,8 @@ given as a fraction of total sales of sector <code class="docutils literal notra
 </div>
 </div>
 </div>
-<div class="section" id="backward-linkages-for-15-us-sectors-in-2021">
-<h3>Backward linkages for 15 US sectors in 2021<a class="headerlink" href="#backward-linkages-for-15-us-sectors-in-2021" title="Permalink to this headline">¶</a></h3>
+<section id="backward-linkages-for-15-us-sectors-in-2021">
+<h3>Backward linkages for 15 US sectors in 2021<a class="headerlink" href="#backward-linkages-for-15-us-sectors-in-2021" title="Permalink to this heading">#</a></h3>
 <p>Here we calculate the hub-based eigenvector centrality of our backward linkage coefficient matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -413,12 +389,12 @@ given as a fraction of total sales of sector <code class="docutils literal notra
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_12_0.png" src="_images/ch_production_12_0.png" />
+<img alt="_images/0a1ee5bbea6781f1b566788931b056efd36dc0087fc2e7e2fd515f5cd2f663d0.png" src="_images/0a1ee5bbea6781f1b566788931b056efd36dc0087fc2e7e2fd515f5cd2f663d0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="eigenvector-centrality-of-across-us-industrial-sectors">
-<h3>Eigenvector centrality of across US industrial sectors<a class="headerlink" href="#eigenvector-centrality-of-across-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="eigenvector-centrality-of-across-us-industrial-sectors">
+<h3>Eigenvector centrality of across US industrial sectors<a class="headerlink" href="#eigenvector-centrality-of-across-us-industrial-sectors" title="Permalink to this heading">#</a></h3>
 <p>Now we plot a bar chart of hub-based eigenvector centrality by sector.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -432,12 +408,12 @@ given as a fraction of total sales of sector <code class="docutils literal notra
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_14_0.png" src="_images/ch_production_14_0.png" />
+<img alt="_images/0a55b41a380e4ad4de6fd6ac912ca930ed1c21876f6ca8ed7f048c28ed9e66fe.png" src="_images/0a55b41a380e4ad4de6fd6ac912ca930ed1c21876f6ca8ed7f048c28ed9e66fe.png" />
 </div>
 </div>
-</div>
-<div class="section" id="output-multipliers-across-15-us-industrial-sectors">
-<h3>Output multipliers across 15 US industrial sectors<a class="headerlink" href="#output-multipliers-across-15-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="output-multipliers-across-15-us-industrial-sectors">
+<h3>Output multipliers across 15 US industrial sectors<a class="headerlink" href="#output-multipliers-across-15-us-industrial-sectors" title="Permalink to this heading">#</a></h3>
 <p>Output multipliers are equal to the authority-based Katz centrality measure of
 the backward linkage coefficient matrix.</p>
 <p>Here we calculate authority-based
@@ -462,12 +438,12 @@ Katz centrality using the <code class="docutils literal notranslate"><span class
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_17_0.png" src="_images/ch_production_17_0.png" />
+<img alt="_images/adcfeca1e95d0386b9ce5041a7be7b4ee6ca17abd02e974f206c9238d3d7bc7c.png" src="_images/adcfeca1e95d0386b9ce5041a7be7b4ee6ca17abd02e974f206c9238d3d7bc7c.png" />
 </div>
 </div>
-</div>
-<div class="section" id="forward-linkages-and-upstreamness-over-us-industrial-sectors">
-<h3>Forward linkages and upstreamness over US industrial sectors<a class="headerlink" href="#forward-linkages-and-upstreamness-over-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="forward-linkages-and-upstreamness-over-us-industrial-sectors">
+<h3>Forward linkages and upstreamness over US industrial sectors<a class="headerlink" href="#forward-linkages-and-upstreamness-over-us-industrial-sectors" title="Permalink to this heading">#</a></h3>
 <p>Upstreamness is the hub-based Katz centrality of the forward linkage
 coefficient matrix.</p>
 <p>Here we calculate hub-based Katz centrality.</p>
@@ -500,12 +476,12 @@ coefficient matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_21_0.png" src="_images/ch_production_21_0.png" />
+<img alt="_images/9774059369648abcf26aca1154e8436f8cf9421ca179d83c24955eb97d242048.png" src="_images/9774059369648abcf26aca1154e8436f8cf9421ca179d83c24955eb97d242048.png" />
 </div>
 </div>
-</div>
-<div class="section" id="relative-upstreamness-of-us-industrial-sectors">
-<h3>Relative upstreamness of US industrial sectors<a class="headerlink" href="#relative-upstreamness-of-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="relative-upstreamness-of-us-industrial-sectors">
+<h3>Relative upstreamness of US industrial sectors<a class="headerlink" href="#relative-upstreamness-of-us-industrial-sectors" title="Permalink to this heading">#</a></h3>
 <p>Here we produce a barplot of upstreamness.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -519,12 +495,12 @@ coefficient matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_23_0.png" src="_images/ch_production_23_0.png" />
+<img alt="_images/a97f15f5ea5e6f9e5cb41a65b2d93736df8c5653d7222e4f02e15ad9f979c3bb.png" src="_images/a97f15f5ea5e6f9e5cb41a65b2d93736df8c5653d7222e4f02e15ad9f979c3bb.png" />
 </div>
 </div>
-</div>
-<div class="section" id="hub-based-katz-centrality-of-across-15-us-industrial-sectors">
-<h3>Hub-based Katz centrality of across 15 US industrial sectors<a class="headerlink" href="#hub-based-katz-centrality-of-across-15-us-industrial-sectors" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="hub-based-katz-centrality-of-across-15-us-industrial-sectors">
+<h3>Hub-based Katz centrality of across 15 US industrial sectors<a class="headerlink" href="#hub-based-katz-centrality-of-across-15-us-industrial-sectors" title="Permalink to this heading">#</a></h3>
 <p>Next we plot the hub-based Katz centrality of the backward linkage coefficient matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -546,12 +522,12 @@ coefficient matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_26_0.png" src="_images/ch_production_26_0.png" />
+<img alt="_images/c2be7fb9a06530e63ff1772b7b0adda524bb6ea7cd486c12896d7a713d2a9e90.png" src="_images/c2be7fb9a06530e63ff1772b7b0adda524bb6ea7cd486c12896d7a713d2a9e90.png" />
 </div>
 </div>
-</div>
-<div class="section" id="the-leontief-inverse-hot-colors-are-larger-values">
-<h3>The Leontief inverse 𝐿 (hot colors are larger values)<a class="headerlink" href="#the-leontief-inverse-hot-colors-are-larger-values" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-leontief-inverse-hot-colors-are-larger-values">
+<h3>The Leontief inverse 𝐿 (hot colors are larger values)<a class="headerlink" href="#the-leontief-inverse-hot-colors-are-larger-values" title="Permalink to this heading">#</a></h3>
 <p>We construct the Leontief inverse matrix from 15 sector adjacency matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -590,12 +566,12 @@ coefficient matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_30_0.png" src="_images/ch_production_30_0.png" />
+<img alt="_images/9af04fc36d5c7e2d82040e9e1265110815c2d7692355e4e057b7d6ccfe126a4d.png" src="_images/9af04fc36d5c7e2d82040e9e1265110815c2d7692355e4e057b7d6ccfe126a4d.png" />
 </div>
 </div>
-</div>
-<div class="section" id="propagation-of-demand-shocks-via-backward-linkages">
-<h3>Propagation of demand shocks via backward linkages<a class="headerlink" href="#propagation-of-demand-shocks-via-backward-linkages" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="propagation-of-demand-shocks-via-backward-linkages">
+<h3>Propagation of demand shocks via backward linkages<a class="headerlink" href="#propagation-of-demand-shocks-via-backward-linkages" title="Permalink to this heading">#</a></h3>
 <p>We begin by generating a demand shock vector <span class="math notranslate nohighlight">\(d\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -650,12 +626,12 @@ coefficient matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_36_0.png" src="_images/ch_production_36_0.png" />
+<img alt="_images/192cf097a0f3ed40376b68f8a25973e006c475e6b6e61a6a2959a1ea07f1d490.png" src="_images/192cf097a0f3ed40376b68f8a25973e006c475e6b6e61a6a2959a1ea07f1d490.png" />
 </div>
 </div>
-</div>
-<div class="section" id="network-for-71-us-sectors-in-2021">
-<h3>Network for 71 US sectors in 2021<a class="headerlink" href="#network-for-71-us-sectors-in-2021" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="network-for-71-us-sectors-in-2021">
+<h3>Network for 71 US sectors in 2021<a class="headerlink" href="#network-for-71-us-sectors-in-2021" title="Permalink to this heading">#</a></h3>
 <p>We start by loading a graph of linkages between 71 US sectors in 2021.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -699,12 +675,12 @@ coefficient matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_42_0.png" src="_images/ch_production_42_0.png" />
+<img alt="_images/137265ebcd4eb657cd468ccc9ec591e6507d9c0499a16e456685813566d3eed8.png" src="_images/137265ebcd4eb657cd468ccc9ec591e6507d9c0499a16e456685813566d3eed8.png" />
 </div>
 </div>
-</div>
-<div class="section" id="network-for-114-australian-industry-sectors-in-2020">
-<h3>Network for 114 Australian industry sectors in 2020<a class="headerlink" href="#network-for-114-australian-industry-sectors-in-2020" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="network-for-114-australian-industry-sectors-in-2020">
+<h3>Network for 114 Australian industry sectors in 2020<a class="headerlink" href="#network-for-114-australian-industry-sectors-in-2020" title="Permalink to this heading">#</a></h3>
 <p>Next we load a graph of linkages between 114 Australian sectors in 2020.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -748,12 +724,12 @@ coefficient matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_48_0.png" src="_images/ch_production_48_0.png" />
+<img alt="_images/e3b6e22c883c9a1e2a70ccf8025eea70c83b999edbcc1b3a59d30f665f6d33c6.png" src="_images/e3b6e22c883c9a1e2a70ccf8025eea70c83b999edbcc1b3a59d30f665f6d33c6.png" />
 </div>
 </div>
-</div>
-<div class="section" id="gdp-growth-rates-and-std-deviations-in-parentheses-for-8-countries">
-<h3>GDP growth rates and std. deviations (in parentheses) for 8 countries<a class="headerlink" href="#gdp-growth-rates-and-std-deviations-in-parentheses-for-8-countries" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="gdp-growth-rates-and-std-deviations-in-parentheses-for-8-countries">
+<h3>GDP growth rates and std. deviations (in parentheses) for 8 countries<a class="headerlink" href="#gdp-growth-rates-and-std-deviations-in-parentheses-for-8-countries" title="Permalink to this heading">#</a></h3>
 <p>Here we load a <code class="docutils literal notranslate"><span class="pre">pandas</span></code> DataFrame of GDP growth rates.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -817,7 +793,7 @@ coefficient matrix.</p>
       <td>5.740646</td>
       <td>5.427843</td>
       <td>5.000000</td>
-      <td>2.482656</td>
+      <td>2.482618</td>
       <td>3.844734</td>
     </tr>
     <tr>
@@ -830,7 +806,7 @@ coefficient matrix.</p>
       <td>1.841978</td>
       <td>-0.852022</td>
       <td>4.664415</td>
-      <td>1.294611</td>
+      <td>1.294258</td>
       <td>6.177931</td>
     </tr>
     <tr>
@@ -843,7 +819,7 @@ coefficient matrix.</p>
       <td>-2.237030</td>
       <td>-5.308197</td>
       <td>8.106887</td>
-      <td>6.216107</td>
+      <td>6.216364</td>
       <td>7.373709</td>
     </tr>
     <tr>
@@ -856,7 +832,7 @@ coefficient matrix.</p>
       <td>3.529698</td>
       <td>10.130298</td>
       <td>11.905481</td>
-      <td>6.980061</td>
+      <td>6.980438</td>
       <td>7.939609</td>
     </tr>
     <tr>
@@ -869,7 +845,7 @@ coefficient matrix.</p>
       <td>1.081589</td>
       <td>10.569433</td>
       <td>7.100000</td>
-      <td>5.980438</td>
+      <td>5.980351</td>
       <td>6.122798</td>
     </tr>
   </tbody>
@@ -902,12 +878,12 @@ coefficient matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ch_production_52_0.png" src="_images/ch_production_52_0.png" />
+<img alt="_images/755088190c8746b8f6d0a2da91493984f6af705649c99b4b72ee19e2a83e1d21.png" src="_images/755088190c8746b8f6d0a2da91493984f6af705649c99b4b72ee19e2a83e1d21.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -921,7 +897,7 @@ coefficient matrix.</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -961,7 +937,7 @@ coefficient matrix.</p>
                     <ul class="current nav bd-sidenav nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference external" href="https://networks.quantecon.org">
-   Home (Landing Page)
+   Home
    <i class="fas fa-external-link-alt">
    </i>
   </a>
@@ -1006,6 +982,11 @@ coefficient matrix.</p>
    quantecon_book_networks
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="status.html">
+   Execution Statistics
+  </a>
+ </li>
 </ul>
 
                 </nav>
@@ -1026,21 +1007,21 @@ coefficient matrix.</p>
                     <li data-tippy-content="Table of Contents" class="btn__sidebar"><i data-feather="menu"></i></li>
                     <li data-tippy-content="Home"><a href="intro.html"><i data-feather="home"></i></a></li>
                     <li class="btn__qelogo"><a href="https://quantecon.org" title=""><span class="show-for-sr">QuantEcon</span></a></li>
-                    <!-- <li class="btn__search">
-                        <form action="search.html" method="get">
-                            <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off">
-                            <i data-feather="search"></i>
-                        </form>
-                    </li> -->
                 </ul>
 
                 <ul class="qe-toolbar__links">
+                    <li class="btn__search">
+                        <form action="search.html" method="get">
+                            <input type="search" class="form-control" name="q" id="search-input" placeholder="Search..." aria-label="Search..." autocomplete="off" accesskey="k">
+                            <i data-feather="search" id="search-icon"></i>
+                        </form>
+                    </li>
                     <li data-tippy-content="Fullscreen" class="btn__fullscreen"><i data-feather="maximize"></i></li>
                     <li data-tippy-content="Increase font size" class="btn__plus"><i data-feather="plus-circle"></i></li>
                     <li data-tippy-content="Decrease font size" class="btn__minus"><i data-feather="minus-circle"></i></li>
                     <li data-tippy-content="Change contrast" class="btn__contrast"><i data-feather="sunset"></i></li>
                         <li data-tippy-content="Download PDF" onClick="window.print()"><i data-feather="file"></i></li>
-                    <li data-tippy-content="View Source"><a target="_blank" href="https://github.com/quantecon/book-networks/tree/master/code_book/ch_production.md" download><i data-feather="github"></i></a></li>
+                    <li data-tippy-content="View Source"><a target="_blank" href="https://github.com/quantecon/book-networks/blob/main/code_book/ch_production.md" download><i data-feather="github"></i></a></li>
                 </ul>
 
             </div>
@@ -1164,6 +1145,5 @@ coefficient matrix.</p>
         </div>
 
     </div> <!-- .wrapper-->
-    
   </body>
 </html>
